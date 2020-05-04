@@ -1,0 +1,7 @@
+# This file  contains shell agnostic aliases
+# For shell specific aliases use: .bashrc_aliases, ...
+alias ll='ls -lrta'
+
+alias sls='screen -ls'
+alias sb='source ~/.bashrc'
+alias cfg='/usr/bin/git --git-dir=/home/ugflows/.dotfiles/ --work-tree=/home/ugflows'
