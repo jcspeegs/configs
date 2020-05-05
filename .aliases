@@ -3,5 +3,6 @@
 alias ll='ls -lrta'
 
 alias sls='screen -ls'
+alias qc='vim ~/.config/qtile/config.py'
 alias sb='source ~/.bashrc'
 alias cfg='/usr/bin/git --git-dir=/home/ugflows/.dotfiles/ --work-tree=/home/ugflows'
