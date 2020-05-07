@@ -16,6 +16,8 @@ POWERLINE_BASH_SELECT=1
 # Personal alias
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 
+# Problem: when openning a 2nd terminal and the first is runing screen,
+# disconnects the first
 # If interactive, run screen
-[[ $- = *i* ]] && screen -dRR hoptop
+# [[ $- = *i* ]] && screen -dRR hoptop
 

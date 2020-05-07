@@ -1,30 +1,3 @@
-# Copyright (c) 2010 Aldo Cortesi
-# Copyright (c) 2010, 2014 dequis
-# Copyright (c) 2012 Randall Ma
-# Copyright (c) 2012-2014 Tycho Andersen
-# Copyright (c) 2012 Craig Barnes
-# Copyright (c) 2013 horsik
-# Copyright (c) 2013 Tao Sauvage
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
-
 import os
 import re
 import socket
@@ -34,6 +7,7 @@ from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
 from libqtile.widget import Spacer
 import arcobattery
+from powerline.bindings.qtile.widget import PowerlineTextBox
 
 #mod4 or mod = super key
 mod = "mod4"
@@ -41,7 +15,27 @@ mod1 = "alt"
 mod2 = "control"
 home = os.path.expanduser('~')
 
+# Variables - Global
+global_opacity= 0.8
 
+#Variables - Bar
+bar_opacity = global_opacity
+bar_size = 30
+
+# COLORS
+def init_colors():
+    return [["#2F343F", "#2F343F"], # color 0
+            ["#2F343F", "#2F343F"], # color 1
+            ["#c0c5ce", "#c0c5ce"], # color 2
+            ["#fba922", "#fba922"], # color 3
+            ["#3384d0", "#3384d0"], # color 4
+            ["#f3f4f5", "#f3f4f5"], # color 5
+            ["#cd1f3f", "#cd1f3f"], # color 6
+            ["#62FF00", "#62FF00"], # color 7
+            ["#6790eb", "#6790eb"], # color 8
+            ["#a9a9a9", "#a9a9a9"]] # color 9
+
+colors = init_colors()
 @lazy.function
 def window_to_prev_group(qtile):
     if qtile.currentWindow is not None:
@@ -70,10 +64,10 @@ keys = [
     Key([mod], "x", lazy.spawn('arcolinux-logout')),
     Key([mod], "Return", lazy.spawn('termite')),
     Key([mod], "d", lazy.spawn("dmenu_run -i -l 30 -o 0.89 -dim 0.15 -h 60 -w 960 -x 480 -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=44'")),
+    #Key([mod], "d", lazy.spawn("dmenu_run -i -l 30 -o 0.89 -dim 0.15 -h 60 -w 960 -x 480 -nb " + colors[5] + " -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=44'")),
     Key([mod], "r", lazy.restart()),
 
     Key([mod], "c", lazy.spawn('conky-toggle')),
-    Key([mod], "r", lazy.spawn('rofi-theme-selector')),
     Key([mod], "t", lazy.spawn('urxvt')),
     Key([mod], "v", lazy.spawn('pavucontrol')),
     Key([mod], "Escape", lazy.spawn('xkill')),
@@ -88,7 +82,6 @@ keys = [
 # SUPER + SHIFT KEYS
 
     Key([mod, "shift"], "d", lazy.spawn("dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=14'")),
-    Key([mod, "shift"], "q", lazy.window.kill()),
     Key([mod, "shift"], "r", lazy.restart()),
     Key([mod, "control"], "r", lazy.restart()),
     # Key([mod, "shift"], "x", lazy.shutdown()),
@@ -110,8 +103,6 @@ keys = [
     Key(["mod1", "control"], "b", lazy.spawn('thunar')),
     Key(["mod1", "control"], "p", lazy.spawn('pamac-manager')),
     Key(["mod1", "control"], "r", lazy.spawn('rofi-theme-selector')),
-    Key(["mod1", "control"], "s", lazy.spawn('spotify')),
-    Key(["mod1", "control"], "t", lazy.spawn('termite')),
     Key(["mod1", "control"], "u", lazy.spawn('pavucontrol')),
     Key(["mod1", "control"], "v", lazy.spawn('vivaldi-stable')),
     Key(["mod1", "control"], "w", lazy.spawn('arcolinux-welcome-app')),
@@ -225,10 +216,10 @@ keys = [
         lazy.layout.increase_nmaster(),
         ),
     Key([mod, "control"], "Down",
-        lazy.layout.grow_down(),
-        lazy.layout.shrink(),
-        lazy.layout.increase_nmaster(),
-        ),
+            lazy.layout.grow_down(),
+            lazy.layout.shrink(),
+            lazy.layout.increase_nmaster(),
+            ),
 
 
 # FLIP LAYOUT FOR MONADTALL/MONADWIDE
@@ -258,23 +249,19 @@ keys = [
 groups = []
 
 # FOR QWERTY KEYBOARDS
-group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0",]
-
-# FOR AZERTY KEYBOARDS
-#group_names = ["ampersand", "eacute", "quotedbl", "apostrophe", "parenleft", "section", "egrave", "exclam", "ccedilla", "agrave",]
-
-#group_labels = ["1 ", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 ", "9 ", "0",]
-group_labels = ["", "", "", "", "", "", "", "", "", "",]
+#group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0",]
+#group_labels = ["", "", "", "", "", "", "", "", "", "",]
 #group_labels = ["Web", "Edit/chat", "Image", "Gimp", "Meld", "Video", "Vb", "Files", "Mail", "Music",]
-
-group_layouts = ["monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall",]
 #group_layouts = ["monadtall", "matrix", "monadtall", "bsp", "monadtall", "matrix", "monadtall", "bsp", "monadtall", "monadtall",]
+
+group_names = ['1', '2', '3', '4', '5', '6']
+group_labels = ["" ,"", "", "", "", ""]
 
 for i in range(len(group_names)):
     groups.append(
         Group(
             name=group_names[i],
-            layout=group_layouts[i].lower(),
+            layout='monadtall',
             label=group_labels[i],
         ))
 
@@ -314,31 +301,12 @@ layouts = [
     layout.Max(**layout_theme)
 ]
 
-# COLORS FOR THE BAR
-
-def init_colors():
-    return [["#2F343F", "#2F343F"], # color 0
-            ["#2F343F", "#2F343F"], # color 1
-            ["#c0c5ce", "#c0c5ce"], # color 2
-            ["#fba922", "#fba922"], # color 3
-            ["#3384d0", "#3384d0"], # color 4
-            ["#f3f4f5", "#f3f4f5"], # color 5
-            ["#cd1f3f", "#cd1f3f"], # color 6
-            ["#62FF00", "#62FF00"], # color 7
-            ["#6790eb", "#6790eb"], # color 8
-            ["#a9a9a9", "#a9a9a9"]] # color 9
-
-
-colors = init_colors()
-
-
-
 
 # WIDGETS FOR THE BAR
 
 def init_widgets_defaults():
     return dict(font="Noto Sans",
-                fontsize = 18,
+                fontsize = 20,
                 padding = 2,
                 background=colors[1])
 
@@ -348,8 +316,8 @@ def init_widgets_list():
     prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
     widgets_list = [
                widget.GroupBox(font="FontAwesome",
-                        fontsize = 20,
-                        margin_y = -1,
+                        fontsize = 28,
+                        margin_y = 3,
                         margin_x = 0,
                         padding_y = 6,
                         padding_x = 5,
@@ -428,16 +396,30 @@ def init_widgets_list():
                #          padding = 3,
                #          threshold = 80
                #          ),
-               # battery option 1  ArcoLinux Horizontal icons do not forget to import arcobattery at the top
+               widget.TextBox(
+                        font="FontAwesome",
+                        text="  ",
+                        foreground=colors[3],
+                        background=colors[1],
+                        padding = 0,
+                        fontsize=16
+                        ),
+               widget.Clock(
+                        foreground = colors[5],
+                        background = colors[1],
+                        fontsize = 16,
+                        format="%I:%M%p %a,%B %m, %Y"
+                        ),
                widget.Sep(
                linewidth = 1,
                padding = 10,
                foreground = colors[2],
                background = colors[1]
                ),
+               # battery option 1  ArcoLinux Horizontal icons do not forget to import arcobattery at the top
                arcobattery.BatteryIcon(
                padding=0,
-               scale=0.7,
+               scale=0.9,
                y_poss=2,
                theme_path=home + "/.config/qtile/icons/battery_icons_horiz",
                update_interval = 5,
@@ -457,24 +439,24 @@ def init_widgets_list():
                #          foreground = colors[5],
                #          background = colors[1],
 	           #          ),
-               widget.TextBox(
-                        font="FontAwesome",
-                        text="  ",
-                        foreground=colors[6],
-                        background=colors[1],
-                        padding = 0,
-                        fontsize=16
-                        ),
-               widget.CPUGraph(
-                        border_color = colors[2],
-                        fill_color = colors[8],
-                        graph_color = colors[8],
-                        background=colors[1],
-                        border_width = 1,
-                        line_width = 1,
-                        core = "all",
-                        type = "box"
-                        ),
+#               widget.TextBox(
+#                        font="FontAwesome",
+#                        text="  ",
+#                        foreground=colors[6],
+#                        background=colors[1],
+#                        padding = 0,
+#                        fontsize=16
+#                        ),
+#               widget.CPUGraph(
+#                        border_color = colors[2],
+#                        fill_color = colors[8],
+#                        graph_color = colors[8],
+#                        background=colors[1],
+#                        border_width = 1,
+#                        line_width = 1,
+#                        core = "all",
+#                        type = "box"
+#                        ),
                widget.Sep(
                         linewidth = 1,
                         padding = 10,
@@ -493,7 +475,7 @@ def init_widgets_list():
                         font="Noto Sans",
                         format = '{MemUsed}M/{MemTotal}M',
                         update_interval = 1,
-                        fontsize = 12,
+                        fontsize = 16,
                         foreground = colors[5],
                         background = colors[1],
                        ),
@@ -502,20 +484,6 @@ def init_widgets_list():
                         padding = 10,
                         foreground = colors[2],
                         background = colors[1]
-                        ),
-               widget.TextBox(
-                        font="FontAwesome",
-                        text="  ",
-                        foreground=colors[3],
-                        background=colors[1],
-                        padding = 0,
-                        fontsize=16
-                        ),
-               widget.Clock(
-                        foreground = colors[5],
-                        background = colors[1],
-                        fontsize = 17,
-                        format="%Y-%m-%d %H:%M"
                         ),
                widget.Sep(
                         linewidth = 1,
@@ -546,11 +514,11 @@ widgets_screen1 = init_widgets_screen1()
 widgets_screen2 = init_widgets_screen2()
 
 
-def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=28)),
+def init_screens(bo, s):
+    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=s,opacity=bo)),
             Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26))]
-screens = init_screens()
 
+screens = init_screens(bo=bar_opacity, s=bar_size)
 
 # MOUSE CONFIGURATION
 mouse = [
