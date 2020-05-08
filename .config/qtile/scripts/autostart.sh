@@ -26,7 +26,7 @@ run dex $HOME/.config/autostart/arcolinux-welcome-app.desktop &
 #Some ways to set your wallpaper besides variety or nitrogen
 feh --bg-fill /usr/share/backgrounds/arcolinux/arco-wallpaper.jpg &
 #start the conky to learn the shortcuts
-(conky -c $HOME/.config/qtile/scripts/system-overview) &
+#(conky -c $HOME/.config/qtile/scripts/system-overview) &
 
 #starting utility applications at boot time
 run variety &
@@ -52,3 +52,4 @@ run thunar &
 #run spotify &
 #run atom &
 run telegram-desktop &
+run mailspring &
