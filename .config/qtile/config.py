@@ -7,6 +7,8 @@ from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
 from libqtile.widget import Spacer
 import arcobattery
+
+from libqtile.log_utils import logger
 from powerline.bindings.qtile.widget import PowerlineTextBox
 
 #mod4 or mod = super key
@@ -21,6 +23,9 @@ global_opacity= 0.8
 #Variables - Bar
 bar_opacity = global_opacity
 bar_size = 30
+
+# Variables - Layout
+gap = 20
 
 # COLORS
 def init_colors():
@@ -50,12 +55,12 @@ def window_to_next_group(qtile):
 
 keys = [
 
-# FUNCTION KEYS
+# Personal Keys
 
+    # Function Keys
     Key([], "F12", lazy.spawn('xfce4-terminal --drop-down')),
 
-# SUPER KEYS
-
+    # Super Keys
     Key([mod], "f", lazy.spawn('thunar')),
     Key([mod], "Up", lazy.window.toggle_fullscreen()),
     Key([mod], "m", lazy.spawn('mailspring')),
@@ -63,7 +68,8 @@ keys = [
     Key([mod], "w", lazy.spawn('firefox')),
     Key([mod], "x", lazy.spawn('arcolinux-logout')),
     Key([mod], "Return", lazy.spawn('termite')),
-    Key([mod], "d", lazy.spawn("dmenu_run -i -l 30 -o 0.89 -dim 0.15 -h 60 -w 960 -x 480 -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=44'")),
+    Key([mod] , "d" ,
+        lazy.spawn("dmenu_run -i -l 30 -o 0.89 -dim 0.15 -h 60 -w 960 -x 480 -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=44'")),
     #Key([mod], "d", lazy.spawn("dmenu_run -i -l 30 -o 0.89 -dim 0.15 -h 60 -w 960 -x 480 -nb " + colors[5] + " -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=44'")),
     Key([mod], "r", lazy.restart()),
 
@@ -79,15 +85,14 @@ keys = [
     Key([mod], "F11", lazy.spawn('rofi -show run -fullscreen')),
     Key([mod], "F12", lazy.spawn('rofi -show run')),
 
-# SUPER + SHIFT KEYS
-
-    Key([mod, "shift"], "d", lazy.spawn("dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=14'")),
+    # SUPER + SHIFT KEYS
+    Key([mod, "shift"], "d",
+        lazy.spawn("dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=14'")),
     Key([mod, "shift"], "r", lazy.restart()),
     Key([mod, "control"], "r", lazy.restart()),
     # Key([mod, "shift"], "x", lazy.shutdown()),
 
-# CONTROL + ALT KEYS
-
+    # CONTROL + ALT KEYS
     Key(["mod1", "control"], "Next", lazy.spawn('conky-rotate -n')),
     Key(["mod1", "control"], "Prior", lazy.spawn('conky-rotate -p')),
     Key(["mod1", "control"], "a", lazy.spawn('xfce4-appfinder')),
@@ -108,8 +113,7 @@ keys = [
     Key(["mod1", "control"], "w", lazy.spawn('arcolinux-welcome-app')),
     Key(["mod1", "control"], "Return", lazy.spawn('termite')),
 
-# ALT + ... KEYS
-
+    # ALT + ... KEYS
     Key(["mod1"], "f", lazy.spawn('variety -f')),
     Key(["mod1"], "h", lazy.spawn('urxvt -e htop')),
     Key(["mod1"], "n", lazy.spawn('variety -n')),
@@ -122,22 +126,26 @@ keys = [
     Key(["mod1"], "F2", lazy.spawn('gmrun')),
     Key(["mod1"], "F3", lazy.spawn('xfce4-appfinder')),
 
-# VARIETY KEYS WITH PYWAL
+    # VARIETY KEYS WITH PYWAL
+    Key(["mod1", "shift"],
+        "f", lazy.spawn(home + '/.config/qtile/scripts/set-pywal.sh -f')),
+    Key(["mod1", "shift"], "p",
+        lazy.spawn(home + '/.config/qtile/scripts/set-pywal.sh -p')),
+    Key(["mod1", "shift"], "n",
+        lazy.spawn(home + '/.config/qtile/scripts/set-pywal.sh -n')),
+    Key(["mod1", "shift"], "u",
+        lazy.spawn(home + '/.config/qtile/scripts/set-pywal.sh -u')),
 
-    Key(["mod1", "shift"], "f", lazy.spawn(home + '/.config/qtile/scripts/set-pywal.sh -f')),
-    Key(["mod1", "shift"], "p", lazy.spawn(home + '/.config/qtile/scripts/set-pywal.sh -p')),
-    Key(["mod1", "shift"], "n", lazy.spawn(home + '/.config/qtile/scripts/set-pywal.sh -n')),
-    Key(["mod1", "shift"], "u", lazy.spawn(home + '/.config/qtile/scripts/set-pywal.sh -u')),
-
-# CONTROL + SHIFT KEYS
-
+    # CONTROL + SHIFT KEYS
     Key([mod2, "shift"], "Escape", lazy.spawn('xfce4-taskmanager')),
 
-# SCREENSHOTS
-
-    Key([], "Print", lazy.spawn("scrot 'ArcoLinux-%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f $$(xdg-user-dir PICTURES)'")),
-    Key([mod2], "Print", lazy.spawn('xfce4-screenshooter')),
-    Key([mod2, "shift"], "Print", lazy.spawn('gnome-screenshot -i')),
+    # SCREENSHOTS
+    Key([], "Print",
+        lazy.spawn("scrot 'ArcoLinux-%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f $$(xdg-user-dir PICTURES)'")),
+    Key([mod2], "Print",
+        lazy.spawn('xfce4-screenshooter')),
+    Key([mod2, "shift"], "Print",
+        lazy.spawn('gnome-screenshot -i')),
 
 # MULTIMEDIA KEYS
 
@@ -146,9 +154,12 @@ keys = [
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 5")),
 
 # INCREASE/DECREASE/MUTE VOLUME
-    Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -q set Master 5%-")),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -q set Master 5%+")),
+    Key([], "XF86AudioMute",
+        lazy.spawn("amixer -q set Master toggle")),
+    Key([], "XF86AudioLowerVolume",
+        lazy.spawn("amixer -q set Master 5%-")),
+    Key([], "XF86AudioRaiseVolume",
+        lazy.spawn("amixer -q set Master 5%+")),
 
     Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
     Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
@@ -244,7 +255,8 @@ keys = [
     Key([mod, "shift"], "Right", lazy.layout.swap_right()),
 
 # TOGGLE FLOATING LAYOUT
-    Key([mod, "shift"], "space", lazy.window.toggle_floating()),]
+    Key([mod, "shift"], "space", lazy.window.toggle_floating()),
+    ]
 
 groups = []
 
@@ -268,32 +280,33 @@ for i in range(len(group_names)):
 for i in groups:
     keys.extend([
 
-#CHANGE WORKSPACES
+        #CHANGE WORKSPACES
         Key([mod], i.name, lazy.group[i.name].toscreen()),
         Key([mod], "Tab", lazy.screen.next_group()),
+        Key([mod, "shift"], "Tab", lazy.screen.prev_group()),
         Key(["mod1"], "Tab", lazy.screen.next_group()),
         Key(["mod1", "shift"], "Tab", lazy.screen.prev_group()),
 
-# MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND STAY ON WORKSPACE
+        # MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND STAY ON WORKSPACE
         #Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
-# MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND FOLLOW MOVED WINDOW TO WORKSPACE
+
+        # MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND FOLLOW MOVED WINDOW TO WORKSPACE
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
     ])
 
 
 def init_layout_theme():
-    return {"margin":5,
-            "border_width":2,
+    return {"margin":gap,
+            "border_width":5,
             "border_focus": "#5e81ac",
             "border_normal": "#4c566a"
             }
 
 layout_theme = init_layout_theme()
 
-
 layouts = [
-    layout.MonadTall(margin=8, border_width=2, border_focus="#5e81ac", border_normal="#4c566a"),
-    layout.MonadWide(margin=8, border_width=2, border_focus="#5e81ac", border_normal="#4c566a"),
+    layout.MonadTall(**layout_theme),
+    layout.MonadWide(**layout_theme),
     layout.Matrix(**layout_theme),
     layout.Bsp(**layout_theme),
     layout.Floating(**layout_theme),
@@ -303,7 +316,6 @@ layouts = [
 
 
 # WIDGETS FOR THE BAR
-
 def init_widgets_defaults():
     return dict(font="Noto Sans",
                 fontsize = 20,
@@ -532,44 +544,25 @@ dgroups_key_binder = None
 dgroups_app_rules = []
 
 # ASSIGN APPLICATIONS TO A SPECIFIC GROUPNAME
-# BEGIN
+@hook.subscribe.client_new
+def assign_app_group(client):
+    d = {}
+    d["2"] = ["Firefox", "firefox"]
+    d["3"] = ["Meld", "meld", "org.gnome.meld" "org.gnome.Meld" ]
+    d["4"] = [ "TelegramDesktop", "telegramDesktop", 
+        "Thunderbird", "thunderbird"]
+    d["5"] = ["Pithos", "pithos" ]
+    d["6"] = ["Thunar", "thunar",
+    "Nautilus", "org.gnome.Nautilus",
+    "nautilus", "org.gnome.nautilus"]
 
-# @hook.subscribe.client_new
-# def assign_app_group(client):
-#     d = {}
-#     #########################################################
-#     ################ assgin apps to groups ##################
-#     #########################################################
-#     d["1"] = ["Navigator", "Firefox", "Vivaldi-stable", "Vivaldi-snapshot", "Chromium", "Google-chrome", "Brave", "Brave-browser",
-#               "navigator", "firefox", "vivaldi-stable", "vivaldi-snapshot", "chromium", "google-chrome", "brave", "brave-browser", ]
-#     d["2"] = [ "Atom", "Subl3", "Geany", "Brackets", "Code-oss", "Code", "TelegramDesktop", "Discord",
-#                "atom", "subl3", "geany", "brackets", "code-oss", "code", "telegramDesktop", "discord", ]
-#     d["3"] = ["Inkscape", "Nomacs", "Ristretto", "Nitrogen", "Feh",
-#               "inkscape", "nomacs", "ristretto", "nitrogen", "feh", ]
-#     d["4"] = ["Gimp", "gimp" ]
-#     d["5"] = ["Meld", "meld", "org.gnome.meld" "org.gnome.Meld" ]
-#     d["6"] = ["Vlc","vlc", "Mpv", "mpv" ]
-#     d["7"] = ["VirtualBox Manager", "VirtualBox Machine", "Vmplayer",
-#               "virtualbox manager", "virtualbox machine", "vmplayer", ]
-#     d["8"] = ["Thunar", "Nemo", "Caja", "Nautilus", "org.gnome.Nautilus", "Pcmanfm", "Pcmanfm-qt",
-#               "thunar", "nemo", "caja", "nautilus", "org.gnome.nautilus", "pcmanfm", "pcmanfm-qt", ]
-#     d["9"] = ["Evolution", "Geary", "Mail", "Thunderbird",
-#               "evolution", "geary", "mail", "thunderbird" ]
-#     d["0"] = ["Spotify", "Pragha", "Clementine", "Deadbeef", "Audacious",
-#               "spotify", "pragha", "clementine", "deadbeef", "audacious" ]
-#     ##########################################################
-#     wm_class = client.window.get_wm_class()[0]
-#
-#     for i in range(len(d)):
-#         if wm_class in list(d.values())[i]:
-#             group = list(d.keys())[i]
-#             client.togroup(group)
-#             client.group.cmd_toscreen()
+    wm_class = client.window.get_wm_class()[0]
 
-# END
-# ASSIGN APPLICATIONS TO A SPECIFIC GROUPNAME
-
-
+    for i in range(len(d)):
+        if wm_class in list(d.values())[i]:
+            group = list(d.keys())[i]
+            client.togroup(group)
+            client.group.cmd_toscreen()
 
 main = None
 
