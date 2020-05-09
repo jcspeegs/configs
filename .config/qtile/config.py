@@ -24,28 +24,6 @@ global_opacity= .75
 bar_opacity = global_opacity
 bar_size = 40
 
-# Settings - Dmenu
-dmen_settings = {
-	'o' : global_opacity,
-        'dim' : 0.15,
-        'h' : 60,
-        'l' : 30,
-        'w' : 960,
-        'x' : 480,
-        'nb' : '#191919',
-	'nf' : '#fea63c',
-	'sb' : '#fea63c',
-	'sf' : '#191919',
-	'fn' : 'NotoMonoRegular:bold:pixelsize=44'
-                }
-
-s = ' '
-dmen_opt = ['-{} "{}"'.format(k,v) for k,v in dmen_settings.items()]
-dmen_cmd = "dmenu_run -i " + s.join(dmen_opt)
-dmen_opt2 = ['-{} "{}"'.format(k,v)
-	for k,v in dmen_settings.items() if k != 'l']
-dmen_cmd2 = "dmenu_run -i " + s.join(dmen_opt2)
-
 # Variables - Layout
 gap = 20
 border_width = 5
@@ -62,8 +40,30 @@ def init_colors():
             ["#62FF00", "#62FF00"], # color 7
             ["#6790eb", "#6790eb"], # color 8
             ["#a9a9a9", "#a9a9a9"]] # color 9
-
 colors = init_colors()
+
+# Settings - Dmenu
+dmen_settings = {
+	'o' : .90,
+        'dim' : 0.20,
+        'h' : 60,
+        'l' : 30,
+        'w' : 960,
+        'x' : 480,
+        'nb' : colors[0][0],
+	'nf' : colors[4][0],
+	'sb' : colors[8][0],
+	'sf' : 'black',
+	'fn' : 'NotoMonoRegular:bold:pixelsize=44'
+                }
+
+s = ' '
+dmen_opt = ['-{} "{}"'.format(k,v) for k,v in dmen_settings.items()]
+dmen_cmd = "dmenu_run -i " + s.join(dmen_opt)
+dmen_opt2 = ['-{} "{}"'.format(k,v)
+	for k,v in dmen_settings.items() if k != 'l']
+dmen_cmd2 = "dmenu_run -i " + s.join(dmen_opt2)
+
 @lazy.function
 def window_to_prev_group(qtile):
     if qtile.currentWindow is not None:
@@ -551,10 +551,14 @@ widgets_screen2 = init_widgets_screen2()
 
 
 def init_screens(bo, s):
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=s,opacity=bo)),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26))]
+    return [
+        Screen(top=bar.Bar(widgets=init_widgets_screen1(),
+            size = s, opacity = bo)),
+        Screen(top = bar.Bar(widgets = init_widgets_screen2()
+            , size=26))
+        ]
 
-screens = init_screens(bo=bar_opacity, s=bar_size)
+screens = init_screens(bo = bar_opacity, s = bar_size)
 
 # MOUSE CONFIGURATION
 mouse = [
