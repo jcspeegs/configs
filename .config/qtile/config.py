@@ -17,15 +17,38 @@ mod1 = "alt"
 mod2 = "control"
 home = os.path.expanduser('~')
 
-# Variables - Global
-global_opacity= 0.8
+# Settings - Global
+global_opacity= .75
 
-#Variables - Bar
+# Settings - Bar
 bar_opacity = global_opacity
-bar_size = 30
+bar_size = 40
+
+# Settings - Dmenu
+dmen_settings = {
+	'o' : global_opacity,
+        'dim' : 0.15,
+        'h' : 60,
+        'l' : 30,
+        'w' : 960,
+        'x' : 480,
+        'nb' : '#191919',
+	'nf' : '#fea63c',
+	'sb' : '#fea63c',
+	'sf' : '#191919',
+	'fn' : 'NotoMonoRegular:bold:pixelsize=44'
+                }
+
+s = ' '
+dmen_opt = ['-{} "{}"'.format(k,v) for k,v in dmen_settings.items()]
+dmen_cmd = "dmenu_run -i " + s.join(dmen_opt)
+dmen_opt2 = ['-{} "{}"'.format(k,v)
+	for k,v in dmen_settings.items() if k != 'l']
+dmen_cmd2 = "dmenu_run -i " + s.join(dmen_opt2)
 
 # Variables - Layout
 gap = 20
+border_width = 5
 
 # COLORS
 def init_colors():
@@ -64,20 +87,18 @@ keys = [
     Key([mod], "f", lazy.spawn('thunar')),
     Key([mod], "Up", lazy.window.toggle_fullscreen()),
     Key([mod], "m", lazy.spawn('mailspring')),
+    Key([mod], "p", lazy.spawn('pithos')),
     Key([mod], "q", lazy.window.kill()),
+    Key([mod], "t", lazy.spawn('telegram-desktop')),
     Key([mod], "w", lazy.spawn('firefox')),
     Key([mod], "x", lazy.spawn('arcolinux-logout')),
     Key([mod], "Return", lazy.spawn('termite')),
-    Key([mod] , "d" ,
-        lazy.spawn("dmenu_run -i -l 30 -o 0.89 -dim 0.15 -h 60 -w 960 -x 480 -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=44'")),
-    #Key([mod], "d", lazy.spawn("dmenu_run -i -l 30 -o 0.89 -dim 0.15 -h 60 -w 960 -x 480 -nb " + colors[5] + " -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=44'")),
+    Key([mod], "KP_Enter", lazy.spawn('termite')),
     Key([mod], "r", lazy.restart()),
 
     Key([mod], "c", lazy.spawn('conky-toggle')),
-    Key([mod], "t", lazy.spawn('urxvt')),
     Key([mod], "v", lazy.spawn('pavucontrol')),
     Key([mod], "Escape", lazy.spawn('xkill')),
-    Key([mod], "KP_Enter", lazy.spawn('termite')),
     Key([mod], "F5", lazy.spawn('meld')),
     Key([mod], "F6", lazy.spawn('vlc --video-on-top')),
     Key([mod], "F7", lazy.spawn('virtualbox')),
@@ -93,12 +114,11 @@ keys = [
     # Key([mod, "shift"], "x", lazy.shutdown()),
 
     # CONTROL + ALT KEYS
-    Key(["mod1", "control"], "Next", lazy.spawn('conky-rotate -n')),
+    Key(["mod1", "control"], "Return", lazy.spawn('conky-rotate -n')),
     Key(["mod1", "control"], "Prior", lazy.spawn('conky-rotate -p')),
     Key(["mod1", "control"], "a", lazy.spawn('xfce4-appfinder')),
     Key(["mod1", "control"], "c", lazy.spawn('catfish')),
     Key(["mod1", "control"], "e", lazy.spawn('arcolinux-tweak-tool')),
-    Key(["mod1", "control"], "f", lazy.spawn('firefox')),
     Key(["mod1", "control"], "g", lazy.spawn('chromium -no-default-browser-check')),
     Key(["mod1", "control"], "i", lazy.spawn('nitrogen')),
     Key(["mod1", "control"], "k", lazy.spawn('arcolinux-logout')),
@@ -111,7 +131,6 @@ keys = [
     Key(["mod1", "control"], "u", lazy.spawn('pavucontrol')),
     Key(["mod1", "control"], "v", lazy.spawn('vivaldi-stable')),
     Key(["mod1", "control"], "w", lazy.spawn('arcolinux-welcome-app')),
-    Key(["mod1", "control"], "Return", lazy.spawn('termite')),
 
     # ALT + ... KEYS
     Key(["mod1"], "f", lazy.spawn('variety -f')),
@@ -294,10 +313,15 @@ for i in groups:
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
     ])
 
+# Dmenu key bindings
+keys.extend([
+	Key([mod], "d", lazy.spawn(dmen_cmd)),
+	Key([mod, "shift"], "d", lazy.spawn(dmen_cmd2))
+	])
 
 def init_layout_theme():
     return {"margin":gap,
-            "border_width":5,
+            "border_width":border_width,
             "border_focus": "#5e81ac",
             "border_normal": "#4c566a"
             }
@@ -361,18 +385,24 @@ def init_widgets_list():
                         background = colors[1]
                         ),
                widget.WindowName(font="Noto Sans",
-                        fontsize = 12,
+                        fontsize = 14,
                         foreground = colors[5],
                         background = colors[1],
                         ),
-               # widget.Net(
-               #          font="Noto Sans",
-               #          fontsize=12,
-               #          interface="enp0s31f6",
-               #          foreground=colors[2],
-               #          background=colors[1],
-               #          padding = 0,
-               #          ),
+               widget.Net(
+                         font="Noto Sans",
+                         fontsize=12,
+                         interface="wlp2s0",
+                         foreground=colors[2],
+                         background=colors[1],
+                         padding = 0,
+                         ),
+               widget.Sep(
+                        linewidth = 1,
+                        padding = 10,
+                        foreground = colors[2],
+                        background = colors[1]
+                        ),
                # widget.Sep(
                #          linewidth = 1,
                #          padding = 10,
@@ -419,7 +449,7 @@ def init_widgets_list():
                widget.Clock(
                         foreground = colors[5],
                         background = colors[1],
-                        fontsize = 16,
+                        fontsize = 20,
                         format="%I:%M%p %a,%B %m, %Y"
                         ),
                widget.Sep(
@@ -497,12 +527,6 @@ def init_widgets_list():
                         foreground = colors[2],
                         background = colors[1]
                         ),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        foreground = colors[2],
-                        background = colors[1]
-                        ),
                widget.Systray(
                         background=colors[1],
                         icon_size = 27,
@@ -547,10 +571,11 @@ dgroups_app_rules = []
 @hook.subscribe.client_new
 def assign_app_group(client):
     d = {}
-    d["2"] = ["Firefox", "firefox"]
-    d["3"] = ["Meld", "meld", "org.gnome.meld" "org.gnome.Meld" ]
-    d["4"] = [ "TelegramDesktop", "telegramDesktop", 
-        "Thunderbird", "thunderbird"]
+    d["2"] = ["Navigator", "firefox", "Firefox"]
+    d["3"] = ["Meld", "meld", "org.gnome.meld", "org.gnome.Meld" ]
+    d["4"] = [ "telegram-desktop", "TelegramDesktop", 
+        "Thunderbird", "thunderbird",
+        "Mailspring", "mailspring"]
     d["5"] = ["Pithos", "pithos" ]
     d["6"] = ["Thunar", "thunar",
     "Nautilus", "org.gnome.Nautilus",
