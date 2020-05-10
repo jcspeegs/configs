@@ -44,19 +44,20 @@ colors = init_colors()
 
 # Settings - Dmenu
 dmen_settings = {
-	'o' : .90,
-        'dim' : 0.20,
-        'h' : 60,
-        'l' : 30,
-        'w' : 960,
-        'x' : 480,
-        'nb' : colors[0][0],
-	'nf' : colors[4][0],
-	'sb' : colors[8][0],
-	'sf' : 'black',
-	'fn' : 'NotoMonoRegular:bold:pixelsize=44'
-                }
+    'o' : .90,
+    'dim' : 0.20,
+    'h' : 60,
+    'l' : 30,
+    'w' : 960,
+    'x' : 480,
+    'nb' : colors[0][0],
+    'nf' : colors[2][0],
+    'sb' : colors[8][0],
+    'sf' : 'black',
+    'fn' : 'NotoMonoRegular:bold:pixelsize=44'
+    }
 
+# Contruct Dmenu commands
 s = ' '
 dmen_opt = ['-{} "{}"'.format(k,v) for k,v in dmen_settings.items()]
 dmen_cmd = "dmenu_run -i " + s.join(dmen_opt)
@@ -79,7 +80,6 @@ def window_to_next_group(qtile):
 keys = [
 
 # Personal Keys
-
     # Function Keys
     Key([], "F12", lazy.spawn('xfce4-terminal --drop-down')),
 
@@ -96,6 +96,9 @@ keys = [
     Key([mod], "KP_Enter", lazy.spawn('termite')),
     Key([mod], "r", lazy.restart()),
 
+    Key([mod], "d", lazy.spawn(dmen_cmd)),
+    Key([mod, "shift"], "d", lazy.spawn(dmen_cmd2)),
+    
     Key([mod], "c", lazy.spawn('conky-toggle')),
     Key([mod], "v", lazy.spawn('pavucontrol')),
     Key([mod], "Escape", lazy.spawn('xkill')),
@@ -106,26 +109,22 @@ keys = [
     Key([mod], "F11", lazy.spawn('rofi -show run -fullscreen')),
     Key([mod], "F12", lazy.spawn('rofi -show run')),
 
+    # QTILE LAYOUT KEYS
+    Key([mod], "n", lazy.layout.normalize()),
+    Key([mod], "space", lazy.next_layout()),
+
     # SUPER + SHIFT KEYS
-    Key([mod, "shift"], "d",
-        lazy.spawn("dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=14'")),
-    Key([mod, "shift"], "r", lazy.restart()),
-    Key([mod, "control"], "r", lazy.restart()),
-    # Key([mod, "shift"], "x", lazy.shutdown()),
+    Key([mod, "shift"], "x", lazy.shutdown()),
 
     # CONTROL + ALT KEYS
     Key(["mod1", "control"], "Return", lazy.spawn('conky-rotate -n')),
     Key(["mod1", "control"], "Prior", lazy.spawn('conky-rotate -p')),
     Key(["mod1", "control"], "a", lazy.spawn('xfce4-appfinder')),
-    Key(["mod1", "control"], "c", lazy.spawn('catfish')),
     Key(["mod1", "control"], "e", lazy.spawn('arcolinux-tweak-tool')),
     Key(["mod1", "control"], "g", lazy.spawn('chromium -no-default-browser-check')),
     Key(["mod1", "control"], "i", lazy.spawn('nitrogen')),
-    Key(["mod1", "control"], "k", lazy.spawn('arcolinux-logout')),
-    Key(["mod1", "control"], "l", lazy.spawn('arcolinux-logout')),
     Key(["mod1", "control"], "m", lazy.spawn('xfce4-settings-manager')),
     Key(["mod1", "control"], "o", lazy.spawn(home + '/.config/qtile/scripts/picom-toggle.sh')),
-    Key(["mod1", "control"], "b", lazy.spawn('thunar')),
     Key(["mod1", "control"], "p", lazy.spawn('pamac-manager')),
     Key(["mod1", "control"], "r", lazy.spawn('rofi-theme-selector')),
     Key(["mod1", "control"], "u", lazy.spawn('pavucontrol')),
@@ -166,13 +165,12 @@ keys = [
     Key([mod2, "shift"], "Print",
         lazy.spawn('gnome-screenshot -i')),
 
-# MULTIMEDIA KEYS
-
-# INCREASE/DECREASE BRIGHTNESS
+    # MULTIMEDIA KEYS
+    # INCREASE/DECREASE BRIGHTNESS
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 5")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 5")),
 
-# INCREASE/DECREASE/MUTE VOLUME
+    # INCREASE/DECREASE/MUTE VOLUME
     Key([], "XF86AudioMute",
         lazy.spawn("amixer -q set Master toggle")),
     Key([], "XF86AudioLowerVolume",
@@ -190,10 +188,6 @@ keys = [
 #    Key([], "XF86AudioPrev", lazy.spawn("mpc prev")),
 #    Key([], "XF86AudioStop", lazy.spawn("mpc stop")),
 
-# QTILE LAYOUT KEYS
-    Key([mod], "n", lazy.layout.normalize()),
-    Key([mod], "space", lazy.next_layout()),
-
 # CHANGE FOCUS
 #    Key([mod], "Up", lazy.layout.up()),
 #    Key([mod], "Down", lazy.layout.down()),
@@ -204,8 +198,7 @@ keys = [
     Key([mod], "h", lazy.layout.left()),
     Key([mod], "l", lazy.layout.right()),
 
-
-# RESIZE UP, DOWN, LEFT, RIGHT
+    # RESIZE UP, DOWN, LEFT, RIGHT
     Key([mod, "control"], "l",
         lazy.layout.grow_right(),
         lazy.layout.grow(),
@@ -251,29 +244,28 @@ keys = [
             lazy.layout.increase_nmaster(),
             ),
 
-
-# FLIP LAYOUT FOR MONADTALL/MONADWIDE
+    # FLIP LAYOUT FOR MONADTALL/MONADWIDE
     Key([mod, "shift"], "f", lazy.layout.flip()),
 
-# FLIP LAYOUT FOR BSP
+    # FLIP LAYOUT FOR BSP
     Key([mod, "mod1"], "k", lazy.layout.flip_up()),
     Key([mod, "mod1"], "j", lazy.layout.flip_down()),
     Key([mod, "mod1"], "l", lazy.layout.flip_right()),
     Key([mod, "mod1"], "h", lazy.layout.flip_left()),
 
-# MOVE WINDOWS UP OR DOWN BSP LAYOUT
+    # MOVE WINDOWS UP OR DOWN BSP LAYOUT
     Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down()),
     Key([mod, "shift"], "h", lazy.layout.shuffle_left()),
     Key([mod, "shift"], "l", lazy.layout.shuffle_right()),
 
-# MOVE WINDOWS UP OR DOWN MONADTALL/MONADWIDE LAYOUT
+    # MOVE WINDOWS UP OR DOWN MONADTALL/MONADWIDE LAYOUT
     Key([mod, "shift"], "Up", lazy.layout.shuffle_up()),
     Key([mod, "shift"], "Down", lazy.layout.shuffle_down()),
     Key([mod, "shift"], "Left", lazy.layout.swap_left()),
     Key([mod, "shift"], "Right", lazy.layout.swap_right()),
 
-# TOGGLE FLOATING LAYOUT
+    # TOGGLE FLOATING LAYOUT
     Key([mod, "shift"], "space", lazy.window.toggle_floating()),
     ]
 
@@ -312,12 +304,6 @@ for i in groups:
         # MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND FOLLOW MOVED WINDOW TO WORKSPACE
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
     ])
-
-# Dmenu key bindings
-keys.extend([
-	Key([mod], "d", lazy.spawn(dmen_cmd)),
-	Key([mod, "shift"], "d", lazy.spawn(dmen_cmd2))
-	])
 
 def init_layout_theme():
     return {"margin":gap,
