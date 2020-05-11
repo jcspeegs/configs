@@ -23,6 +23,10 @@ global_opacity= .75
 # Settings - Bar
 bar_opacity = global_opacity
 bar_size = 40
+groupbox_icon_size = 28
+groupbox_padx = 3
+systray_icon_size = 30
+systray_pad = 0
 
 # Variables - Layout
 gap = 20
@@ -338,15 +342,15 @@ def init_widgets_list():
     prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
     widgets_list = [
                widget.GroupBox(font="FontAwesome",
-                        fontsize = 28,
+                        fontsize = groupbox_icon_size,
                         margin_y = 3,
                         margin_x = 0,
                         padding_y = 6,
-                        padding_x = 5,
+                        padding_x = groupbox_padx,
                         borderwidth = 0,
                         disable_drag = True,
-                        active = colors[9],
-                        inactive = colors[5],
+                        active = colors[5],
+                        inactive = colors[9],
                         rounded = False,
                         highlight_method = "text",
                         this_current_screen_border = colors[8],
@@ -515,8 +519,8 @@ def init_widgets_list():
                         ),
                widget.Systray(
                         background=colors[1],
-                        icon_size = 27,
-                        padding = 10
+                        icon_size = systray_icon_size,
+                        padding = systray_pad
                         ),
               ]
     return widgets_list
