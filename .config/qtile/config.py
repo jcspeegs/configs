@@ -281,14 +281,15 @@ groups = []
 #group_labels = ["Web", "Edit/chat", "Image", "Gimp", "Meld", "Video", "Vb", "Files", "Mail", "Music",]
 #group_layouts = ["monadtall", "matrix", "monadtall", "bsp", "monadtall", "matrix", "monadtall", "bsp", "monadtall", "monadtall",]
 
-group_names = ['1', '2', '3', '4', '5', '6']
-group_labels = ["" ,"", "", "", "", ""]
+group_names = ['1', '2', '3', '4', '5', '6', '7']
+group_labels = ["" ,"", "", "", "", "", "" ]
+group_layouts = ["max", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "max"]
 
 for i in range(len(group_names)):
     groups.append(
         Group(
             name=group_names[i],
-            layout='monadtall',
+            layout=group_layouts[i],
             label=group_labels[i],
         ))
 
@@ -572,10 +573,11 @@ def assign_app_group(client):
         "Mailspring", "mailspring"]
     d["5"] = ["Pithos", "pithos" ]
     d["6"] = ["Thunar", "thunar",
-    "Nautilus", "org.gnome.Nautilus",
-    "nautilus", "org.gnome.nautilus"]
+        "Nautilus", "org.gnome.Nautilus",
+        "nautilus", "org.gnome.nautilus"]
+    d["7"] = ["Navigator", "hass", "Hass"]
 
-    wm_class = client.window.get_wm_class()[0]
+    wm_class = client.window.get_wm_class()[1]
 
     for i in range(len(d)):
         if wm_class in list(d.values())[i]:
