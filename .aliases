@@ -5,6 +5,7 @@ alias ll='ls -lrta'
 alias sls='screen -ls'
 
 alias qc='vim ~/.config/qtile/config.py'
+alias qa='vim ~/.config/qtile/scripts/autostart.sh'
 
 alias sb='source ~/.bashrc'
 
