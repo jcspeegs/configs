@@ -20,7 +20,8 @@ set linebreak
 
 set ignorecase smartcase
 
-set foldmethod=indent
+set foldmethod=syntax
+"set foldmethod=indent
 
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 
@@ -52,8 +53,16 @@ set laststatus=2
 set t_Co=256
 let g:airline_powerline_fonts = 1
 
+" Gruvbox
+"autocmd vimenter * colorscheme gruvbox
+colorscheme gruvbox
+set background=dark
+
 " Smarter tab line
 let g:airline#extensions#tabline#enabled = 1
+let g:gruvbox_contrast_dark='medium'
 
 " Airline Theme
-let g:airline_theme='molokai'
+"let g:airline_theme='molokai'
+let g:airline_theme = 'gruvbox'
+"let g:airline_theme = 'bubblegum'
