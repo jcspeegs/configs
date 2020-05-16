@@ -21,10 +21,10 @@ function run {
 #setxkbmap -layout be
 
 #autostart ArcoLinux Welcome App
-run dex $HOME/.config/autostart/arcolinux-welcome-app.desktop &
+#run dex $HOME/.config/autostart/arcolinux-welcome-app.desktop &
 
 #Some ways to set your wallpaper besides variety or nitrogen
-feh --bg-fill /usr/share/backgrounds/arcolinux/arco-wallpaper.jpg &
+#feh --bg-fill /usr/share/backgrounds/arcolinux/arco-wallpaper.jpg &
 #start the conky to learn the shortcuts
 #(conky -c $HOME/.config/qtile/scripts/system-overview) &
 
@@ -50,5 +50,5 @@ run thunar &
 #run insync start &
 run telegram-desktop &
 run mailspring &
-run termite &
+#run termite &
 run firefox -P 'default' --class='firefox' &

@@ -284,6 +284,7 @@ groups = []
 group_names = ['1', '2', '3', '4', '5', '6', '7']
 group_labels = ["" ,"", "", "", "", "", "" ]
 group_layouts = ["max", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "max"]
+group_spawn = ['termite', None, None, None, None, None, None]
 
 for i in range(len(group_names)):
     groups.append(
@@ -291,6 +292,7 @@ for i in range(len(group_names)):
             name=group_names[i],
             layout=group_layouts[i],
             label=group_labels[i],
+            spawn=group_spawn[i],
         ))
 
 for i in groups:
@@ -591,6 +593,7 @@ main = None
 def start_once():
     home = os.path.expanduser('~')
     subprocess.call([home + '/.config/qtile/scripts/autostart.sh'])
+
 
 @hook.subscribe.startup
 def start_always():
