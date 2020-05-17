@@ -44,11 +44,11 @@ run volumeicon &
 #run discord &
 #nitrogen --restore &
 #run caffeine -a &
-run firefox -P "hass" --class="hass" --new-window "http://docky:8123/floorplan" &
-run thunar &
+#run firefox -P "hass" --class="hass" --new-window "http://docky:8123/floorplan" &
+#run thunar &
 #run dropbox &
 #run insync start &
-run telegram-desktop &
-run mailspring &
+#run telegram-desktop &
+#run mailspring &
 #run termite &
-run firefox -P 'default' --class='firefox' &
+#run firefox -P 'default' --class='firefox' &

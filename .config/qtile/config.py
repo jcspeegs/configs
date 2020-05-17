@@ -27,6 +27,7 @@ groupbox_icon_size = 28
 groupbox_padx = 3
 systray_icon_size = 30
 systray_pad = 0
+clock_font_size = 23
 
 # Variables - Layout
 gap = 20
@@ -284,7 +285,7 @@ groups = []
 group_names = ['1', '2', '3', '4', '5', '6', '7']
 group_labels = ["" ,"", "", "", "", "", "" ]
 group_layouts = ["max", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "max"]
-group_spawn = ['termite', None, None, None, None, None, None]
+group_spawn = ['termite', 'firefox -P "default" --class="firefox"', None, ['mailspring', 'telegram-desktop'], None, 'thunar', 'firefox -P "hass" --class="hass" --new-window "http://docky:8123/floorplan"']
 
 for i in range(len(group_names)):
     groups.append(
@@ -442,7 +443,7 @@ def init_widgets_list():
                widget.Clock(
                         foreground = colors[5],
                         background = colors[1],
-                        fontsize = 20,
+                        fontsize = clock_font_size,
                         format="%I:%M%p %a,%B %m, %Y"
                         ),
                widget.Sep(
@@ -565,7 +566,7 @@ dgroups_key_binder = None
 dgroups_app_rules = []
 
 # ASSIGN APPLICATIONS TO A SPECIFIC GROUPNAME
-@hook.subscribe.client_new
+#@hook.subscribe.client_new
 def assign_app_group(client):
     d = {}
     d["2"] = ["Navigator", "firefox", "Firefox"]
