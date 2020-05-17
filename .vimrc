@@ -23,6 +23,10 @@ set ignorecase smartcase
 set foldmethod=syntax
 "set foldmethod=indent
 
+" Set leader to space
+let mapleader = "\<space>"
+nmap <leader>/ :nohlsearch<cr>| "Clear search highlight
+
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 
 " ctrl-p toggles line nums / rel nums
@@ -38,6 +42,22 @@ nnoremap <C-H> <C-W><C-H>
 " Natural split openning
 "  Open new split panes to tthe right and bottom
 set splitbelow splitright
+
+" FZF
+" List of commands: https://github.com/junegunn/fzf.vim
+set rtp+=/usr/bin/fzf
+
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+
+nnoremap <silent> <leader>f :FZF<CR>| "Search files current directory
+nnoremap <silent> <leader>r :History<CR>| "Search recent files
+nnoremap <silent> <leader><space> :Rg<CR>| "Search in project files
+
+command! -bang FZFHome call fzf#vim#files('~', <bang>0)
+nnoremap <silent> <leader>h :FZFHome<CR>| "Search files in home
+
+nnoremap <silent> <F1> :Helptags<CR>
 
 " NERDTree
 " map NERDTree toggle
