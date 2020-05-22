@@ -17,20 +17,21 @@ mod1 = "alt"
 mod2 = "control"
 home = os.path.expanduser('~')
 
-# Settings - Global
-global_opacity= .75
-
 # Settings - Bar
+global_opacity= .75
+bar_font_size = 23
+
 bar_opacity = global_opacity
 bar_size = 40
-groupbox_icon_size = 28
+groupbox_icon_size = 30
 groupbox_padx = 3
 systray_icon_size = 30
 systray_pad = 0
-clock_font_size = 23
+clock_font_size = bar_font_size
+ram_font_size = bar_font_size
 
 # Variables - Layout
-gap = 20
+gap = 25
 border_width = 5
 
 # COLORS
@@ -438,13 +439,13 @@ def init_widgets_list():
                         foreground=colors[3],
                         background=colors[1],
                         padding = 0,
-                        fontsize=16
+                        fontsize = clock_font_size
                         ),
                widget.Clock(
                         foreground = colors[5],
                         background = colors[1],
                         fontsize = clock_font_size,
-                        format="%I:%M%p %a,%B %m, %Y"
+                        format="%-I:%M%p %a,%B %-d, %Y"
                         ),
                widget.Sep(
                linewidth = 1,
@@ -505,13 +506,13 @@ def init_widgets_list():
                         foreground=colors[4],
                         background=colors[1],
                         padding = 0,
-                        fontsize=16
+                        fontsize = ram_font_size
                         ),
                widget.Memory(
                         font="Noto Sans",
-                        format = '{MemUsed}M/{MemTotal}M',
+                        format = 'RAM:{MemUsed}M',
                         update_interval = 1,
-                        fontsize = 16,
+                        fontsize = ram_font_size,
                         foreground = colors[5],
                         background = colors[1],
                        ),
@@ -521,6 +522,20 @@ def init_widgets_list():
                         foreground = colors[2],
                         background = colors[1]
                         ),
+               # widget.Memory(
+               #          font="Noto Sans",
+               #          format = 'Swap:{SwapUsed}M',
+               #          update_interval = 1,
+               #          fontsize = 18,
+               #          foreground = colors[5],
+               #          background = colors[1],
+               #         ),
+               # widget.Sep(
+               #          linewidth = 1,
+               #          padding = 10,
+               #          foreground = colors[2],
+               #          background = colors[1]
+               #          ),
                widget.Systray(
                         background=colors[1],
                         icon_size = systray_icon_size,
