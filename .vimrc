@@ -14,14 +14,23 @@ set autoindent
 
 " Enable wild menu file search
 set wildmenu
+set wildignore+=*.swp,*.zip,*/.git/*
 
 set showmatch
 set linebreak
 
 set ignorecase smartcase
 
-set foldmethod=syntax
+"set foldmethod=syntax
 "set foldmethod=indent
+set incsearch
+"set noswapfile
+
+set undodir=~/.vim/undodir
+set undofile
+
+set colorcolumn=80
+highlight ColorColumn guibg=lightgrey
 
 " Set leader to space
 let mapleader = "\<space>"
@@ -33,15 +42,27 @@ nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 nnoremap <C-p> :set nu! \| :set rnu!<CR>
 
 " Window navigation
+" leader-X instead of ctrl-wX or ctrl-X
+nnoremap <leader>h :wincmd h<CR>
+nnoremap <leader>j :wincmd j<CR>
+nnoremap <leader>k :wincmd k<CR>
+nnoremap <leader>l :wincmd l<CR>
+
 " ctrl-j instead of ctrl-wj
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+" nnoremap <C-J> <C-W><C-J>
+" nnoremap <C-K> <C-W><C-K>
+" nnoremap <C-L> <C-W><C-L>
+" nnoremap <C-H> <C-W><C-H>
 
 " Natural split openning
 "  Open new split panes to tthe right and bottom
 set splitbelow splitright
+
+" undotree
+nnoremap <leader>u :UndotreeToggle<CR>
+
+" Commentary
+autocmd FileType sas setlocal commentstring=/*\ %s\ */
 
 " FZF
 " List of commands: https://github.com/junegunn/fzf.vim
