@@ -31,7 +31,7 @@ clock_font_size = bar_font_size
 ram_font_size = bar_font_size
 
 # Variables - Layout
-gap = 25
+gap = 20
 border_width = 5
 
 # COLORS
@@ -98,6 +98,7 @@ keys = [
     Key([mod], "t", lazy.spawn('telegram-desktop')),
     Key([mod], "w", lazy.spawn('firefox')),
     Key([mod], "x", lazy.spawn('arcolinux-logout')),
+    Key([mod], "z", lazy.spawn('betterlockscreen -l -- --timestr="%H:%M"')),
     Key([mod], "Return", lazy.spawn('termite')),
     Key([mod], "KP_Enter", lazy.spawn('termite')),
     Key([mod], "r", lazy.restart()),
@@ -326,11 +327,14 @@ layout_theme = init_layout_theme()
 layouts = [
     layout.MonadTall(**layout_theme),
     layout.MonadWide(**layout_theme),
-    layout.Matrix(**layout_theme),
-    layout.Bsp(**layout_theme),
+#    layout.Matrix(**layout_theme),
+#    layout.Bsp(**layout_theme),
     layout.Floating(**layout_theme),
-    layout.RatioTile(**layout_theme),
-    layout.Max(**layout_theme)
+#    layout.RatioTile(**layout_theme),
+    layout.Max(**layout_theme),
+    layout.Stack(num_stacks=2,**layout_theme),
+    layout.Slice(side='left', width= 500, name= 'telegram', wname='Telegram', 
+        fallback=layout.Stack(num_stacks=1, **layout_theme)),
 ]
 
 
@@ -510,7 +514,7 @@ def init_widgets_list():
                         ),
                widget.Memory(
                         font="Noto Sans",
-                        format = 'RAM:{MemUsed}M',
+                        format = '{MemUsed}M',
                         update_interval = 1,
                         fontsize = ram_font_size,
                         foreground = colors[5],

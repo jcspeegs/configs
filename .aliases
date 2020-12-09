@@ -11,3 +11,5 @@ alias sb='source ~/.bashrc'
 
 alias cfg='/usr/bin/git --git-dir=/home/ugflows/.dotfiles/ --work-tree=/home/ugflows'
 alias cfgs='cfg status'
+
+alias shrd='~/scripts/shrd.sh'

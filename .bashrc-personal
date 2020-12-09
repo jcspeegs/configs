@@ -6,6 +6,8 @@ parse_git_branch() {
     }
 
 PS1='[\!]\[\033[01;36m\]\u@\H:\[\033[01;34m\]\w\[\e[91m\]$(parse_git_branch)\[\033[01;34m\]\$\[\033[00m\] '
+export PATH=~/scripts:$PATH
+export PATH=~/.local/bin:$PATH
 
 # Powerline
 powerline-daemon -q
