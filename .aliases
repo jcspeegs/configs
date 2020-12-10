@@ -1,15 +1,10 @@
 # This file  contains shell agnostic aliases
 # For shell specific aliases use: .bashrc_aliases, ...
-alias ll='ls -lrta'
 
 alias sls='screen -ls'
 
-alias qc='vim ~/.config/qtile/config.py'
-alias qa='vim ~/.config/qtile/scripts/autostart.sh'
-
 alias sb='source ~/.bashrc'
+alias sp='source ~/.profile'
 
-alias cfg='/usr/bin/git --git-dir=/home/ugflows/.dotfiles/ --work-tree=/home/ugflows'
+alias cfg='/usr/local/bin/git --git-dir=~/.dotfiles/ --work-tree=~'
 alias cfgs='cfg status'
-
-alias shrd='~/scripts/shrd.sh'
