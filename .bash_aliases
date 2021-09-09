@@ -1,4 +1,1 @@
-# Shell agnostic alias
-[[ -f ~/.aliases ]] && . ~/.aliases
-
-# Bash specific alias
+[[ -f $HOME/.aliases ]] && . $HOME/.aliases
