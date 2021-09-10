@@ -3,14 +3,24 @@ unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 
 filetype on
+filetype plugin on
+filetype indent on
 syntax on
+
+let python_highlight_all=1
 
 " Use hybrid line numbers
 set relativenumber number
 
 " tab == 4 spaces
-set tabstop=4 shiftwidth=4 expandtab smarttab
-set autoindent
+set tabstop=4 softtabstop=4
+set shiftwidth=4
+set textwidth=79
+set expandtab smarttab
+set autoindent smartindent
+
+au BufNewFile,BufRead *.yaml
+    \ set tabstop=2 softtabstop=2 shiftwidth=2
 
 " Enable wild menu file search
 set wildmenu
@@ -32,6 +42,9 @@ set undofile
 set colorcolumn=80
 highlight ColorColumn guibg=lightgrey
 
+colorscheme gruvbox
+set background=dark
+
 " Set leader to space
 let mapleader = "\<space>"
 nmap <leader>/ :nohlsearch<cr>| "Clear search highlight
@@ -47,12 +60,6 @@ nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
-
-" ctrl-j instead of ctrl-wj
-" nnoremap <C-J> <C-W><C-J>
-" nnoremap <C-K> <C-W><C-K>
-" nnoremap <C-L> <C-W><C-L>
-" nnoremap <C-H> <C-W><C-H>
 
 " Natural split openning
 "  Open new split panes to tthe right and bottom
@@ -93,11 +100,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 set laststatus=2
 set t_Co=256
 let g:airline_powerline_fonts = 1
-
-" Gruvbox
-"autocmd vimenter * colorscheme gruvbox
-colorscheme gruvbox
-set background=dark
 
 " Smarter tab line
 let g:airline#extensions#tabline#enabled = 1
