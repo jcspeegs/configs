@@ -7,6 +7,8 @@
 
 set -o vi
 
+# Fix transparent background when openning vim inside screen
+export TERM=screen-256color
 export HISTCONTROL=ignoreboth:erasedups
 
 PS1='[\u@\h \W]\$ '
@@ -59,10 +61,10 @@ export PATH=~/scripts:$PATH
 export PATH=~/.local/bin:$PATH
 
 # Powerline
-#powerline-daemon -q
+powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
-# . /usr/share/powerline/bindings/bash/powerline.sh
+. /usr/share/powerline/bindings/bash/powerline.sh
 
 # Personal alias
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
