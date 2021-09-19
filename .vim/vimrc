@@ -2,9 +2,8 @@
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 
-filetype on
-filetype plugin on
-filetype indent on
+# http://henry.precheur.org/vim/python.html
+filetype plugin indent on
 syntax on
 
 let python_highlight_all=1
@@ -46,7 +45,8 @@ colorscheme gruvbox
 set background=dark
 
 " Set leader to space
-let mapleader = "\<space>"
+" let mapleader = "\<space>"
+let mapleader = " "
 nmap <leader>/ :nohlsearch<cr>| "Clear search highlight
 
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
@@ -83,7 +83,7 @@ nnoremap <silent> <leader>r :History<CR>| "Search recent files
 nnoremap <silent> <leader><space> :Rg<CR>| "Search in project files
 
 command! -bang FZFHome call fzf#vim#files('~', <bang>0)
-nnoremap <silent> <leader>h :FZFHome<CR>| "Search files in home
+" nnoremap <silent> <leader>h :FZFHome<CR>| "Search files in home
 
 nnoremap <silent> <F1> :Helptags<CR>
 
@@ -103,7 +103,7 @@ let g:airline_powerline_fonts = 1
 
 " Smarter tab line
 let g:airline#extensions#tabline#enabled = 1
-let g:gruvbox_contrast_dark='medium'
+" let g:gruvbox_contrast_dark='medium'
 
 " Airline Theme
 "let g:airline_theme='molokai'
