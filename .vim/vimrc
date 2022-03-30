@@ -60,8 +60,8 @@ noremap <leader>/ :nohlsearch<cr>
 
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 
-" ctrl-p toggles line nums / rel nums
-nnoremap <C-p> :set nu! \| :set rnu!<CR>
+" leader-p toggles line nums / rel nums
+nnoremap <leader>p :set nu! \| :set rnu!<CR>
 
 " Window navigation
 " leader-X instead of ctrl-wX or ctrl-X

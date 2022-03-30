@@ -1,0 +1,12 @@
+# list
+alias ll='ls -lrtaFh'
+
+alias sls='screen -ls'
+
+alias cfg='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
+alias cfgs='cfg status'
+
+alias shrd='~/scripts/shrd.sh'
+
+# source speicific configs
+alias sb='source ~/.bashrc'
