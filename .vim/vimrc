@@ -93,6 +93,11 @@ inoremap <C-k> <esc>:m .-2<CR>==
 nnoremap <leader>J :m .+1<CR>==
 nnoremap <leader>K :m .-2<CR>==
 
+" CtrlP
+nnoremap <leader>d :CtrlP<CR>
+nnoremap <leader>b :CtrlPBuffer<CR>
+nnoremap <leader>f :CtrlPMRU<CR>
+
 " syntastic
 
 " syntastic error window size adjusts to number of errors (max:10)
