@@ -42,13 +42,10 @@ set ignorecase smartcase
 set incsearch
 "set noswapfile
 
-set undodir=~/.vim/undodir
-set undofile
-
 set colorcolumn=80
 highlight ColorColumn guibg=lightgrey
 
-colorscheme gruvbox
+" colorscheme gruvbox
 set background=dark
 
 " Set leader to space
@@ -131,6 +128,8 @@ nnoremap Y y$
 
 " undotree
 nnoremap <leader>u :UndotreeToggle<CR>
+set undodir=~/.vim/undodir
+set undofile
 
 " Commentary
 autocmd FileType sas setlocal commentstring=/*\ %s\ */
