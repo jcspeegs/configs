@@ -4,3 +4,6 @@
 [submodule ".vim/pack/plugins/start/surround"]
 	path = .vim/pack/plugins/start/surround
 	url = https://tpope.io/vim/surround.git
+[submodule ".vim/pack/plugins/start/undotree"]
+	path = .vim/pack/plugins/start/undotree
+	url = https://github.com/mbbill/undotree.git
