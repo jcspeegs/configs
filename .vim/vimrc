@@ -170,8 +170,9 @@ let g:airline#extensions#tabline#enabled = 1
 
 " Airline Theme
 "let g:airline_theme='molokai'
-let g:airline_theme = 'gruvbox'
+" let g:airline_theme = 'gruvbox'
 "let g:airline_theme = 'bubblegum'
+let g:airline_theme = 'murmur'
 
 " YouCompleteMe
 " g:ycm_autoclose_preview_window_after_completion=1
