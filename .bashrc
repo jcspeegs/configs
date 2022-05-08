@@ -31,11 +31,13 @@ shopt -s dotglob
 shopt -s histappend # do not overwrite history
 shopt -s expand_aliases # expand aliases
 
+not_base_os() { [[ $HOSTNAME != 'rgb-dt' ]] && $@ ; }
+
 # Powerline
-powerline-daemon -q
+not_base_os powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
-. /usr/share/powerline/bindings/bash/powerline.sh
+not_base_os . /usr/share/powerline/bindings/bash/powerline.sh
 
 # # ex = EXtractor for all kinds of archives
 # # usage: ex <file>
@@ -77,14 +79,14 @@ export BAT_PAGER="less -R"
 # source /usr/share/fzf/key-bindings.bash
 # source /usr/share/fzf/completion.bash
 
-# My functions
 parse_git_branch() {
 	    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
     }
 PS1='[\!]\[\033[01;36m\]\u@\H:\[\033[01;34m\]\w\[\e[91m\]$(parse_git_branch)\[\033[01;34m\]\$\[\033[00m\] '
 
 # reporting tools - install when not installed
-neofetch
+# [[ $HOSTNAME != 'rgb-dt' ]] && neofetch
+not_base_os neofetch
 #screenfetch
 #alsi
 #paleofetch
