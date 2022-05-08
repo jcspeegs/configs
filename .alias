@@ -20,6 +20,8 @@ alias gc='git commit'
 alias cfg='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
 alias cfgs='cfg status'
 
+alias vimup='cfg submodule foreach git pull origin master'
+
 # source speicific configs
 alias sb='source ~/.bashrc'
 alias sa='source ~/.alais'
