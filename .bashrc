@@ -3,11 +3,15 @@
 
 set -o vi
 
+not_base_os() { [[ $HOSTNAME != 'rgb-dt' ]] && $@ ; }
+exist_run() { [[ -f "$1" ]] && source "$1" ; }
+
 # Export environment variables
 export EDITOR='vim'
 export VISUAL='vim'
 export HISTCONTROL=ignoreboth:erasedups
-export PAGER='most'
+export PAGER='less'
+not_base_os export PAGER='most'
 # Fix transparent background when openning vim inside screen
 export TERM=screen-256color
 
@@ -31,13 +35,12 @@ shopt -s dotglob
 shopt -s histappend # do not overwrite history
 shopt -s expand_aliases # expand aliases
 
-not_base_os() { [[ $HOSTNAME != 'rgb-dt' ]] && $@ ; }
-
 # Powerline
 not_base_os powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
-not_base_os . /usr/share/powerline/bindings/bash/powerline.sh
+not_base_os exist_run /usr/share/powerline/bindings/bash/powerline.sh
+not_base_os exist_run /usr/share/powerline/bash/powerline.sh
 
 # # ex = EXtractor for all kinds of archives
 # # usage: ex <file>
