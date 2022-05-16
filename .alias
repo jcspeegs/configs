@@ -20,9 +20,15 @@ alias gc='git commit'
 alias cfg='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
 alias cfgs='cfg status'
 
+# rpm-ostree
+alias ros='rpm-ostree'
 alias rs='rpm-ostree status'
 
 alias vimup='cfg submodule foreach git pull origin master'
+
+# flatpak
+alias fl='flatpak'
+alias fup='flatpak update'
 
 # source speicific configs
 alias sb='source ~/.bashrc'
