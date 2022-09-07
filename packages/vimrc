@@ -1,0 +1,154 @@
+" http://henry.precheur.org/vim/python.html
+filetype plugin indent on
+syntax on
+
+let python_highlight_all=1
+
+" disable mouse
+set mouse=""
+" Set minimum # of lines to always maintain above and below cursor
+set scrolloff=0
+" Use hybrid line numbers
+set relativenumber number
+
+" tab == 4 spaces
+set tabstop=4 softtabstop=4
+set shiftwidth=4
+set textwidth=79
+set expandtab smarttab
+set autoindent smartindent
+
+au BufNewFile,BufRead *.yaml
+\ set tabstop=2 softtabstop=2 shiftwidth=2
+
+" Natural split openning
+set splitbelow splitright
+
+" Enable wild menu file search
+set wildmenu
+set wildignore+=*.swp,*.zip,*/.git/*
+
+set showmatch
+set linebreak
+
+set ignorecase smartcase
+
+"set foldmethod=syntax
+"set foldmethod=indent
+set incsearch
+"set noswapfile
+
+set colorcolumn=80
+highlight ColorColumn guibg=lightgrey
+colorscheme gruvbox
+set background=dark
+
+" Set leader to space
+let mapleader = " "
+"Clear search highlight
+noremap <leader>/ :nohlsearch<cr>
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+
+" leader-p toggles line nums / rel nums
+nnoremap <leader>p :set nu! \| :set rnu!<CR>
+
+" Window navigation
+nnoremap <leader>h :wincmd h<CR>
+nnoremap <leader>j :wincmd j<CR>
+nnoremap <leader>k :wincmd k<CR>
+nnoremap <leader>l :wincmd l<CR>
+
+" Keep cursor in center of screen when searching
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+"Undo breakpoints
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap ? ?<c-g>u
+inoremap ( (<c-g>u
+
+" Jumplist mutation - add #[jk] jumps to jumplist
+nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
+nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
+
+" Moving text
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+inoremap <C-j> <esc>:m .+1<CR>==
+inoremap <C-k> <esc>:m .-2<CR>==
+nnoremap <leader>J :m .+1<CR>==
+nnoremap <leader>K :m .-2<CR>==
+
+" CtrlP
+nnoremap <leader>d :CtrlP<CR>
+nnoremap <leader>b :CtrlPBuffer<CR>
+nnoremap <leader>f :CtrlPMRU<CR>
+
+" syntastic
+" syntastic error window size adjusts to number of errors (max:10)
+function! SyntasticCheckHook(errors)
+if !empty(a:errors)
+let g:syntastic_loc_list_height = min([2*len(a:errors), 10])
+endif
+endfunction
+
+" 1)auto open/close loc list when error exist/no exist
+let g:syntastic_auto_loc_list = 2
+" check file for errors on open
+let g:syntastic_check_on_open = 0
+" skip error check when write-quit(includes :x)
+let g:syntastic_check_on_wq = 0
+" print name of checker which threw error
+let g:syntastic_id_checkers = 0
+" set height of error window
+let g:syntastic_loc_list_height = 10
+" set list of python checkers
+let g:syntastic_python_checkers = ['flake8']
+" set default mode to passive. see :help syntastic#syntastic_mode_map
+let g:syntastic_mode_map = {'mode': 'passive'}
+nnoremap <F8> :w \| :SyntasticCheck \| :Error<CR>
+nnoremap <leader>n :lnext<CR>
+nnoremap <leader><S-n> :lprevious<CR>
+" Y yanks to end of line
+nnoremap Y y$
+" undotree
+nnoremap <leader>u :UndotreeToggle<CR>
+set undodir=~/.vim/undodir
+set undofile
+" Commentary
+autocmd FileType sas setlocal commentstring=/*\ %s\ */
+" FZF
+" List of commands: https://github.com/junegunn/fzf.vim
+set rtp+=/usr/bin/fzf
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+nnoremap <silent> <leader>f :FZF<CR>| "Search files current directory
+nnoremap <silent> <leader>r :History<CR>| "Search recent files
+nnoremap <silent> <leader><space> :Rg<CR>| "Search in project files
+command! -bang FZFHome call fzf#vim#files('~', <bang>0)
+" nnoremap <silent> <leader>h :FZFHome<CR>| "Search files in home
+nnoremap <silent> <F1> :Helptags<CR>
+" NERDTree
+" map NERDTree toggle
+map <leader> :NERDTreeToggle<CR>
+" open NERDTree on vim start up
+"autocmd vimenter * NERDTree
+" close vim if only NERDTree window is open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+"" Vim Airline
+set laststatus=2
+set t_Co=256
+let g:airline_powerline_fonts = 1
+
+" Smarter tab line
+let g:airline#extensions#tabline#enabled = 1
+" let g:gruvbox_contrast_dark='medium'
+
+" Airline Theme
+"let g:airline_theme='molokai'
+let g:airline_theme = 'gruvbox'
+"let g:airline_theme = 'bubblegum'
+"let g:airline_theme = 'murmur'
