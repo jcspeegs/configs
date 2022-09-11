@@ -1,5 +1,8 @@
 { pkgs, ... }: {
   environment.interactiveShellInit = ( builtins.readFile ./alias ) +
-    '' source ${pkgs.powerline}/share/bash/powerline.sh ''
+  ''
+    set -o vi
+    source ${pkgs.powerline}/share/bash/powerline.sh
+  ''
     ;
 }
