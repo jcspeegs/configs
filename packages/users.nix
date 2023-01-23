@@ -13,6 +13,10 @@ let
 in {
   imports = [(import "${hm}/nixos")];
 
+  users.groups = {
+    mlocate.gid = 50;
+  };
+
   users.users = {
     guest = ( base_user { pw = "guest"; desc= "Guest User"; });
 
@@ -24,6 +28,8 @@ in {
 
   home-manager.users.ugflows = {
     home.stateVersion = "22.05";
+    # https://github.com/NixOS/nixpkgs/issues/196651
+    manual.manpages.enable = false;
 
     programs.tmux = {
       enable = true;
@@ -34,5 +40,7 @@ in {
       enable = true;
       userEmail = "justin@speegs.com";
     };
+
+    xdg.configFile."pianobar/config".source = ./pianobar.conf;
   };
 }

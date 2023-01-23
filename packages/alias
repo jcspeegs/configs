@@ -1,3 +1,7 @@
+# nixos
+alias nupd='sudo nixos-rebuild switch'
+alias nconf='vim /etc/nixos/configuration.nix'
+
 # list
 alias ls='ls --color=auto'
 alias la='ls -a'
