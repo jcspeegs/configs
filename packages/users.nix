@@ -42,5 +42,6 @@ in {
     };
 
     xdg.configFile."pianobar/config".source = ./pianobar.conf;
+    xdg.configFile."qtile/config.py".source = qtile/config.py;
   };
 }
