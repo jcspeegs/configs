@@ -4,6 +4,10 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  environment.systemPackages = with pkgs; [
+    gnome.gnome-tweaks
+  ];
+
   # Exclude default gnome apps
   environment.gnome.excludePackages = (with pkgs; [
     gnome-photos
