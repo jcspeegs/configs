@@ -13,8 +13,8 @@ alias h='history'
 
 # tmux stuffs
 alias tls='tmux ls'
-alias t='tmux new -s'
-alias ta='tmux attach -t'
+alias t='tmux new -As'
+alias pb='tmux new -As pianobar pianobar'
 
 # git
 alias gs='git status'
