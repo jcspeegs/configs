@@ -4,9 +4,9 @@
     curl
     discourse
     firefox
+    fzf
     gimp
     git
-    gnome.gnome-tweaks
     google-chrome
     gparted
     htop-vim
@@ -32,5 +32,6 @@
     tree
     wget
     wpscan
+    youtube-dl
   ];
 }
