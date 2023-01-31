@@ -4,6 +4,7 @@
   imports =
     [ ./hardware-configuration.nix
       ./packages/gnome.nix
+      ./packages/qtile.nix
       ./packages/users.nix
       ./packages/systemPackages.nix
       ./packages/vim.nix
@@ -27,7 +28,7 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.excludePackages = [ pkgs.xterm ];
+  # services.xserver.excludePackages = [ pkgs.xterm ];
 
   # Configure keymap in X11
   services.xserver = {
