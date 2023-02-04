@@ -19,7 +19,7 @@ set expandtab smarttab
 set autoindent smartindent
 
 au BufNewFile,BufRead *.yaml
-\ set tabstop=2 softtabstop=2 shiftwidth=2
+\ set tabstop=2 softtabstop=2 shiftwidth=2 textwidth=79 expandtab smarttab
 
 " Natural split openning
 set splitbelow splitright
@@ -82,9 +82,9 @@ nnoremap <leader>J :m .+1<CR>==
 nnoremap <leader>K :m .-2<CR>==
 
 " CtrlP
-nnoremap <leader>d :CtrlP<CR>
-nnoremap <leader>b :CtrlPBuffer<CR>
-nnoremap <leader>f :CtrlPMRU<CR>
+" nnoremap <leader>d :CtrlP<CR>
+" nnoremap <leader>b :CtrlPBuffer<CR>
+" nnoremap <leader>f :CtrlPMRU<CR>
 
 " syntastic
 " syntastic error window size adjusts to number of errors (max:10)
@@ -119,17 +119,22 @@ set undodir=~/.vim/undodir
 set undofile
 " Commentary
 autocmd FileType sas setlocal commentstring=/*\ %s\ */
+
 " FZF
 " List of commands: https://github.com/junegunn/fzf.vim
 set rtp+=/usr/bin/fzf
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
-nnoremap <silent> <leader>f :FZF<CR>| "Search files current directory
+nnoremap <silent> <leader>f :Files<CR>| "Search files current directory
 nnoremap <silent> <leader>r :History<CR>| "Search recent files
 nnoremap <silent> <leader><space> :Rg<CR>| "Search in project files
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>m :Marks<CR> 
+nnoremap <leader>s :Locate<CR>
 command! -bang FZFHome call fzf#vim#files('~', <bang>0)
 " nnoremap <silent> <leader>h :FZFHome<CR>| "Search files in home
-nnoremap <silent> <F1> :Helptags<CR>
+nnoremap <silent> <leader><F1> :Helptags<CR>
+
 " NERDTree
 " map NERDTree toggle
 map <leader> :NERDTreeToggle<CR>

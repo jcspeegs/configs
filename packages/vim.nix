@@ -13,6 +13,7 @@
           tmuxline-vim
           vim-surround
           gruvbox
+          fzf-vim
         ];
         opt = [];
       };

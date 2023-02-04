@@ -10,6 +10,7 @@
       ./packages/vim.nix
       ./packages/tmux.nix
       ./packages/bash.nix
+      ./packages/scripts.nix
     ];
 
   # Bootloader.
