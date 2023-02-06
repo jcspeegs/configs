@@ -1,5 +1,5 @@
 # nixos
-alias nupd='sudo nixos-rebuild switch'
+alias nupd='sudo nix-channel --update && sudo nixos-rebuild switch'
 alias nconf='vim /etc/nixos/configuration.nix'
 
 # list

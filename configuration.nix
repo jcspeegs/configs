@@ -1,24 +1,29 @@
-{ config, pkgs, ... }:
+{ config, pkgs, home-manager, ... }:
 
 {
-  imports =
-    [ ./hardware-configuration.nix
-      ./packages/gnome.nix
-      ./packages/qtile.nix
-      ./packages/users.nix
-      ./packages/systemPackages.nix
-      ./packages/vim.nix
-      ./packages/tmux.nix
-      ./packages/bash.nix
-      ./packages/scripts.nix
-    ];
+  imports = [
+    # ./hardware-configuration.nix
+    ./packages/gnome.nix
+    ./packages/qtile.nix
+    ./packages/users.nix
+    ./packages/systemPackages.nix
+    ./packages/vim.nix
+    ./packages/tmux.nix
+    ./packages/bash.nix
+    # ./packages/scripts.nix
+  ];
+
+  # Enable flakes
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
-  networking.hostName = "nixos";
   networking.networkmanager.enable = true;
 
   # Enables wireless support via wpa_supplicant.
