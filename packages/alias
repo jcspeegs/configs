@@ -29,8 +29,8 @@ alias fl='flatpak'
 alias fup='flatpak update'
 
 # source speicific configs
-# alias sb='source ~/.bashrc'
-# alias sa='source ~/.alias'
+alias sb='source /etc/nixos/packages/.bashrc'
+alias sa='source /etc/nixos/packages/.alias'
 
 # fix obvious typo's
 alias cd..='cd ..'
