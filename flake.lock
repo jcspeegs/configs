@@ -36,10 +36,45 @@
         "type": "indirect"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1675698036,
+        "narHash": "sha256-BgsQkQewdlQi8gapJN4phpxkI/FCE/2sORBaFcYbp/A=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "1046c7b92e908a1202c0f1ba3fc21d19e1cf1b62",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "scripts": "scripts"
+      }
+    },
+    "scripts": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1675803409,
+        "narHash": "sha256-XKk1o1E5avtA6IPc4wQIjySfmR38CpdR//dy4i+7ZSQ=",
+        "owner": "jcspeegs",
+        "repo": "scripts",
+        "rev": "a3d754f1e48ac5690926c5a72c447727bd380c92",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jcspeegs",
+        "repo": "scripts",
+        "type": "github"
       }
     },
     "utils": {

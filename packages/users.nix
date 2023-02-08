@@ -22,6 +22,10 @@ in {
       ( base_user { pw = "ugflows"; desc = "Justin Speegle"; })
       { extraGroups = [ "wheel" ]; }
     ];
+
+    jesse = ( base_user { pw = "jesse"; desc = "Jesse Speegle"; });
+    jensen = ( base_user { pw = "jensen"; desc = "Jensen Speegle"; });
+    lauren = ( base_user { pw = "lauren"; desc = "Lauren Speegle"; });
   };
 
   home-manager.users.ugflows = {

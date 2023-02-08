@@ -1,8 +1,7 @@
-{ config, pkgs, home-manager, ... }:
+{ config, pkgs,  ... }:
 
 {
   imports = [
-    # ./hardware-configuration.nix
     ./packages/gnome.nix
     ./packages/qtile.nix
     ./packages/users.nix
@@ -10,7 +9,7 @@
     ./packages/vim.nix
     ./packages/tmux.nix
     ./packages/bash.nix
-    # ./packages/scripts.nix
+    ./packages/scripts.nix
   ];
 
   # Enable flakes
@@ -20,9 +19,11 @@
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+    efi.efiSysMountPoint = "/boot/efi";
+  };
 
   networking.networkmanager.enable = true;
 
