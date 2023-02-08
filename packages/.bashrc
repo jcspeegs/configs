@@ -10,7 +10,7 @@ fi
 export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border --preview="[[ \$(file --mime {}) =~ binary ]] && echo {} is a binary file || cat {} | head -300" --bind="F2:toggle-preview,ctrl-d:half-page-down,ctrl-u:half-page-up" --no-mouse --multi --preview-window="hidden:wrap"'
 
 # C-n Nixos config editing session
-bind '"":"ts /etc/nixos vim\\ configuration.nix\n"'
+bind '"":"tmux-sessionizer /etc/nixos vim\\ configuration.nix\n"'
 # C-p pianobar session
-bind '"":"ts pianobar pianobar\n"'
+bind '"":"tmux-sessionizer pianobar pianobar\n"'
 

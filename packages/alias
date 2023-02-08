@@ -1,5 +1,4 @@
 # nixos
-alias nupd='sudo nix-channel --update && sudo nixos-rebuild switch'
 alias nupd='nix flake update --commit-lock-file /home/ugflows/builds/configs && sudo nixos-rebuild switch --flake /home/ugflows/builds/configs#lightshow'
 alias nconf='vim /etc/nixos/configuration.nix'
 
