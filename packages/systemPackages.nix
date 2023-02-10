@@ -4,6 +4,7 @@
     burpsuite
     curl
     discourse
+    fd
     firefox
     fzf
     gimp
