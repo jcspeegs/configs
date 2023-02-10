@@ -13,7 +13,7 @@ export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border --preview="[[ \$
 bind '"":"tmux-sessionizer\n"'
 stty stop ''
 bind '"":"tmux-sessionizer ~/builds/scripts vim\\ ~/builds/scripts\n"'
-bind '"":"tmux-sessionizer ~/builds/configs vim\\ flake.nix\n"'
+bind '"":"tmux-sessionizer ~/builds/configs vim\\ ~/builds/configs\n"'
 # C-p pianobar session
 bind '"":"tmux-sessionizer pianobar pianobar\n"'
 
