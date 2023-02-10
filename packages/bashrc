@@ -12,8 +12,8 @@ export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border --preview="[[ \$
 # C-n Nixos config editing session
 bind '"":"tmux-sessionizer\n"'
 stty stop ''
-bind '"":"tmux-sessionizer ~/builds/scripts vim\\ ~/builds/scripts\n"'
-bind '"":"tmux-sessionizer ~/builds/configs vim\\ ~/builds/configs\n"'
+bind '"":"tmux-sessionizer ~/builds/scripts vim\\ \`fd . ~/builds/scripts|fzf\`\n"'
+bind '"":"tmux-sessionizer ~/builds/configs vim\\ \`fd . ~/builds/configs|fzf\`\n"'
 # C-p pianobar session
 bind '"":"tmux-sessionizer pianobar pianobar\n"'
 
