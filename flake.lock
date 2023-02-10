@@ -64,11 +64,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1675957821,
-        "narHash": "sha256-GRGShgPnSJ0HM6Bja/yL+cCmSWcyb2Uvi/1ULotXaLQ=",
+        "lastModified": 1676004243,
+        "narHash": "sha256-mNhaQMSAcBs2pV1et/87JjYXMu2icGT5ieeGTP8wzW4=",
         "owner": "jcspeegs",
         "repo": "scripts",
-        "rev": "1a446aaafafbb7ed3ca754dd70097eec8dd01c08",
+        "rev": "66c83aca7e6dd8ed85d874c28d5a6a2ec933d6e3",
         "type": "github"
       },
       "original": {
