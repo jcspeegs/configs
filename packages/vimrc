@@ -14,7 +14,7 @@ set relativenumber number
 " tab == 4 spaces
 set tabstop=4 softtabstop=4
 set shiftwidth=4
-set textwidth=79
+" set textwidth=79
 set expandtab smarttab
 set autoindent smartindent
 

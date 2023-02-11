@@ -1,11 +1,10 @@
 { lib, config, pkgs, home-manager, ... }:
 
 let
-  base_user = { pw, desc}: {
+  base_user = { description, initialHashedPassword}: {
     isNormalUser = true;
     extraGroups = [ "networkmanager" ];
-    password = pw;
-    description = desc;
+    inherit description initialHashedPassword;
   };
 
 in {
@@ -16,16 +15,25 @@ in {
   };
 
   users.users = {
-    guest = ( base_user { pw = "guest"; desc= "Guest User"; });
+    ugflows = base_user {
+      description = "Justin Speegle";
+      initialHashedPassword = "$y$j9T$SDE34MFtSI.HSD2HUPI9/.$yWvN51QE6EXe.509RO09Wjzk4c81IuHgChBo/EIEjh4"; } //
+      { extraGroups = [ "wheel" ]; };
 
-    ugflows = lib.mkMerge[
-      ( base_user { pw = "ugflows"; desc = "Justin Speegle"; })
-      { extraGroups = [ "wheel" ]; }
-    ];
+    jesse = base_user {
+      description = "Jesse Speegle";
+      initialHashedPassword = "$y$j9T$0DwfegL.74k4/8y33qh021$FyAAEw1trxviRjJbVyH3TNTbFnDGTFeUrAPOk/Qb.O6";
+    };
 
-    jesse = ( base_user { pw = "jesse"; desc = "Jesse Speegle"; });
-    jensen = ( base_user { pw = "jensen"; desc = "Jensen Speegle"; });
-    lauren = ( base_user { pw = "lauren"; desc = "Lauren Speegle"; });
+    jensen = base_user {
+      description = "Jensen Speegle";
+      initialHashedPassword = "$y$j9T$M0kvGW2qIeM.jQjvLNchm0$vd7tnp8REDJNjPf70LpyoERrCenyllt4OsTIRgOHBI1";
+    };
+
+    lauren = base_user {
+      description = "Lauren Speegle";
+      initialHashedPassword = "$y$j9T$xNHI2KNDVbTUq5JtWwAkv.$GZ2ItUCejAQ7Qo4UwDfMEwAA5ErPhFneXSyQcAJxRpA";
+    };
   };
 
   home-manager.users.ugflows = {
