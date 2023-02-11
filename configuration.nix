@@ -41,7 +41,6 @@
   services.xserver = {
     layout = "us";
     xkbVariant = "";
-    videoDrivers = [ "nvidia"  ];
   };
 
   hardware.opengl.enable = true;
