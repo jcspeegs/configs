@@ -3,7 +3,7 @@
   environment.systemPackages = with pkgs; [
     burpsuite
     curl
-    discourse
+    discord
     fd
     firefox
     fzf
