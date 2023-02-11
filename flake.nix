@@ -11,26 +11,17 @@
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
-  let system = "x86_64-linux"; in {
+  let
+    system = "x86_64-linux";
+    myMachine = custom: nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = inputs // {inherit system; };
+      modules = custom ++ [ ./configuration.nix ];
+    };
+  in {
     nixosConfigurations = {
-
-      lightshow = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = inputs // { inherit system; };
-        modules = [
-          lightshow/lightshow.nix
-          ./configuration.nix
-        ];
-      };
-
-      tabby = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = inputs // { inherit system; };
-        modules = [
-          tabby/tabby.nix
-          ./configuration.nix
-        ];
-      };
+      lightshow = myMachine [ ./lightshow/lightshow.nix ];
+      tabby = myMachine [ .tabby/tabby.nix ];
     };
   };
 }
