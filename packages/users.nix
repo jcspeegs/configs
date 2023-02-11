@@ -31,7 +31,7 @@ in {
   home-manager.users.ugflows = {
     home.stateVersion = "22.05";
     # https://github.com/NixOS/nixpkgs/issues/196651
-    manual.manpages.enable = false;
+    # manual.manpages.enable = false;
 
     programs.tmux = {
       enable = true;
