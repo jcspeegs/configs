@@ -1,13 +1,11 @@
-with import <nixpkgs> {}; 
-with builtins;
+{ pkgs, scripts, system, ... }:
 let
-tmux-sessionizer = writeShellApplication {
-  name = "ts";
-  runtimeInputs = [ tmux ];
-  text = readFile ./scripts/tmux-sessionizer.sh;
-};
+  tmux-sessionizer = scripts.packages.${system}.tmux-sessionizer;
 in {
+  nixpkgs.overlays = [
+    (_: _: { inherit tmux-sessionizer; })
+  ];
   environment.systemPackages = [
-    tmux-sessionizer
+    pkgs.tmux-sessionizer
   ];
 }

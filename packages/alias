@@ -1,5 +1,5 @@
 # nixos
-alias nupd='sudo nixos-rebuild switch'
+alias nupd='nix flake update --commit-lock-file /home/ugflows/builds/configs && sudo nixos-rebuild switch --flake /home/ugflows/builds/configs#lightshow'
 alias nconf='vim /etc/nixos/configuration.nix'
 
 # list
@@ -29,8 +29,8 @@ alias fl='flatpak'
 alias fup='flatpak update'
 
 # source speicific configs
-# alias sb='source ~/.bashrc'
-# alias sa='source ~/.alias'
+alias sb='source /etc/nixos/packages/bashrc'
+alias sa='source /etc/nixos/packages/alias'
 
 # fix obvious typo's
 alias cd..='cd ..'

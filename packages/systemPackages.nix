@@ -1,8 +1,10 @@
 { pkgs, ... }: {
 
   environment.systemPackages = with pkgs; [
+    burpsuite
     curl
     discourse
+    fd
     firefox
     fzf
     gimp

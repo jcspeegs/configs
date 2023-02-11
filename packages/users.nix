@@ -1,8 +1,6 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, home-manager, ... }:
 
 let
-  hm_uri = "https://github.com/nix-community/home-manager/archive/master.tar.gz";
-  hm = builtins.fetchTarball hm_uri;
   base_user = { pw, desc}: {
     isNormalUser = true;
     extraGroups = [ "networkmanager" ];
@@ -11,7 +9,7 @@ let
   };
 
 in {
-  imports = [(import "${hm}/nixos")];
+  imports = [ home-manager.nixosModule ];
 
   users.groups = {
     mlocate.gid = 50;
@@ -24,6 +22,10 @@ in {
       ( base_user { pw = "ugflows"; desc = "Justin Speegle"; })
       { extraGroups = [ "wheel" ]; }
     ];
+
+    jesse = ( base_user { pw = "jesse"; desc = "Jesse Speegle"; });
+    jensen = ( base_user { pw = "jensen"; desc = "Jensen Speegle"; });
+    lauren = ( base_user { pw = "lauren"; desc = "Lauren Speegle"; });
   };
 
   home-manager.users.ugflows = {
