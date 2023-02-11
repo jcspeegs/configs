@@ -1,9 +1,6 @@
-{ pkgs, scripts, system, ... }:
-let
-  tmux-sessionizer = scripts.packages.${system}.tmux-sessionizer;
-in {
+{ pkgs, scripts, system, ... }: {
   nixpkgs.overlays = [
-    (_: _: { inherit tmux-sessionizer; })
+    scripts.overlays.tmux-sessionizer
   ];
   environment.systemPackages = [
     pkgs.tmux-sessionizer

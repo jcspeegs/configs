@@ -10,9 +10,10 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, ... }@inputs:
   let system = "x86_64-linux"; in {
     nixosConfigurations = {
+
       lightshow = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = inputs // { inherit system; };
@@ -21,6 +22,7 @@
           ./configuration.nix
         ];
       };
+
       tabby = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = inputs // { inherit system; };
