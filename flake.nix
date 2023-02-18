@@ -21,7 +21,7 @@
   in {
     nixosConfigurations = {
       lightshow = myMachine [ ./lightshow/lightshow.nix ];
-      tabby = myMachine [ .tabby/tabby.nix ];
+      tabby = myMachine [ ./tabby/tabby.nix ];
     };
   };
 }
