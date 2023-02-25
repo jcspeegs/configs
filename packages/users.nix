@@ -1,4 +1,4 @@
-{ lib, config, pkgs, home-manager, ... }:
+{lib, config, pkgs, home-manager, ... }:
 
 let
   base_user = { description, initialHashedPassword}: {
@@ -53,5 +53,8 @@ in {
 
     xdg.configFile."pianobar/config".source = ./pianobar.conf;
     xdg.configFile."qtile/config.py".source = qtile/config.py;
+    xdg.configFile."qtile/scripts".source = qtile/scripts;
+    xdg.configFile."termite/config".source = termite/config;
+    xdg.configFile."bat/config".source = bat/config;
   };
 }
