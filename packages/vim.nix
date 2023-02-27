@@ -3,8 +3,7 @@
   environment.variables = { EDITOR = "vim"; };
 
   environment.systemPackages = with pkgs; [
-    ((vim_configurable.override { }).customize {
-      name = "vim";
+    (vim-full.customize {
       vimrcConfig.packages.myplugins = with pkgs.vimPlugins; {
         start = [
           vim-airline
@@ -14,6 +13,8 @@
           vim-surround
           gruvbox
           fzf-vim
+          vim-fugitive
+          ale
         ];
         opt = [];
       };
