@@ -51,10 +51,14 @@ in {
       userEmail = "justin@speegs.com";
     };
 
-    xdg.configFile."pianobar/config".source = ./pianobar.conf;
-    xdg.configFile."qtile/config.py".source = qtile/config.py;
-    xdg.configFile."qtile/scripts".source = qtile/scripts;
-    xdg.configFile."termite/config".source = termite/config;
-    xdg.configFile."bat/config".source = bat/config;
+    xdg.configFile = {
+      "pianobar/config".source = ./pianobar.conf;
+      "termite/config".source = termite/config;
+      "bat/config".source = bat/config;
+      "qtile" = {
+        source = ./qtile;
+        recursive = true;
+      };
+    };
   };
 }
