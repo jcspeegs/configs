@@ -9,36 +9,54 @@ from libqtile.utils import guess_terminal
 mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
+GAP = 25
+BORDER_WIDTH = 3
+BORDER_FOCUS_COLOR = "#5e81ac"
+BORDER_NORMAL_COLOR = "#4c566a"
+
 terminal = guess_terminal()
+
+@hook.subscribe.startup_once
+def start_once():
+    home = os.path.expanduser('~')
+    subprocess.call([home + '/.config/qtile/scripts/autostart.sh'])
 
 keys = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
 
     # Super Keys
-    Key([mod], "f", lazy.spawn('thunar')),
     Key([mod], "Up", lazy.window.toggle_fullscreen()),
-    Key([mod], "m", lazy.spawn('mailspring')),
-    Key([mod], "p", lazy.spawn('pithos')),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
-    Key([mod], "t", lazy.spawn('telegram-desktop')),
-    Key([mod], "w", lazy.spawn('firefox')),
     # Key([mod], "x", lazy.spawn('arcolinux-logout')),
     Key([mod], "z", lazy.spawn('betterlockscreen -l -- --timestr="%H:%M"')),
-    # Key([mod], "Return", lazy.spawn('termite')),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    Key([mod], "KP_Enter", lazy.spawn('termite')),
     Key([mod], "r", lazy.restart()),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
+    Key([mod], "Escape", lazy.spawn('xkill')),
 
+    # File browser
+    Key([mod], "f", lazy.spawn('thunar')),
+    # Email
+    Key([mod], "m", lazy.spawn('mailspring')),
+    # Music
+    Key([mod], "p", lazy.spawn('pithos')),
+    # Telegram
+    Key([mod], "t", lazy.spawn('telegram-desktop')),
+    # Web browser
+    Key([mod], "w", lazy.spawn('firefox')),
+    # Terminal
+    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    # Key([mod], "Return", lazy.spawn('termite')),
+    # Key([mod], "KP_Enter", lazy.spawn('termite')),
+    # Launcher
     # Key([mod], "d", lazy.spawn(dmen_cmd)),
     # Key([mod, "shift"], "d", lazy.spawn(dmen_cmd2)),
-
-    Key([mod], "c", lazy.spawn('conky-toggle')),
-    Key([mod], "v", lazy.spawn('pavucontrol')),
-    Key([mod], "Escape", lazy.spawn('xkill')),
     # Key([mod], "F11", lazy.spawn('rofi -show run -fullscreen')),
     # Key([mod], "F12", lazy.spawn('rofi -show run')),
+    # Conky
+    # Key([mod], "c", lazy.spawn('conky-toggle')),
+    # Volume
+    Key([mod], "v", lazy.spawn('pavucontrol')),
 
     # QTILE LAYOUT KEYS
     Key([mod], "n", lazy.layout.normalize()),
@@ -55,13 +73,12 @@ keys = [
 ]
 
 names = ['1', '2', '3', '4', '5', '6', '7']
-labels = ['1', '2', '3', '4', '5', '6', '7']
-# labels = ["" ,"", "", "", "", "", "" ]
+# labels = ['1', '2', '3', '4', '5', '6', '7']
+labels = ["" ,"", "", "", "", "", "" ]
 layouts = ["max", "monadtall", "monadtall", "monadtall", "monadtall",
            "monadtall", "max"]
 spawns = ['termite', 'firefox -P "default" --class="firefox"', None,
-         ['mailspring', 'telegram-desktop'], None, 'thunar',
-         'firefox -P "hass" --class="hass" --new-window "http://docky:8123/floorplan"']
+         ['mailspring', 'telegram-desktop'], None, 'thunar', None]
 groups = [Group(name=name, layout=layout, label=label, spawn=spawn)
           for name, label, layout, spawn in zip(names, labels, layouts, spawns)]
 
@@ -98,40 +115,52 @@ for i in groups:
         Key(["mod1", "shift"], "Tab", lazy.screen.prev_group()),
 
         # MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND STAY ON WORKSPACE
-        #Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
+        Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
 
         # MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND FOLLOW MOVED WINDOW TO WORKSPACE
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
     ])
-groups = [Group(i) for i in "123456"]
+# groups = [Group(i) for i in "123456"]
 
-for i in groups:
-    keys.extend(
-        [
-            # mod1 + letter of group = switch to group
-            Key(
-                [mod],
-                i.name,
-                lazy.group[i.name].toscreen(),
-                desc="Switch to group {}".format(i.name),
-            ),
-            # mod1 + shift + letter of group = switch to & move focused window to group
-            Key(
-                [mod, "shift"],
-                i.name,
-                lazy.window.togroup(i.name, switch_group=True),
-                desc="Switch to & move focused window to group {}".format(i.name),
-            ),
-            # Or, use below if you prefer not to switch to that group.
-            # # mod1 + shift + letter of group = move focused window to group
-            # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-            #     desc="move focused window to group {}".format(i.name)),
-        ]
-    )
+# for i in groups:
+#     keys.extend(
+#         [
+#             # mod1 + letter of group = switch to group
+#             Key(
+#                 [mod],
+#                 i.name,
+#                 lazy.group[i.name].toscreen(),
+#                 desc="Switch to group {}".format(i.name),
+#             ),
+#             # mod1 + shift + letter of group = switch to & move focused window to group
+#             Key(
+#                 [mod, "shift"],
+#                 i.name,
+#                 lazy.window.togroup(i.name, switch_group=True),
+#                 desc="Switch to & move focused window to group {}".format(i.name),
+#             ),
+#             # Or, use below if you prefer not to switch to that group.
+#             # # mod1 + shift + letter of group = move focused window to group
+#             # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
+#             #     desc="move focused window to group {}".format(i.name)),
+#         ]
+#     )
+
+layout_theme = {
+    "margin": GAP,
+    "border_width": BORDER_WIDTH,
+    "border_focus": BORDER_FOCUS_COLOR,
+    "border_normal": BORDER_NORMAL_COLOR,
+    }
 
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
-    layout.Max(),
+    layout.MonadTall(**layout_theme),
+    layout.MonadWide(**layout_theme),
+    layout.Floating(**layout_theme),
+    layout.Max(**layout_theme),
+    # layout.Max(),
+    # layout.Floating(),
+    # layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
@@ -224,7 +253,18 @@ wl_input_rules = None
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
 
-@hook.subscribe.startup_once
-def start_once():
-    home = os.path.expanduser('~')
-    subprocess.call([home + '/.config/qtile/scripts/autostart.sh'])
+
+# Register Qtile with gnome-session
+@hook.subscribe.startup
+def dbus_register():
+    id = os.environ.get('DESKTOP_AUTOSTART_ID')
+    if not id:
+        return
+    subprocess.Popen(['dbus-send',
+                      '--session',
+                      '--print-reply',
+                      '--dest=org.gnome.SessionManager',
+                      '/org/gnome/SessionManager',
+                      'org.gnome.SessionManager.RegisterClient',
+                      'string:qtile',
+                      'string:' + id])

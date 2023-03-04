@@ -33,6 +33,8 @@
     # powerline-fonts
     tdesktop
     tree
+    feh
+    variety
     wget
     wpscan
     youtube-dl
