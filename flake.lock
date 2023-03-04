@@ -8,6 +8,7 @@
         "utils": "utils"
       },
       "locked": {
+        "lastModified": 1677783711,
         "narHash": "sha256-eq5mOVk3gv5HITtLhPjKwi8bFnOaQplA3X0WFgHnmxE=",
         "owner": "nix-community",
         "repo": "home-manager",
