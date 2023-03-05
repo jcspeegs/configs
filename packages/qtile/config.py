@@ -73,12 +73,11 @@ keys = [
 ]
 
 names = ['1', '2', '3', '4', '5', '6', '7']
-# labels = ['1', '2', '3', '4', '5', '6', '7']
 labels = ["" ,"", "", "", "", "", "" ]
-layouts = ["max", "monadtall", "monadtall", "monadtall", "monadtall",
+layouts = ["stack", "monadtall", "monadtall", "monadtall", "monadtall",
            "monadtall", "max"]
-spawns = ['termite', 'firefox -P "default" --class="firefox"', None,
-         ['mailspring', 'telegram-desktop'], None, 'thunar', None]
+spawns = ['termite', 'firefox -P "default" --class="firefox"',
+          ['mailspring', 'telegram-desktop'],'thunar', None, None, None]
 groups = [Group(name=name, layout=layout, label=label, spawn=spawn)
           for name, label, layout, spawn in zip(names, labels, layouts, spawns)]
 
@@ -162,7 +161,7 @@ layouts = [
     # layout.Floating(),
     # layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
     # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
+    layout.Stack(num_stacks=2, **layout_theme),
     # layout.Bsp(),
     # layout.Matrix(),
     # layout.MonadTall(),
