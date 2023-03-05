@@ -1,7 +1,8 @@
 import os
 import subprocess
 
-from libqtile import bar, layout, widget, hook
+from libqtile import layout, widget, hook
+from libqtile.bar import Bar
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
@@ -14,6 +15,19 @@ BORDER_WIDTH = 3
 BORDER_FOCUS_COLOR = "#5e81ac"
 BORDER_NORMAL_COLOR = "#4c566a"
 
+def init_colors():
+    return [["#2F343F", "#2F343F"], # color 0
+            ["#2F343F", "#2F343F"], # color 1
+            ["#c0c5ce", "#c0c5ce"], # color 2
+            ["#fba922", "#fba922"], # color 3
+            ["#3384d0", "#3384d0"], # color 4
+            ["#f3f4f5", "#f3f4f5"], # color 5
+            ["#cd1f3f", "#cd1f3f"], # color 6
+            ["#62FF00", "#62FF00"], # color 7
+            ["#6790eb", "#6790eb"], # color 8
+            ["#a9a9a9", "#a9a9a9"]] # color 9
+colors = init_colors()
+
 terminal = guess_terminal()
 
 @hook.subscribe.startup_once
@@ -22,9 +36,6 @@ def start_once():
     subprocess.call([home + '/.config/qtile/scripts/autostart.sh'])
 
 keys = [
-    # A list of available commands that can be bound to keys can be found
-    # at https://docs.qtile.org/en/latest/manual/config/lazy.html
-
     # Super Keys
     Key([mod], "Up", lazy.window.toggle_fullscreen()),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
@@ -43,7 +54,7 @@ keys = [
     # Telegram
     Key([mod], "t", lazy.spawn('telegram-desktop')),
     # Web browser
-    Key([mod], "w", lazy.spawn('firefox')),
+    Key([mod], "w", lazy.spawn('firefox --new-window')),
     # Terminal
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     # Key([mod], "Return", lazy.spawn('termite')),
@@ -72,38 +83,21 @@ keys = [
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
 ]
 
-names = ['1', '2', '3', '4', '5', '6', '7']
-# labels = ['1', '2', '3', '4', '5', '6', '7']
-labels = ["" ,"", "", "", "", "", "" ]
-layouts = ["max", "monadtall", "monadtall", "monadtall", "monadtall",
-           "monadtall", "max"]
-spawns = ['termite', 'firefox -P "default" --class="firefox"', None,
-         ['mailspring', 'telegram-desktop'], None, 'thunar', None]
-groups = [Group(name=name, layout=layout, label=label, spawn=spawn)
-          for name, label, layout, spawn in zip(names, labels, layouts, spawns)]
+gconfs = [
+    {'name': '1', 'label': '', 'layout': 'monadtall',
+     'spawn': 'termite'},
+    {'name': '2', 'label': '󰈹', 'layout': 'monadtall',
+     'spawn': 'firefox -P "default" --class="firefox"'},
+    {'name': '3', 'label': ""},
+    {'name': '4', 'label': "", 'layout': 'stack',
+     'spawn': ['mailspring', 'telegram-desktop']},
+    {'name': '5', 'label': ""},
+    {'name': '6', 'label': "", 'layout':'monadtall',
+     'spawn': 'thunar'},
+    {'name': '7', 'label': ""},
+]
+groups = [Group(**gconf) for gconf in gconfs]
 
-# groups = []
-
-# FOR QWERTY KEYBOARDS
-#group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0",]
-#group_labels = ["", "", "", "", "", "", "", "", "", "",]
-#group_labels = ["Web", "Edit/chat", "Image", "Gimp", "Meld", "Video", "Vb", "Files", "Mail", "Music",]
-#group_layouts = ["monadtall", "matrix", "monadtall", "bsp", "monadtall", "matrix", "monadtall", "bsp", "monadtall", "monadtall",]
-
-# group_names = ['1', '2', '3', '4', '5', '6', '7']
-# group_labels = ['1', '2', '3', '4', '5', '6', '7']
-# # group_labels = ["" ,"", "", "", "", "", "" ]
-# group_layouts = ["max", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "max"]
-# group_spawn = ['termite', 'firefox -P "default" --class="firefox"', None, ['mailspring', 'telegram-desktop'], None, 'thunar', 'firefox -P "hass" --class="hass" --new-window "http://docky:8123/floorplan"']
-
-# for i in range(len(group_names)):
-#     groups.append(
-#         Group(
-#             name=group_names[i],
-#             layout=group_layouts[i],
-#             label=group_labels[i],
-#             spawn=group_spawn[i],
-#         ))
 for i in groups:
     keys.extend([
 
@@ -115,36 +109,11 @@ for i in groups:
         Key(["mod1", "shift"], "Tab", lazy.screen.prev_group()),
 
         # MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND STAY ON WORKSPACE
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
+        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
 
         # MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND FOLLOW MOVED WINDOW TO WORKSPACE
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
     ])
-# groups = [Group(i) for i in "123456"]
-
-# for i in groups:
-#     keys.extend(
-#         [
-#             # mod1 + letter of group = switch to group
-#             Key(
-#                 [mod],
-#                 i.name,
-#                 lazy.group[i.name].toscreen(),
-#                 desc="Switch to group {}".format(i.name),
-#             ),
-#             # mod1 + shift + letter of group = switch to & move focused window to group
-#             Key(
-#                 [mod, "shift"],
-#                 i.name,
-#                 lazy.window.togroup(i.name, switch_group=True),
-#                 desc="Switch to & move focused window to group {}".format(i.name),
-#             ),
-#             # Or, use below if you prefer not to switch to that group.
-#             # # mod1 + shift + letter of group = move focused window to group
-#             # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-#             #     desc="move focused window to group {}".format(i.name)),
-#         ]
-#     )
 
 layout_theme = {
     "margin": GAP,
@@ -158,11 +127,11 @@ layouts = [
     layout.MonadWide(**layout_theme),
     layout.Floating(**layout_theme),
     layout.Max(**layout_theme),
+    layout.Stack(**layout_theme, num_stacks=2),
     # layout.Max(),
     # layout.Floating(),
     # layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
     # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
     # layout.MonadTall(),
@@ -182,11 +151,26 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 screens = [
-    Screen(
-        bottom=bar.Bar(
-            [
-                widget.CurrentLayout(),
-                widget.GroupBox(),
+    Screen(top=Bar(size=50, opacity=.75, widgets=[
+        # widget.CurrentLayout(),
+        # widget.GroupBox(),
+        widget.GroupBox(
+            # font="FontAwesome",
+            fontsize = 30,
+            margin_y = 3,
+            margin_x = 0,
+            padding_y = 6,
+            padding_x = 3,
+            borderwidth = 0,
+            disable_drag = True,
+            active = colors[5],
+            inactive = colors[9],
+            rounded = False,
+            highlight_method = "text",
+            this_current_screen_border = colors[8],
+            foreground = colors[2],
+            background = colors[1]
+            ),
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.Chord(
@@ -200,12 +184,12 @@ screens = [
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
                 widget.QuickExit(),
-            ],
-            24,
+            ]
+            # 24,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
-        ),
-    ),
+        )
+    )
 ]
 
 # Drag floating layouts.
