@@ -16,7 +16,7 @@ function run {
 #Find out your monitor name with xrandr or arandr (save and you get this line)
 case $HOSTNAME in
     lightshow)
-        xrandr --output DP-0 --mode 1920x1080 --pos 4480x0 --rotate normal --dpi 30 --output DP-1 --off --output HDMI-0 --mode 1920x1080 --pos 2560x0 --rotate normal --dpi 30 --output DP-2 --primary --mode 2560x1440 --pos 0x0 --rotate normal --dpi 85 --output DP-3 --off --output DP-4 --off --output DP-5 --off --output USB-C-0 --off
+        xrandr --output DP-2 --primary --mode 2560x1440 --pos 0x0 --rotate normal --output DP-0 --mode 1920x1080 --scale 1.1 --pos 4480x0 --rotate normal --output DP-1 --off --output HDMI-0 --mode 1920x1080 --scale 1.1 --pos 2560x0 --rotate normal --output DP-2 --off --output DP-4 --off --output DP-5 --off --output USB-C-0 --off
         ;;
     tabby)
         xrandr --output eDP-1 --primary --mode 2736x1824 --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-1 --off --output DP-2 --off --output HDMI-2 --off --dpi 200
@@ -30,7 +30,7 @@ esac
 #(conky -c $HOME/.config/qtile/scripts/system-overview) &
 
 #starting utility applications at boot time
-run variety &
+# run variety &
 # run nm-applet &
 # run pamac-tray &
 # run xfce4-power-manager &
