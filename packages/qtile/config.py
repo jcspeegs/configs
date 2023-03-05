@@ -1,5 +1,6 @@
 import os
 import subprocess
+from collections import namedtuple
 
 from libqtile import layout, widget, hook
 from libqtile.bar import Bar
@@ -10,23 +11,72 @@ from libqtile.utils import guess_terminal
 mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
-GAP = 25
-BORDER_WIDTH = 3
-BORDER_FOCUS_COLOR = "#5e81ac"
-BORDER_NORMAL_COLOR = "#4c566a"
 
-def init_colors():
-    return [["#2F343F", "#2F343F"], # color 0
-            ["#2F343F", "#2F343F"], # color 1
-            ["#c0c5ce", "#c0c5ce"], # color 2
-            ["#fba922", "#fba922"], # color 3
-            ["#3384d0", "#3384d0"], # color 4
-            ["#f3f4f5", "#f3f4f5"], # color 5
-            ["#cd1f3f", "#cd1f3f"], # color 6
-            ["#62FF00", "#62FF00"], # color 7
-            ["#6790eb", "#6790eb"], # color 8
-            ["#a9a9a9", "#a9a9a9"]] # color 9
-colors = init_colors()
+    # return [["#2F343F", "#2F343F"], # color 0 - gray_dk
+    #         ["#2F343F", "#2F343F"], # color 1 - gray_dk
+    #         ["#c0c5ce", "#c0c5ce"], # color 2 - gray_lt
+    #         ["#fba922", "#fba922"], # color 3 - orange
+    #         ["#3384d0", "#3384d0"], # color 4 - blue_1
+    #         ["#f3f4f5", "#f3f4f5"], # color 5 - white
+    #         ["#cd1f3f", "#cd1f3f"], # color 6 - red
+    #         ["#62FF00", "#62FF00"], # color 7 - green
+    #         ["#6790eb", "#6790eb"], # color 8 - blue_2
+    #         ["#a9a9a9", "#a9a9a9"]] # color 9 - gray
+color_cfg = {
+    'gray_dk':["#2F343F", "#2F343F"],
+    'gray_dk2': ["#4c566a", "#4c566a"],
+    'gray': ["#a9a9a9", "#a9a9a9"],
+    'gray_lt': ["#c0c5ce", "#c0c5ce"],
+    'orange': ["#fba922", "#fba922"],
+    'blue_1': ["#3384d0", "#3384d0"],
+    'blue_2': ["#6790eb", "#6790eb"],
+    'blue_3': ["#4c566a", "#4c566a"],
+    'white': ["#f3f4f5", "#f3f4f5"],
+    'red': ["#cd1f3f", "#cd1f3f"],
+    'green': ["#62FF00", "#62FF00"],
+}
+Colors = namedtuple('Colors', color_cfg.keys())
+colors = Colors(**color_cfg)
+
+layout_theme = {
+    "margin": 25,
+    "border_width": 3,
+    "border_focus": colors.blue_3,
+    "border_normal": colors.gray_dk,
+}
+
+group_box = {
+    'fontsize': 70,
+    'margin_y': 3,
+    'margin_x': 0,
+    'padding_y': 6,
+    'padding_x': 3,
+    'borderwidth': 0,
+    'disable_drag': True,
+    'active': colors.white,
+    'inactive': colors.gray,
+    'rounded': False,
+    'highlight_method': "text",
+    'this_current_screen_border': colors.blue_2,
+    'foreground': colors.gray_lt,
+    'background': colors.gray_dk
+}
+
+sep_1 = {
+    'linewidth': 1,
+    'padding': 10,
+    'foreground': colors.gray_lt,
+    'background': colors.gray_dk,
+}
+
+net = {
+    'font': "Noto Sans",
+    'fontsize': 12,
+    'interface': "eno1",
+    'foreground': colors.gray_lt,
+    'background': colors.gray_dk,
+    'padding': 0,
+}
 
 terminal = guess_terminal()
 
@@ -117,20 +167,13 @@ for i in groups:
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
     ])
 
-layout_theme = {
-    "margin": GAP,
-    "border_width": BORDER_WIDTH,
-    "border_focus": BORDER_FOCUS_COLOR,
-    "border_normal": BORDER_NORMAL_COLOR,
-    }
-
 layouts = [
     layout.MonadTall(**layout_theme),
     layout.MonadWide(**layout_theme),
     layout.Floating(**layout_theme),
     layout.Max(**layout_theme),
-    # layout.Stack(**layout_theme),
     layout.Columns(split=False, **layout_theme),
+    # layout.Stack(**layout_theme),
     # Try more layouts by unleashing below layouts.
     # layout.Bsp(),
     # layout.Matrix(),
@@ -143,24 +186,12 @@ layouts = [
 
 
 screens = [
-    Screen(top=Bar(size=50, opacity=.75, widgets=[
+    Screen(top=Bar(size=70, opacity=.75, widgets=[
+        widget.GroupBox(**group_box),
+        widget.Sep(**sep_1),
+        widget.Net(**net),
+        widget.Sep(**sep_1),
         # widget.CurrentLayout(),
-        widget.GroupBox(
-            fontsize = 30,
-            margin_y = 3,
-            margin_x = 0,
-            padding_y = 6,
-            padding_x = 3,
-            borderwidth = 0,
-            disable_drag = True,
-            active = colors[5],
-            inactive = colors[9],
-            rounded = False,
-            highlight_method = "text",
-            this_current_screen_border = colors[8],
-            foreground = colors[2],
-            background = colors[1]
-            ),
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.Chord(
