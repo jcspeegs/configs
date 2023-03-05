@@ -57,8 +57,6 @@ keys = [
     Key([mod], "w", lazy.spawn('firefox --new-window')),
     # Terminal
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    # Key([mod], "Return", lazy.spawn('termite')),
-    # Key([mod], "KP_Enter", lazy.spawn('termite')),
     # Launcher
     # Key([mod], "d", lazy.spawn(dmen_cmd)),
     # Key([mod, "shift"], "d", lazy.spawn(dmen_cmd2)),
@@ -89,7 +87,7 @@ gconfs = [
     {'name': '2', 'label': '󰈹', 'layout': 'monadtall',
      'spawn': 'firefox -P "default" --class="firefox"'},
     {'name': '3', 'label': ""},
-    {'name': '4', 'label': "", 'layout': 'stack',
+    {'name': '4', 'label': "", 'layout': 'columns',
      'spawn': ['mailspring', 'telegram-desktop']},
     {'name': '5', 'label': ""},
     {'name': '6', 'label': "", 'layout':'monadtall',
@@ -101,12 +99,16 @@ groups = [Group(**gconf) for gconf in gconfs]
 for i in groups:
     keys.extend([
 
-        #CHANGE WORKSPACES
+        # Change workspace on current monitor
         Key([mod], i.name, lazy.group[i.name].toscreen()),
         Key([mod], "Tab", lazy.screen.next_group()),
         Key([mod, "shift"], "Tab", lazy.screen.prev_group()),
         Key(["mod1"], "Tab", lazy.screen.next_group()),
         Key(["mod1", "shift"], "Tab", lazy.screen.prev_group()),
+
+        # Change monitor focus - super-ctrl-[hl]
+        Key([mod, mod2], 'h', lazy.next_screen()),
+        Key([mod, mod2], 'l', lazy.prev_screen()),
 
         # MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND STAY ON WORKSPACE
         # Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
@@ -127,15 +129,11 @@ layouts = [
     layout.MonadWide(**layout_theme),
     layout.Floating(**layout_theme),
     layout.Max(**layout_theme),
-    layout.Stack(num_stacks=2, **layout_theme),
-    # layout.Max(),
-    # layout.Floating(),
-    # layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+    # layout.Stack(**layout_theme),
+    layout.Columns(split=False, **layout_theme),
     # Try more layouts by unleashing below layouts.
     # layout.Bsp(),
     # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
     # layout.TreeTab(),
@@ -143,19 +141,11 @@ layouts = [
     # layout.Zoomy(),
 ]
 
-widget_defaults = dict(
-    font="sans",
-    fontsize=12,
-    padding=3,
-)
-extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(top=Bar(size=50, opacity=.75, widgets=[
         # widget.CurrentLayout(),
-        # widget.GroupBox(),
         widget.GroupBox(
-            # font="FontAwesome",
             fontsize = 30,
             margin_y = 3,
             margin_x = 0,
