@@ -90,6 +90,45 @@ text = {
     'fontsize': 30,
 }
 
+clock_cfg = {
+    'foreground': colors.gray_lt,
+    'fontsize': 30,
+    'format': '%-I:%M%p %a,%B %-d, %Y',
+    'fmt': ' {}',
+}
+
+battery_cfg = {
+    'charge_char': '󰂅',
+    'discharge_char': '󰁹',
+    'empty_char': '󱃌',
+    'font': 'Hack',
+    'fontsize': 30,
+    'foreground': colors.gray_lt,
+    'full_char': '󰁹',
+    'hide_threshold': 0.8,
+    'low_foreground': colors.red,
+    'low_percentage': 0.2,
+    'notify_below': 0.2,
+}
+
+memory_cfg = {
+    'font': 'Hack',
+    'fontsize': 30,
+    'foreground': colors.gray_lt,
+    'format': ' {MemUsed:.2f}{mm}/{MemPercent}%',
+    'measure_mem': 'G',
+}
+
+systray_cfg = {
+    'icon_size': 30,
+}
+
+exit_cfg = {
+    'default_text': '',
+    'fontsize': 30,
+    'foreground': colors.gray_lt,
+}
+
 terminal = guess_terminal()
 
 @hook.subscribe.startup_once
@@ -198,37 +237,30 @@ layouts = [
 
 
 screens = [
-    Screen(top=Bar(size=70, opacity=.75, widgets=[
-        widget.GroupBox(**bar_theme, **group_box),
-        widget.Sep(**bar_theme, **sep),
-        widget.Net(**bar_theme, **net, format='{down}'),
-        widget.NetGraph(**bar_theme, **net_graph, bandwidth_type='down'),
-        widget.TextBox(**bar_theme, **text, text=''),
-        widget.Net(**bar_theme, **net, format='{up}'),
-        widget.NetGraph(**bar_theme, **net_graph, bandwidth_type='up'),
-        widget.TextBox(**bar_theme, **text, text=''),
-        widget.Sep(**bar_theme, **sep),
-        # widget.CurrentLayout(),
-                widget.Prompt(),
-                widget.WindowName(),
-                widget.Chord(
-                    chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
-                widget.TextBox("default config", name="default"),
-                widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                widget.Systray(),
-                widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.QuickExit(),
+    Screen(
+        top=Bar(size=70, opacity=.75,
+            widgets=[
+                widget.GroupBox(**bar_theme, **group_box),
+                widget.Sep(**bar_theme, **sep),
+                widget.Net(**bar_theme, **net, format='{down}'),
+                widget.NetGraph(**bar_theme, **net_graph, bandwidth_type='down'),
+                widget.TextBox(**bar_theme, **text, text=''),
+                widget.Net(**bar_theme, **net, format='{up}'),
+                widget.NetGraph(**bar_theme, **net_graph, bandwidth_type='up'),
+                widget.TextBox(**bar_theme, **text, text=''),
+                widget.Sep(**bar_theme, **sep),
+                widget.Clock(**bar_theme, **clock_cfg),
+                widget.Sep(**bar_theme, **sep),
+                widget.Memory(**bar_theme, **memory_cfg),
+                widget.Systray(**bar_theme, **systray_cfg),
+                widget.QuickExit(**bar_theme, **exit_cfg),
             ]
-            # 24,
-            # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         )
     )
 ]
+
+if os.path.isfile('/sys/class/power_supply/battery_name'):
+    screens.insert(widget.Battery(**bar_theme, **battery_cfg), 11)
 
 # Drag floating layouts.
 mouse = [
