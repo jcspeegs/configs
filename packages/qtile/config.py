@@ -45,6 +45,10 @@ layout_theme = {
     "border_normal": colors.gray_dk,
 }
 
+bar_theme = {
+    'background': colors.gray_dk,
+}
+
 group_box = {
     'fontsize': 70,
     'margin_y': 3,
@@ -59,23 +63,31 @@ group_box = {
     'highlight_method': "text",
     'this_current_screen_border': colors.blue_2,
     'foreground': colors.gray_lt,
-    'background': colors.gray_dk
 }
 
-sep_1 = {
+sep = {
     'linewidth': 1,
     'padding': 10,
     'foreground': colors.gray_lt,
-    'background': colors.gray_dk,
 }
 
 net = {
-    'font': "Noto Sans",
-    'fontsize': 12,
-    'interface': "eno1",
+    'font': "Hack",
+    'fontsize': 30,
     'foreground': colors.gray_lt,
-    'background': colors.gray_dk,
     'padding': 0,
+}
+
+net_graph = {
+    'start_pos': 'top',
+    'border_width': 0,
+    'fill_color': colors.gray_lt,
+    'graph_color': colors.blue_2,
+}
+
+text = {
+    'foreground': colors.gray_lt,
+    'fontsize': 30,
 }
 
 terminal = guess_terminal()
@@ -187,10 +199,15 @@ layouts = [
 
 screens = [
     Screen(top=Bar(size=70, opacity=.75, widgets=[
-        widget.GroupBox(**group_box),
-        widget.Sep(**sep_1),
-        widget.Net(**net),
-        widget.Sep(**sep_1),
+        widget.GroupBox(**bar_theme, **group_box),
+        widget.Sep(**bar_theme, **sep),
+        widget.Net(**bar_theme, **net, format='{down}'),
+        widget.NetGraph(**bar_theme, **net_graph, bandwidth_type='down'),
+        widget.TextBox(**bar_theme, **text, text=''),
+        widget.Net(**bar_theme, **net, format='{up}'),
+        widget.NetGraph(**bar_theme, **net_graph, bandwidth_type='up'),
+        widget.TextBox(**bar_theme, **text, text=''),
+        widget.Sep(**bar_theme, **sep),
         # widget.CurrentLayout(),
                 widget.Prompt(),
                 widget.WindowName(),
