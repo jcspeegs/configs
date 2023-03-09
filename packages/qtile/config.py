@@ -22,7 +22,7 @@ mod2 = "control"
     #         ["#62FF00", "#62FF00"], # color 7 - green
     #         ["#6790eb", "#6790eb"], # color 8 - blue_2
     #         ["#a9a9a9", "#a9a9a9"]] # color 9 - gray
-color_cfg = {
+colors = {
     'gray_dk':["#2F343F", "#2F343F"],
     'gray_dk2': ["#4c566a", "#4c566a"],
     'gray': ["#a9a9a9", "#a9a9a9"],
@@ -35,8 +35,16 @@ color_cfg = {
     'red': ["#cd1f3f", "#cd1f3f"],
     'green': ["#62FF00", "#62FF00"],
 }
-Colors = namedtuple('Colors', color_cfg.keys())
-colors = Colors(**color_cfg)
+Colors = namedtuple('Colors', colors.keys())
+colors = Colors(**colors)
+
+bar_attrs = {
+    'font': 'Hack',
+    'fontsize': 26,
+    'foreground': colors.gray_lt,
+}
+BarAttrs = namedtuple('BarAttrs', bar_attrs.keys())
+bar_attrs = BarAttrs(**bar_attrs)
 
 layout_theme = {
     "margin": 25,
@@ -45,11 +53,16 @@ layout_theme = {
     "border_normal": colors.gray_dk,
 }
 
+bar_cfg = {
+    'size': 70,
+    'opacity': 0.75,
+}
+
 bar_theme = {
     'background': colors.gray_dk,
 }
 
-group_box = {
+groupbox_cfg = {
     'fontsize': 70,
     'margin_y': 3,
     'margin_x': 0,
@@ -62,20 +75,22 @@ group_box = {
     'rounded': False,
     'highlight_method': "text",
     'this_current_screen_border': colors.blue_2,
-    'foreground': colors.gray_lt,
+    'foreground': bar_attrs.foreground,
 }
 
 sep = {
     'linewidth': 1,
     'padding': 10,
-    'foreground': colors.gray_lt,
+    'foreground': bar_attrs.foreground,
 }
 
-net = {
-    'font': "Hack",
-    'fontsize': 30,
-    'foreground': colors.gray_lt,
+net_cfg = {
+    'font': bar_attrs.font,
+    'fontsize': bar_attrs.fontsize,
+    'foreground': bar_attrs.foreground,
     'padding': 0,
+    'prefix': 'M',
+    'use_bits': True,
 }
 
 net_graph = {
@@ -86,14 +101,14 @@ net_graph = {
 }
 
 text = {
-    'foreground': colors.gray_lt,
-    'fontsize': 30,
+    'foreground': bar_attrs.foreground,
+    'fontsize': bar_attrs.fontsize,
 }
 
 clock_cfg = {
-    'foreground': colors.gray_lt,
-    'fontsize': 30,
-    'format': '%-I:%M%p %a,%B %-d, %Y',
+    'foreground': bar_attrs.foreground,
+    'fontsize': 33,
+    'format': '%-I:%M%p %a, %B %-d, %Y',
     'fmt': ' {}',
 }
 
@@ -101,9 +116,9 @@ battery_cfg = {
     'charge_char': '󰂅',
     'discharge_char': '󰁹',
     'empty_char': '󱃌',
-    'font': 'Hack',
-    'fontsize': 30,
-    'foreground': colors.gray_lt,
+    'font': bar_attrs.font,
+    'fontsize': bar_attrs.fontsize,
+    'foreground': bar_attrs.foreground,
     'full_char': '󰁹',
     'hide_threshold': 0.8,
     'low_foreground': colors.red,
@@ -112,22 +127,64 @@ battery_cfg = {
 }
 
 memory_cfg = {
-    'font': 'Hack',
-    'fontsize': 30,
-    'foreground': colors.gray_lt,
-    'format': ' {MemUsed:.2f}{mm}/{MemPercent}%',
+    'font': bar_attrs.font,
+    'fontsize': bar_attrs.fontsize,
+    'foreground': bar_attrs.foreground,
+    'format': '{MemUsed:.1f}{mm}/{MemPercent}%',
     'measure_mem': 'G',
+    'fmt': '{}',
 }
 
 systray_cfg = {
-    'icon_size': 30,
+    'icon_size': bar_attrs.fontsize,
 }
 
 exit_cfg = {
     'default_text': '',
-    'fontsize': 30,
-    'foreground': colors.gray_lt,
+    'fontsize': bar_attrs.fontsize,
+    'foreground': bar_attrs.foreground,
 }
+
+wlan_cfg = {
+    'font': bar_attrs.font,
+    'fontsize': bar_attrs.fontsize,
+    'foreground': bar_attrs.foreground,
+    'format': '{essid}/{percent:2.0%}',
+    'fmt': '󰖩 {}',
+}
+
+thermal_cfg = {
+    'font': bar_attrs.font,
+    'fontsize': bar_attrs.fontsize,
+    'foreground': bar_attrs.foreground,
+    'foreground_alert': colors.red,
+    'metric': True,
+    'format': '{temp:.0f}{unit}',
+    'padding': 6,
+}
+
+gpu_cfg = {
+    'font': bar_attrs.font,
+    'fontsize': bar_attrs.fontsize,
+    'foreground': bar_attrs.foreground,
+    'foreground_alert': colors.red,
+    'format': '{temp}°C',
+    'threshold': 80,
+}
+
+ping_cfg = {
+    'cmd': ['ping', 'www.google.com'],
+    # 'cmd': 'ping -c3 www.google.com | tail -n1 | cut -d"/" -f5',
+    # 'fmt': '󰊭{}ms',
+    # 'font': bar_attrs.font,
+    # 'fontsize': bar_attrs.fontsize,
+    # 'foreground': bar_attrs.foreground,
+    # 'shell': True,
+    # 'update_interval': 15,
+}
+
+# dmen_cmd = "dmenu_run -i -o .9 -dim .2 -h 60 -l 30 -w 960 -x 480 -sf 'black' -fn 'Hack'"
+# dmen_cmd2 = ''
 
 terminal = guess_terminal()
 
@@ -238,20 +295,25 @@ layouts = [
 
 screens = [
     Screen(
-        top=Bar(size=70, opacity=.75,
+        top=Bar(**bar_cfg,
             widgets=[
-                widget.GroupBox(**bar_theme, **group_box),
-                widget.Sep(**bar_theme, **sep),
-                widget.Net(**bar_theme, **net, format='{down}'),
-                widget.NetGraph(**bar_theme, **net_graph, bandwidth_type='down'),
-                widget.TextBox(**bar_theme, **text, text=''),
-                widget.Net(**bar_theme, **net, format='{up}'),
-                widget.NetGraph(**bar_theme, **net_graph, bandwidth_type='up'),
-                widget.TextBox(**bar_theme, **text, text=''),
-                widget.Sep(**bar_theme, **sep),
+                widget.GroupBox(**bar_theme, **groupbox_cfg),
+                widget.Spacer(**bar_theme, length=700),
                 widget.Clock(**bar_theme, **clock_cfg),
-                widget.Sep(**bar_theme, **sep),
+                widget.Spacer(**bar_theme),
+                widget.Net(**bar_theme, **net_cfg, fmt='{}', format='{down}'),
+                widget.NetGraph(**bar_theme, **net_graph, bandwidth_type='down'),
+                widget.Net(**bar_theme, **net_cfg, fmt='{}', format='{up}'),
+                widget.NetGraph(**bar_theme, **net_graph, bandwidth_type='up'),
+                # widget.Sep(**bar_theme, **sep),
+                # widget.GenPollCommand(update_interval=15, cmd="echo asdf"),
                 widget.Memory(**bar_theme, **memory_cfg),
+                # widget.Sep(**bar_theme, **sep),
+                widget.ThermalSensor(**bar_theme, **thermal_cfg, fmt='{}',
+                                     tag_sensor='Package id 0', threshold=80),
+                widget.NvidiaSensors(**bar_theme, **gpu_cfg, fmt='󰓓{}'),
+                # widget.Wlan(**bar_theme, **wlan_cfg),
+                # widget.Sep(**bar_theme, **sep),
                 widget.Systray(**bar_theme, **systray_cfg),
                 widget.QuickExit(**bar_theme, **exit_cfg),
             ]

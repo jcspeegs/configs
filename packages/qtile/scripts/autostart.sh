@@ -30,7 +30,7 @@ esac
 #(conky -c $HOME/.config/qtile/scripts/system-overview) &
 
 #starting utility applications at boot time
-# run variety &
+run variety &
 # run nm-applet &
 # run pamac-tray &
 # run xfce4-power-manager &
