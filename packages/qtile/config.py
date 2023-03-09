@@ -42,12 +42,13 @@ bar_attrs = {
     'font': 'Hack',
     'fontsize': 26,
     'foreground': colors.gray_lt,
+    'gap': 20,
 }
 BarAttrs = namedtuple('BarAttrs', bar_attrs.keys())
 bar_attrs = BarAttrs(**bar_attrs)
 
 layout_theme = {
-    "margin": 25,
+    "margin": bar_attrs.gap,
     "border_width": 2,
     "border_focus": colors.blue_3,
     "border_normal": colors.gray_dk,
@@ -55,7 +56,8 @@ layout_theme = {
 
 bar_cfg = {
     'size': 65,
-    'opacity': 0.75,
+    'opacity': 0.85,
+    'margin': [10, bar_attrs.gap, 0, bar_attrs.gap],
 }
 
 bar_theme = {
