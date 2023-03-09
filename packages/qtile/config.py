@@ -48,13 +48,13 @@ bar_attrs = BarAttrs(**bar_attrs)
 
 layout_theme = {
     "margin": 25,
-    "border_width": 3,
+    "border_width": 2,
     "border_focus": colors.blue_3,
     "border_normal": colors.gray_dk,
 }
 
 bar_cfg = {
-    'size': 70,
+    'size': 65,
     'opacity': 0.75,
 }
 
