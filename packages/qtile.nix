@@ -46,4 +46,8 @@
 
   services.xserver.windowManager.qtile.enable = true;
   services.picom.enable = true;
+
+  environment.sessionVariables = rec {
+    XDG_SESSION_DESKTOP  = "qtile";
+  };
 }
