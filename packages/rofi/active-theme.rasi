@@ -31,6 +31,7 @@
 	background-color: transparent;
 
 	font: "Roboto Mono 13";
+	text-color: @base07;
 }
 
 window {
