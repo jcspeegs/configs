@@ -1,0 +1,3 @@
+[submodule "packages/rofi/rofi-themes"]
+	path = packages/rofi/rofi-themes
+	url = https://github.com/davatorium/rofi-themes.git
