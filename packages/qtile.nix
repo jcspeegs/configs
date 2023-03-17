@@ -20,20 +20,23 @@
   # in
   {
   environment.systemPackages = with pkgs; [
-    betterlockscreen
-    qtile
-    # dbus
-    dmenu
-    arandr
-    ncpamixer
-    lm_sensors
-    pavucontrol
-    termite
-    xfce.thunar
-    xfce.thunar-volman
-    xfce.thunar-archive-plugin
-    xfce.thunar-media-tags-plugin
-
+      betterlockscreen
+      qtile
+      # dbus
+      dmenu
+      arandr
+      ncpamixer
+      lm_sensors
+      pavucontrol
+      termite
+      rofi
+      rofi-vpn
+      rofi-power-menu
+      rofi-file-browser
+      xfce.thunar
+      xfce.thunar-volman
+      xfce.thunar-archive-plugin
+      xfce.thunar-media-tags-plugin
     # (python310.withPackages my-python-packages)
   ];
 

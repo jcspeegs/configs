@@ -59,6 +59,10 @@ in {
         source = ./qtile;
         recursive = true;
       };
+      "rofi" = {
+        source = ./rofi;
+        recursive = true;
+      };
     };
   };
 }

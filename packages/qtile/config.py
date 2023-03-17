@@ -185,6 +185,8 @@ ping_cfg = {
     # 'update_interval': 15,
 }
 
+rofi_cmd = "rofi -show combi -modes combi -combi-modes 'window,drun,run,ssh'" \
+    "-font 'Hack 18' -show-icons"
 # dmen_cmd = "dmenu_run -i -o .9 -dim .2 -h 60 -l 30 -w 960 -x 480 -sf 'black' -fn 'Hack'"
 # dmen_cmd2 = ''
 
@@ -218,6 +220,7 @@ keys = [
     # Terminal
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     # Launcher
+    Key([mod], "d", lazy.spawn(rofi_cmd)),
     # Key([mod], "d", lazy.spawn(dmen_cmd)),
     # Key([mod, "shift"], "d", lazy.spawn(dmen_cmd2)),
     # Key([mod], "F11", lazy.spawn('rofi -show run -fullscreen')),
