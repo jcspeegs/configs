@@ -12,6 +12,9 @@
     ./packages/scripts.nix
   ];
 
+  # Kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # Enable flakes
   nix.settings.experimental-features = [
     "nix-command"
