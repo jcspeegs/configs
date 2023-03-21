@@ -148,6 +148,7 @@ exit_cfg = {
 }
 
 wlan_cfg = {
+    'adapter': os.environ.get('wifi_adapter'),
     'font': bar_attrs.font,
     'fontsize': bar_attrs.fontsize,
     'foreground': bar_attrs.foreground,
