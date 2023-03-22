@@ -148,11 +148,11 @@ exit_cfg = {
 }
 
 wlan_cfg = {
-    'adapter': os.environ.get('wifi_adapter'),
+    'adapter': os.getenv('wifi_adapter'),
     'font': bar_attrs.font,
     'fontsize': bar_attrs.fontsize,
     'foreground': bar_attrs.foreground,
-    'format': '{essid}/{percent:2.0%}',
+    # 'format': '{essid}/{percent:2.0%}',
     'fmt': '󰖩 {}',
 }
 
