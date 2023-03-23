@@ -28,7 +28,7 @@ in {
       networkmanagerapplet
       pavucontrol
       termite
-      # picom-jonaburg
+      picom-jonaburg
       rofi
       rofi-vpn
       rofi-power-menu
@@ -49,16 +49,16 @@ in {
   services.xserver.windowManager.qtile.enable = true;
 
   # https://man.archlinux.org/man/picom.1#CONFIGURATION_FILES
-  services.picom = {
-    enable = true;
-    vSync = false;
-    fade = true;
-    inactiveOpacity = 0.95;
-    settings = {
-      # frame-opacity = 0.85;
-      corner-radius = 15;
-    };
-  };
+  # services.picom = {
+  #   enable = true;
+  #   vSync = false;
+  #   fade = true;
+  #   inactiveOpacity = 0.95;
+  #   settings = {
+  #     # frame-opacity = 0.85;
+  #     corner-radius = 15;
+  #   };
+  # };
 
   environment.sessionVariables = rec {
     XDG_SESSION_DESKTOP  = "qtile";

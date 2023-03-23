@@ -50,7 +50,7 @@ bar_attrs = BarAttrs(**bar_attrs)
 layout_theme = {
     "margin": bar_attrs.gap,
     "border_width": 0,
-    "border_focus": colors.blue_3,
+    "border_focus": colors.blue_2,
     "border_normal": colors.gray_dk,
 }
 
