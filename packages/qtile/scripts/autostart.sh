@@ -7,7 +7,7 @@ function run {
   fi
 }
 
-# run() { [[ ! $(pgrep $1) ]] && $@&
+# run() { [[ ! $( pgrep $1 ) ]] && $@& }
 
 #Set your native resolution IF it does not exist in xrandr
 #More info in the script

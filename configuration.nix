@@ -19,10 +19,10 @@
   ];
 
   # Kernel
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-  environment.systemPackages = [
-    pkgs.linuxKernel.packages.linux_zen.rtl8814au
-  ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # environment.systemPackages = [
+  #   pkgs.linuxKernel.packages.linux_zen.rtl8814au
+  # ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8814au ];
 
   # Bootloader.

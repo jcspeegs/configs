@@ -1,5 +1,5 @@
 {pkgs, ...}:
-  # Build iwlib for use with Wlan widget
+# Build iwlib for use with Wlan widget
 let iwlib = with pkgs; python3.pkgs.buildPythonPackage rec {
   pname = "iwlib";
   version = "1.7.0";
@@ -16,22 +16,19 @@ in {
     ( self: super: {
       qtile = super.qtile.unwrapped.override ( old: rec {
         propagatedBuildInputs = old.propagatedBuildInputs ++ [ iwlib ];
-        pythonImportsCheck = [ "iwlib" ];
-      });
-    })
+        pythonImportsCheck = [ "iwlib" ]; }); })
   ];
 
   environment.systemPackages = with pkgs; [
       betterlockscreen
       qtile
-      # dbus
-      dmenu
       arandr
       ncpamixer
       lm_sensors
       networkmanagerapplet
       pavucontrol
       termite
+      # picom-jonaburg
       rofi
       rofi-vpn
       rofi-power-menu
@@ -40,7 +37,6 @@ in {
       xfce.thunar-volman
       xfce.thunar-archive-plugin
       xfce.thunar-media-tags-plugin
-    # (python310.withPackages my-python-packages)
   ];
 
   fonts.fonts = with pkgs; [
@@ -51,7 +47,19 @@ in {
   ];
 
   services.xserver.windowManager.qtile.enable = true;
-  services.picom.enable = true;
+
+  # https://man.archlinux.org/man/picom.1#CONFIGURATION_FILES
+  services.picom = {
+    enable = true;
+    vSync = false;
+    fade = true;
+    inactiveOpacity = 0.95;
+    backend = "experimental";
+    settings = {
+      # frame-opacity = 0.85;
+      corner-radius = 15;
+    };
+  };
 
   environment.sessionVariables = rec {
     XDG_SESSION_DESKTOP  = "qtile";

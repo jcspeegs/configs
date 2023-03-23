@@ -49,7 +49,7 @@ bar_attrs = BarAttrs(**bar_attrs)
 
 layout_theme = {
     "margin": bar_attrs.gap,
-    "border_width": 2,
+    "border_width": 0,
     "border_focus": colors.blue_3,
     "border_normal": colors.gray_dk,
 }
@@ -132,7 +132,7 @@ memory_cfg = {
     'font': bar_attrs.font,
     'fontsize': bar_attrs.fontsize,
     'foreground': bar_attrs.foreground,
-    'format': '{MemUsed:.1f}{mm}/{MemPercent}%',
+    'format': '{MemUsed:.1f}{mm}/{MemPercent:.0f}%',
     'measure_mem': 'G',
     'fmt': '{}',
 }
@@ -148,11 +148,11 @@ exit_cfg = {
 }
 
 wlan_cfg = {
-    'adapter': os.getenv('wifi_adapter'),
+    'interface': os.getenv('wifi_adapter'),
     'font': bar_attrs.font,
     'fontsize': bar_attrs.fontsize,
     'foreground': bar_attrs.foreground,
-    # 'format': '{essid}/{percent:2.0%}',
+    'format': '{essid}/{percent:2.0%}',
     'fmt': '󰖩 {}',
 }
 
@@ -284,7 +284,7 @@ for i in groups:
 layouts = [
     layout.MonadTall(**layout_theme),
     layout.MonadWide(**layout_theme),
-    layout.Floating(**layout_theme),
+    # layout.Floating(**layout_theme),
     layout.Max(**layout_theme),
     layout.Columns(split=False, **layout_theme),
     # layout.Stack(**layout_theme),
@@ -315,9 +315,9 @@ screens = [
                 # widget.GenPollCommand(update_interval=15, cmd="echo asdf"),
                 widget.Memory(**bar_theme, **memory_cfg),
                 # widget.Sep(**bar_theme, **sep),
-                widget.ThermalSensor(**bar_theme, **thermal_cfg, fmt='{}',
-                                     tag_sensor='Package id 0', threshold=80),
-                widget.NvidiaSensors(**bar_theme, **gpu_cfg, fmt='󰓓{}'),
+                # widget.ThermalSensor(**bar_theme, **thermal_cfg, fmt='{}',
+                #                      tag_sensor='Package id 0', threshold=80),
+                # widget.NvidiaSensors(**bar_theme, **gpu_cfg, fmt='󰓓{}'),
                 # widget.Wlan(**bar_theme, **wlan_cfg),
                 # widget.Sep(**bar_theme, **sep),
                 widget.Systray(**bar_theme, **systray_cfg),
@@ -337,11 +337,6 @@ mouse = [
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
-dgroups_key_binder = None
-dgroups_app_rules = []  # type: list
-follow_mouse_focus = True
-bring_front_click = False
-cursor_warp = False
 floating_layout = layout.Floating(
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
@@ -354,9 +349,6 @@ floating_layout = layout.Floating(
         Match(title="pinentry"),  # GPG key password entry
     ]
 )
-auto_fullscreen = True
-focus_on_window_activation = "smart"
-reconfigure_screens = True
 
 # If things like steam games want to auto-minimize themselves when losing
 # focus, should we respect this or not?
