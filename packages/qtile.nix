@@ -54,7 +54,6 @@ in {
     vSync = false;
     fade = true;
     inactiveOpacity = 0.95;
-    backend = "experimental";
     settings = {
       # frame-opacity = 0.85;
       corner-radius = 15;
