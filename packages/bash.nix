@@ -4,7 +4,7 @@
       (builtins.readFile ./bashrc)
       (builtins.readFile ./alias)
       ''
-        source ${pkgs.powerline}/share/bash/powerline.sh
+        # source ${pkgs.powerline}/share/bash/powerline.sh
       ''
     ];
 
@@ -13,4 +13,9 @@
       l = "ls";
     };
   };
+
+  environment.systemPackages = [ pkgs.starship ];
+  programs.starship.enable = true;
+  # Nerd font symbols
+  # programs.starship.settings = builtins.fromTOML (builtins.readFile ./starship.toml);
 }

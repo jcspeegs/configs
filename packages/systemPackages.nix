@@ -39,4 +39,11 @@
     wpscan
     youtube-dl
   ];
+
+  fonts.fonts = with pkgs; [
+    hack-font
+    # Get nerdfonts override string from:
+    # https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts
+    (nerdfonts.override { fonts = [ "FiraCode" "Hack" "NerdFontsSymbolsOnly"]; })
+  ];
 }
