@@ -4,9 +4,12 @@ from collections import namedtuple
 
 from libqtile import layout, widget, hook
 from libqtile.bar import Bar
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.config import Click, Drag, Group, Key, Match, Screen, \
+    ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+
+home = os.path.expanduser('~')
 
 mod = "mod4"
 mod1 = "alt"
@@ -194,8 +197,7 @@ rofi_cmd = "rofi -show combi -modes combi -combi-modes 'window,drun,run,ssh'" \
 terminal = guess_terminal()
 
 @hook.subscribe.startup_once
-def start_once():
-    home = os.path.expanduser('~')
+def start_once(home=home):
     subprocess.call([home + '/.config/qtile/scripts/autostart.sh'])
 
 keys = [
@@ -243,9 +245,22 @@ keys = [
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+
+    # Scroll groups
+    Key([mod], "Tab", lazy.screen.next_group()),
+    Key([mod, "shift"], "Tab", lazy.screen.prev_group()),
+    Key(["mod1"], "Tab", lazy.screen.next_group()),
+    Key(["mod1", "shift"], "Tab", lazy.screen.prev_group()),
+
+    # Change monitor focus - super-ctrl-[hl]
+    Key([mod, mod2], 'h', lazy.next_screen()),
+    Key([mod, mod2], 'l', lazy.prev_screen()),
+
+    # Dropdown
+    Key([], 'F12', lazy.group['scratchpad'].dropdown_toggle('qtile_log')),
 ]
 
-gconfs = [
+static_groups = [
     {'name': '1', 'label': '', 'layout': 'monadtall',
      'spawn': 'termite'},
     {'name': '2', 'label': '󰈹', 'layout': 'monadtall',
@@ -258,27 +273,27 @@ gconfs = [
      'spawn': 'thunar'},
     {'name': '7', 'label': ""},
 ]
-groups = [Group(**gconf) for gconf in gconfs]
 
-for i in groups:
+qtile_log = f"termite --hold -e 'tail -fn 199 {home}/.local/share/qtile/qtile.log'"
+dropdowns = [{'name': 'qtile_log', 'cmd': qtile_log,
+              'height': 1., 'width': 1., 'x': 0., 'y': 0.}]
+
+dropdowns = [DropDown(**dropdown) for dropdown in dropdowns]
+groups = [Group(**group) for group in static_groups]
+groups += [ScratchPad('scratchpad', dropdowns)]
+
+names = [group.get('name') for group in static_groups]
+for name in names:
     keys.extend([
 
         # Change workspace on current monitor
-        Key([mod], i.name, lazy.group[i.name].toscreen()),
-        Key([mod], "Tab", lazy.screen.next_group()),
-        Key([mod, "shift"], "Tab", lazy.screen.prev_group()),
-        Key(["mod1"], "Tab", lazy.screen.next_group()),
-        Key(["mod1", "shift"], "Tab", lazy.screen.prev_group()),
-
-        # Change monitor focus - super-ctrl-[hl]
-        Key([mod, mod2], 'h', lazy.next_screen()),
-        Key([mod, mod2], 'l', lazy.prev_screen()),
+        Key([mod], name, lazy.group[name].toscreen()),
 
         # MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND STAY ON WORKSPACE
-        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
+        # Key([mod, "shift"], name, lazy.window.togroup(i.name)),
 
         # MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND FOLLOW MOVED WINDOW TO WORKSPACE
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
+        Key([mod, "shift"], name, lazy.window.togroup(name), lazy.group[name].toscreen()),
     ])
 
 layouts = [

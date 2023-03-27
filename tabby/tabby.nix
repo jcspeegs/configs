@@ -3,6 +3,7 @@
   environment.sessionVariables = rec { wifi_adapter = "wlp1s0"; };
   imports = [ ./hardware-configuration.nix ];
   
+  services.xserver.dpi = 130;
   services.xserver.libinput = {
     enable = true;
 
