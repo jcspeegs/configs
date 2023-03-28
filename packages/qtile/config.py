@@ -275,8 +275,8 @@ static_groups = [
 ]
 
 qtile_log = f"termite --hold -e 'tail -fn 199 {home}/.local/share/qtile/qtile.log'"
-dropdowns = [{'name': 'qtile_log', 'cmd': qtile_log,
-              'height': 1., 'width': 1., 'x': 0., 'y': 0.}]
+dropdowns = [{'name': 'qtile_log', 'cmd': qtile_log, 'opacity': 1.,
+              'height': 0.98, 'width': 0.98, 'x': 0.01, 'y': 0.01}]
 
 dropdowns = [DropDown(**dropdown) for dropdown in dropdowns]
 groups = [Group(**group) for group in static_groups]
@@ -299,7 +299,7 @@ for name in names:
 layouts = [
     layout.MonadTall(**layout_theme),
     layout.MonadWide(**layout_theme),
-    # layout.Floating(**layout_theme),
+    layout.Floating(**layout_theme),
     layout.Max(**layout_theme),
     layout.Columns(split=False, **layout_theme),
     # layout.Stack(**layout_theme),

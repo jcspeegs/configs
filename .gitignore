@@ -1,3 +1,5 @@
 *.sw?
 result
 packages/ak/
+__pycache__/
+*.bak
