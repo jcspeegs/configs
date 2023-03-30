@@ -333,7 +333,7 @@ screens = [
                 # widget.ThermalSensor(**bar_theme, **thermal_cfg, fmt='{}',
                 #                      tag_sensor='Package id 0', threshold=80),
                 # widget.NvidiaSensors(**bar_theme, **gpu_cfg, fmt='󰓓{}'),
-                # widget.Wlan(**bar_theme, **wlan_cfg),
+                widget.Wlan(**bar_theme, **wlan_cfg),
                 # widget.Sep(**bar_theme, **sep),
                 widget.Systray(**bar_theme, **systray_cfg),
                 widget.QuickExit(**bar_theme, **exit_cfg),

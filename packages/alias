@@ -1,5 +1,6 @@
 # nixos
-alias nupd="nix flake update --commit-lock-file /home/ugflows/builds/configs && sudo nixos-rebuild switch --flake /home/ugflows/builds/configs#$HOSTNAME"
+alias nupd="sudo nixos-rebuild switch --flake /home/ugflows/builds/configs#$HOSTNAME"
+alias nupdf="nix flake update --commit-lock-file /home/ugflows/builds/configs && sudo nixos-rebuild switch --flake /home/ugflows/builds/configs#$HOSTNAME"
 alias nupt="sudo nixos-rebuild test --flake /home/ugflows/builds/configs#$HOSTNAME"
 alias nconf='vim /etc/nixos/configuration.nix'
 
