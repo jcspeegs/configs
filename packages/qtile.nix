@@ -1,9 +1,10 @@
 {lib, pkgs, ...}:
 let iwlib = pkgs.python3Packages.callPackage qtile/iwlib.nix {};
+# let iwlib = pkgs.python3.pandas;
 in {
   nixpkgs.overlays = [
     ( self: super: {
-      qtile = super.qtile.unwrapped.override ( old: rec {
+      qtile-unwrapped = super.qtile-unwrapped.overrideAttrs ( old: rec {
         propagatedBuildInputs = old.propagatedBuildInputs ++ [ iwlib ];
         pythonImportsCheck = [ "iwlib" ];
       });
