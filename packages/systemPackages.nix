@@ -10,6 +10,10 @@
     fzf
     gimp
     git
+    gnome.nautilus
+    gnome.sushi
+    gvfs
+    gnome.gvfs
     google-chrome
     gparted
     htop-vim
@@ -19,6 +23,7 @@
     mailspring
     mlocate
     mpv
+    networkmanager-openvpn
     nikto
     numix-icon-theme
     numix-icon-theme-circle
@@ -34,6 +39,7 @@
     tdesktop
     tree
     feh
+    sqlmap
     variety
     wget
     wpscan

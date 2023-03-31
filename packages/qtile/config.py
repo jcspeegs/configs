@@ -211,7 +211,7 @@ keys = [
     Key([mod], "Escape", lazy.spawn('xkill')),
 
     # File browser
-    Key([mod], "f", lazy.spawn('thunar')),
+    Key([mod], "f", lazy.spawn('nautilus')),
     # Email
     Key([mod], "m", lazy.spawn('mailspring')),
     # Music
@@ -258,6 +258,7 @@ keys = [
 
     # Dropdown
     Key([], 'F12', lazy.group['scratchpad'].dropdown_toggle('qtile_log')),
+    Key([], 'F8', lazy.group['scratchpad'].dropdown_toggle('pianobar')),
 ]
 
 static_groups = [
@@ -274,9 +275,12 @@ static_groups = [
     {'name': '7', 'label': ""},
 ]
 
-qtile_log = f"termite --hold -e 'tail -fn 199 {home}/.local/share/qtile/qtile.log'"
+pianobar = "termite -e 'pianobar'"
+qtile_log = f"termite -e 'tail -fn 199 {home}/.local/share/qtile/qtile.log'"
 dropdowns = [{'name': 'qtile_log', 'cmd': qtile_log, 'opacity': 1.,
-              'height': 0.98, 'width': 0.98, 'x': 0.01, 'y': 0.01}]
+              'height': 0.98, 'width': 0.98, 'x': 0.01, 'y': 0.01},
+             {'name': 'pianobar', 'cmd': pianobar, 'opacity': .85,
+              'height': 0.98, 'width': 0.32, 'x': 0.01, 'y': 0.01},]
 
 dropdowns = [DropDown(**dropdown) for dropdown in dropdowns]
 groups = [Group(**group) for group in static_groups]
@@ -362,6 +366,8 @@ floating_layout = layout.Floating(
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
+        Match(wm_class="Variety"),  # Variety wallpaper
+        Match(title="Calculator"),
     ]
 )
 
