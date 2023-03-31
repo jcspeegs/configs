@@ -51,6 +51,11 @@ in {
       userEmail = "justin@speegs.com";
     };
 
+    # gtk.iconTheme = {
+    #   name = "Numix-Square";
+    #   package = "numix-icon-theme-square";
+    # };
+
     xdg.configFile = {
       "pianobar/config".source = ./pianobar.conf;
       "termite/config".source = termite/config;
