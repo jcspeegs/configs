@@ -16,12 +16,12 @@
     myMachine = custom: nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = inputs // {inherit system; };
-      modules = custom ++ [ ./configuration.nix ];
+      modules = [ custom ./configuration.nix ];
     };
   in {
     nixosConfigurations = {
-      lightshow = myMachine [ ./lightshow/lightshow.nix ];
-      tabby = myMachine [ ./tabby/tabby.nix ];
+      lightshow = myMachine ./lightshow/lightshow.nix;
+      tabby = myMachine ./tabby/tabby.nix;
     };
   };
 }
