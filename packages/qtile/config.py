@@ -15,16 +15,6 @@ mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
 
-    # return [["#2F343F", "#2F343F"], # color 0 - gray_dk
-    #         ["#2F343F", "#2F343F"], # color 1 - gray_dk
-    #         ["#c0c5ce", "#c0c5ce"], # color 2 - gray_lt
-    #         ["#fba922", "#fba922"], # color 3 - orange
-    #         ["#3384d0", "#3384d0"], # color 4 - blue_1
-    #         ["#f3f4f5", "#f3f4f5"], # color 5 - white
-    #         ["#cd1f3f", "#cd1f3f"], # color 6 - red
-    #         ["#62FF00", "#62FF00"], # color 7 - green
-    #         ["#6790eb", "#6790eb"], # color 8 - blue_2
-    #         ["#a9a9a9", "#a9a9a9"]] # color 9 - gray
 colors = {
     'gray_dk':["#2F343F", "#2F343F"],
     'gray_dk2': ["#4c566a", "#4c566a"],
@@ -56,6 +46,9 @@ layout_theme = {
     "border_focus": colors.blue_2,
     "border_normal": colors.gray_dk,
 }
+
+dropdown_theme = {'opacity': 1., 'height': 0.85, 'width': 0.85,
+                  'x': 0.075, 'y': 0.075}
 
 bar_cfg = {
     'size': 65,
@@ -277,12 +270,10 @@ static_groups = [
 
 pianobar = "termite -e 'pianobar'"
 qtile_log = f"termite -e 'tail -fn 199 {home}/.local/share/qtile/qtile.log'"
-dropdowns = [{'name': 'qtile_log', 'cmd': qtile_log, 'opacity': 1.,
-              'height': 0.98, 'width': 0.98, 'x': 0.01, 'y': 0.01},
-             {'name': 'pianobar', 'cmd': pianobar, 'opacity': .85,
-              'height': 0.98, 'width': 0.32, 'x': 0.01, 'y': 0.01},]
+dropdowns = [{'name': 'qtile_log', 'cmd': qtile_log},
+             {'name': 'pianobar', 'cmd': pianobar},]
 
-dropdowns = [DropDown(**dropdown) for dropdown in dropdowns]
+dropdowns = [DropDown(**dropdown, **dropdown_theme) for dropdown in dropdowns]
 groups = [Group(**group) for group in static_groups]
 groups += [ScratchPad('scratchpad', dropdowns)]
 
@@ -303,7 +294,7 @@ for name in names:
 layouts = [
     layout.MonadTall(**layout_theme),
     layout.MonadWide(**layout_theme),
-    layout.Floating(**layout_theme),
+    # layout.Floating(**layout_theme),
     layout.Max(**layout_theme),
     layout.Columns(split=False, **layout_theme),
     # layout.Stack(**layout_theme),
@@ -357,6 +348,7 @@ mouse = [
 ]
 
 floating_layout = layout.Floating(
+    border_width = 0,
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,
