@@ -3,6 +3,8 @@
   environment.systemPackages = with pkgs; [
     bat
     burpsuite
+    metasploit
+    wapiti
     curl
     discord
     fd

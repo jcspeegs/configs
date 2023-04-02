@@ -14,6 +14,7 @@ in {
   environment.systemPackages = with pkgs; [
       betterlockscreen
       qtile
+      dunst
       arandr
       ncpamixer
       lm_sensors

@@ -122,6 +122,7 @@ battery_cfg = {
     'low_foreground': colors.red,
     'low_percentage': 0.2,
     'notify_below': 0.2,
+    'format': '{char}{percent:2.0%}',
 }
 
 memory_cfg = {
@@ -308,37 +309,33 @@ layouts = [
     # layout.Zoomy(),
 ]
 
-
-screens = [
-    Screen(
-        top=Bar(**bar_cfg,
-            widgets=[
-                widget.GroupBox(**bar_theme, **groupbox_cfg),
-                widget.Spacer(**bar_theme, length=700),
-                widget.Clock(**bar_theme, **clock_cfg),
-                widget.Spacer(**bar_theme),
-                widget.Net(**bar_theme, **net_cfg, fmt='{}', format='{down}'),
-                widget.NetGraph(**bar_theme, **net_graph, bandwidth_type='down'),
-                widget.Net(**bar_theme, **net_cfg, fmt='{}', format='{up}'),
-                widget.NetGraph(**bar_theme, **net_graph, bandwidth_type='up'),
-                # widget.Sep(**bar_theme, **sep),
-                # widget.GenPollCommand(update_interval=15, cmd="echo asdf"),
-                widget.Memory(**bar_theme, **memory_cfg),
-                # widget.Sep(**bar_theme, **sep),
-                # widget.ThermalSensor(**bar_theme, **thermal_cfg, fmt='{}',
-                #                      tag_sensor='Package id 0', threshold=80),
-                # widget.NvidiaSensors(**bar_theme, **gpu_cfg, fmt='󰓓{}'),
-                widget.Wlan(**bar_theme, **wlan_cfg),
-                # widget.Sep(**bar_theme, **sep),
-                widget.Systray(**bar_theme, **systray_cfg),
-                widget.QuickExit(**bar_theme, **exit_cfg),
-            ]
-        )
-    )
+widgets=[
+    widget.GroupBox(**bar_theme, **groupbox_cfg),
+    widget.Spacer(**bar_theme, length=700),
+    widget.Clock(**bar_theme, **clock_cfg),
+    widget.Spacer(**bar_theme),
+    widget.Net(**bar_theme, **net_cfg, fmt='{}', format='{down}'),
+    widget.NetGraph(**bar_theme, **net_graph, bandwidth_type='down'),
+    widget.Net(**bar_theme, **net_cfg, fmt='{}', format='{up}'),
+    widget.NetGraph(**bar_theme, **net_graph, bandwidth_type='up'),
+    # widget.Sep(**bar_theme, **sep),
+    # widget.GenPollCommand(update_interval=15, cmd="echo asdf"),
+    widget.Memory(**bar_theme, **memory_cfg),
+    # widget.Sep(**bar_theme, **sep),
+    # widget.ThermalSensor(**bar_theme, **thermal_cfg, fmt='{}',
+    #                      tag_sensor='Package id 0', threshold=80),
+    # widget.NvidiaSensors(**bar_theme, **gpu_cfg, fmt='󰓓{}'),
+    # widget.Battery(**bar_theme, **battery_cfg),
+    widget.Wlan(**bar_theme, **wlan_cfg),
+    # widget.Sep(**bar_theme, **sep),
+    widget.Systray(**bar_theme, **systray_cfg),
+    widget.QuickExit(**bar_theme, **exit_cfg),
 ]
 
-if os.path.isfile('/sys/class/power_supply/battery_name'):
-    screens.insert(widget.Battery(**bar_theme, **battery_cfg), 11)
+if os.path.isdir('/sys/class/power_supply/BAT1'):
+    widgets.insert(-3, widget.Battery(**bar_theme, **battery_cfg))
+
+screens = [Screen(top=Bar(**bar_cfg, widgets=widgets)) ]
 
 # Drag floating layouts.
 mouse = [
