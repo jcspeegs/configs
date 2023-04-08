@@ -60,6 +60,7 @@ in {
       "pianobar/config".source = ./pianobar.conf;
       "termite/config".source = termite/config;
       "bat/config".source = bat/config;
+      "dunst/dunstrc".source = dunst/dunstrc;
       "qtile" = {
         source = ./qtile;
         recursive = true;
