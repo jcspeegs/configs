@@ -14,112 +14,12 @@ from libqtile.utils import guess_terminal
 home = os.path.expanduser('~')
 cfg = os.path.join(home, '.config', 'qtile', 'config.yaml')
 
-mod = "mod4"
-mod1 = "alt"
-mod2 = "control"
+mod, mod1, mod2 = 'mod4', 'alt', 'control'
+# mod1 = "alt"
+# mod2 = "control"
 
 cfg = Box.from_yaml(filename=cfg)
-colors = cfg.colors
-bar_attrs = cfg.bar_attrs
-layout_theme = cfg.layout_theme
-dropdown_theme = cfg.dropdown_theme
-bar_cfg = cfg.bar_cfg
 bar_theme = cfg.bar_theme
-groupbox_cfg = cfg.groupbox_cfg
-sep = cfg.separator
-net_cfg = cfg.net_cfg
-
-net_graph = {
-    'start_pos': 'top',
-    'border_width': 0,
-    'fill_color': colors.gray_lt,
-    'graph_color': colors.blue_2,
-}
-
-text = {
-    'foreground': bar_attrs.foreground,
-    'fontsize': bar_attrs.fontsize,
-}
-
-clock_cfg = {
-    'foreground': bar_attrs.foreground,
-    'fontsize': 33,
-    'format': '%-I:%M%p %a, %B %-d, %Y',
-    'fmt': ' {}',
-}
-
-battery_cfg = {
-    'charge_char': '󰂅',
-    'discharge_char': '󰁹',
-    'empty_char': '󱃌',
-    'font': bar_attrs.font,
-    'fontsize': bar_attrs.fontsize,
-    'foreground': bar_attrs.foreground,
-    'full_char': '󰁹',
-    'hide_threshold': 0.8,
-    'low_foreground': colors.red,
-    'low_percentage': 0.2,
-    'notify_below': 0.2,
-    'format': '{char}{percent:2.0%}',
-}
-
-memory_cfg = {
-    'font': bar_attrs.font,
-    'fontsize': bar_attrs.fontsize,
-    'foreground': bar_attrs.foreground,
-    'format': '{MemUsed:.1f}{mm}/{MemPercent:.0f}%',
-    'measure_mem': 'G',
-    'fmt': '{}',
-}
-
-systray_cfg = {
-    'icon_size': bar_attrs.fontsize,
-}
-
-exit_cfg = {
-    'default_text': '',
-    'fontsize': bar_attrs.fontsize,
-    'foreground': bar_attrs.foreground,
-}
-
-wlan_cfg = {
-    'interface': os.getenv('wifi_adapter'),
-    'font': bar_attrs.font,
-    'fontsize': bar_attrs.fontsize,
-    'foreground': bar_attrs.foreground,
-    'format': '{essid}/{percent:2.0%}',
-    'fmt': '󰖩 {}',
-}
-
-thermal_cfg = {
-    'font': bar_attrs.font,
-    'fontsize': bar_attrs.fontsize,
-    'foreground': bar_attrs.foreground,
-    'foreground_alert': colors.red,
-    'metric': True,
-    'format': '{temp:.0f}{unit}',
-    'padding': 6,
-}
-
-gpu_cfg = {
-    'font': bar_attrs.font,
-    'fontsize': bar_attrs.fontsize,
-    'foreground': bar_attrs.foreground,
-    'foreground_alert': colors.red,
-    'format': '{temp}°C',
-    'threshold': 80,
-}
-
-ping_cfg = {
-    'cmd': ['ping', 'www.google.com'],
-    # 'cmd': 'ping -c3 www.google.com | tail -n1 | cut -d"/" -f5',
-    # 'fmt': '󰊭{}ms',
-    # 'font': bar_attrs.font,
-    # 'fontsize': bar_attrs.fontsize,
-    # 'foreground': bar_attrs.foreground,
-    # 'shell': True,
-    # 'update_interval': 15,
-}
 
 rofi_cmd = "rofi -show combi -modes combi -combi-modes 'window,drun,run,ssh'" \
     "-font 'Hack 18' -show-icons"
@@ -191,6 +91,7 @@ keys = [
     # Dropdown
     Key([], 'F12', lazy.group['scratchpad'].dropdown_toggle('qtile_log')),
     Key([], 'F8', lazy.group['scratchpad'].dropdown_toggle('pianobar')),
+    Key([mod], "grave", lazy.group['scratchpad'].dropdown_toggle('dropterm')),
 ]
 
 static_groups = [
@@ -209,10 +110,12 @@ static_groups = [
 
 pianobar = "termite -e 'pianobar'"
 qtile_log = f"termite -e 'tail -fn 199 {home}/.local/share/qtile/qtile.log'"
+dropterm = "termite"
 dropdowns = [{'name': 'qtile_log', 'cmd': qtile_log},
-             {'name': 'pianobar', 'cmd': pianobar},]
+             {'name': 'pianobar', 'cmd': pianobar},
+             {'name': 'dropterm', 'cmd': dropterm},]
 
-dropdowns = [DropDown(**dropdown, **dropdown_theme) for dropdown in dropdowns]
+dropdowns = [DropDown(**dropdown, **cfg.dropdown_theme) for dropdown in dropdowns]
 groups = [Group(**group) for group in static_groups]
 groups += [ScratchPad('scratchpad', dropdowns)]
 
@@ -231,12 +134,11 @@ for name in names:
     ])
 
 layouts = [
-    layout.MonadTall(**layout_theme),
-    layout.MonadWide(**layout_theme),
-    # layout.Floating(**layout_theme),
-    layout.Max(**layout_theme),
-    layout.Columns(split=False, **layout_theme),
-    # layout.Stack(**layout_theme),
+    layout.MonadTall(**cfg.layout_theme),
+    layout.MonadWide(**cfg.layout_theme),
+    layout.Max(**cfg.layout_theme),
+    layout.Columns(split=False, **cfg.layout_theme),
+    # layout.Stack(**cfg.layout_theme),
     # Try more layouts by unleashing below layouts.
     # layout.Bsp(),
     # layout.Matrix(),
@@ -248,32 +150,29 @@ layouts = [
 ]
 
 widgets=[
-    widget.GroupBox(**bar_theme, **groupbox_cfg),
+    widget.GroupBox(**bar_theme, **cfg.groupbox_cfg),
     widget.Spacer(**bar_theme, length=700),
-    widget.Clock(**bar_theme, **clock_cfg),
+    widget.Clock(**bar_theme, **cfg.clock_cfg),
     widget.Spacer(**bar_theme),
-    widget.Net(**bar_theme, **net_cfg, fmt='{}', format='{down}'),
-    widget.NetGraph(**bar_theme, **net_graph, bandwidth_type='down'),
-    widget.Net(**bar_theme, **net_cfg, fmt='{}', format='{up}'),
-    widget.NetGraph(**bar_theme, **net_graph, bandwidth_type='up'),
-    # widget.Sep(**bar_theme, **sep),
+    widget.Net(**bar_theme, **cfg.net_cfg, fmt='{}', format='{down}'),
+    widget.NetGraph(**bar_theme, **cfg.net_graph, bandwidth_type='down'),
+    widget.Net(**bar_theme, **cfg.net_cfg, fmt='{}', format='{up}'),
+    widget.NetGraph(**bar_theme, **cfg.net_graph, bandwidth_type='up'),
     # widget.GenPollCommand(update_interval=15, cmd="echo asdf"),
-    widget.Memory(**bar_theme, **memory_cfg),
-    # widget.Sep(**bar_theme, **sep),
-    # widget.ThermalSensor(**bar_theme, **thermal_cfg, fmt='{}',
+    widget.Memory(**bar_theme, **cfg.memory_cfg),
+    # widget.ThermalSensor(**bar_theme, **cfg.thermal_cfg, fmt='{}',
     #                      tag_sensor='Package id 0', threshold=80),
-    # widget.NvidiaSensors(**bar_theme, **gpu_cfg, fmt='󰓓{}'),
-    # widget.Battery(**bar_theme, **battery_cfg),
-    widget.Wlan(**bar_theme, **wlan_cfg),
-    # widget.Sep(**bar_theme, **sep),
-    widget.Systray(**bar_theme, **systray_cfg),
-    widget.QuickExit(**bar_theme, **exit_cfg),
+    # widget.NvidiaSensors(**bar_theme, **cfg.gpu_cfg, fmt='󰓓{}'),
+    # widget.Battery(**bar_theme, **cfg.battery_cfg),
+    widget.Wlan(**bar_theme, **cfg.wlan_cfg, interface=os.getenv('wifi_adapter')),
+    widget.Systray(**bar_theme, **cfg.systray_cfg),
+    widget.QuickExit(**bar_theme, **cfg.exit_cfg),
 ]
 
 if os.path.isdir('/sys/class/power_supply/BAT1'):
-    widgets.insert(-3, widget.Battery(**bar_theme, **battery_cfg))
+    widgets.insert(-3, widget.Battery(**bar_theme, **cfg.battery_cfg))
 
-screens = [Screen(top=Bar(**bar_cfg, widgets=widgets)) ]
+screens = [Screen(top=Bar(**cfg.bar_cfg, widgets=widgets)) ]
 
 # Drag floating layouts.
 mouse = [

@@ -5,14 +5,14 @@ colors:
   gray_lt: &fg '#c0c5ce'
   orange: '#fba922'
   blue_1: '#3384d0'
-  blue_2: &accent '#6790eb'
+  blue_2: '#6790eb'
   blue_3: '#4c566a'
   white: '#f3f4f5'
-  red: '#cd1f3f'
-  green: '#62FF00'
+  red: &red '#cd1f3f'
+  green: &accent '#9dec92'
 
 bar_attrs:
-  font: &font Hack
+  font: &font FiraCode
   fontsize: &font_size 26
   foreground: *fg
   gap: &gap 20
@@ -63,3 +63,85 @@ net_cfg:
   padding: 0
   prefix: M
   use_bits: True
+
+net_graph:
+    start_pos: top
+    border_width: 0
+    fill_color: *fg
+    graph_color: *accent
+
+# text:
+#     foreground: *fg
+#     fontsize: *font_size
+
+clock_cfg:
+    foreground: *fg
+    font: *font
+    fontsize: 33
+    format: '%-I:%M%p %a %B %-d %Y'
+    fmt: ' {}'
+
+battery_cfg:
+    charge_char: '󰂅'
+    discharge_char: '󰁹'
+    empty_char: '󱃌'
+    font: *font
+    fontsize: *font_size
+    foreground: *fg
+    full_char: '󰁹'
+    hide_threshold: 0.8
+    low_foreground: *red
+    low_percentage: 0.2
+    notify_below: 0.2
+    format: '{char}{percent:2.0%}'
+
+memory_cfg:
+    font: *font
+    fontsize: *font_size
+    foreground: *fg
+    format: '{MemUsed:.1f}{mm}/{MemPercent:.0f}%'
+    measure_mem: G
+    fmt: '{}'
+
+systray_cfg:
+    icon_size: *font_size
+
+exit_cfg:
+    default_text: ''
+    fontsize: *font_size
+    foreground: *fg
+
+wlan_cfg:
+    font: *font
+    fontsize: *font_size
+    foreground: *fg
+    format: '{essid}/{percent:2.0%}'
+    fmt: '󰖩 {}'
+
+thermal_cfg:
+    font: *font
+    fontsize: *font_size
+    foreground: *fg
+    foreground_alert: *red
+    metric: True
+    format: '{temp:.0f}{unit}'
+    padding: 6
+
+gpu_cfg:
+    font: *font
+    fontsize: *font_size
+    foreground: *fg
+    foreground_alert: *red
+    format: '{temp}°C'
+    threshold: 80
+
+# ping_cfg:
+#     cmd: [ping www.google.com]
+#     # cmd: ping -c3 www.google.com | tail -n1 | cut -d"/" -f5
+#     # fmt: 󰊭{}ms
+#     # font: bar_attrs.font
+#     # fontsize: bar_attrs.fontsize
+#     # foreground: bar_attrs.foreground
+#     # shell: True
+#     # update_interval: 15
+
