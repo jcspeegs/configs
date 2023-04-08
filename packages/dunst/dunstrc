@@ -110,9 +110,7 @@
     # idle_threshold = 120
 
     ### Text ###
-
-    font = FiraCode Nerd Font 20
-    # font = Hack 24
+    font = FiraCode Nerd Font 18
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
@@ -153,7 +151,7 @@
     #   %%  Literal %
     # Markup is allowed
     # format = "<b>%s</b>\n%b"
-    format = "<b>%a</b>:%s\n%b"
+    format = "<big>%a</big>\n%s\n%b"
 
     # Alignment of message text: left center right
     alignment = left
@@ -274,7 +272,7 @@
     mouse_right_click = close_all
 
     corner_radius = 15
-    background = "#6790eb60"
+    background = "#9dec9225"
     foreground = "#f3f4f5"
 
 # Experimental features that may or may not work correctly. Do not expect them
