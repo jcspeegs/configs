@@ -31,13 +31,14 @@ esac
 #(conky -c $HOME/.config/qtile/scripts/system-overview) &
 
 #starting utility applications at boot time
+picom --config /etc/nixos/packages/picom.conf --experimental-backend &
+dunst --config ~/.config/dunst/dunstrc &
 run variety &
 run nm-applet &
 # run pamac-tray &
 # run xfce4-power-manager &
 # numlockx on &
 # blueberry-tray &
-picom --config /etc/nixos/packages/picom.conf --experimental-backend &
 # /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 # /usr/lib/xfce4/notifyd/xfce4-notifyd &
 # run /opt/piavpn/bin/pia-client &
