@@ -24,16 +24,17 @@
     # dynamic width from 0 to 300
     # width = (0, 300)
     # constant width of 300
-    width = 300
+    width = 750
 
     # The maximum height of a single notification, excluding the frame.
     height = 300
 
-    # Position the notification in the top right corner
-    origin = top-right
+    # Position: top-left top-center top-right bottom-left bottom-center
+    # bottom-right left-center center right-center
+    origin = bottom-center
 
     # Offset from the origin
-    offset = 10x50
+    # offset = 10x50
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
@@ -41,26 +42,13 @@
     # Maximum number of notification (0 means no limit)
     notification_limit = 20
 
-    ### Progress bar ###
-
-    # Turn on the progess bar. It appears when a progress hint is passed with
-    # for example dunstify -h int:value:12
+    # Progress bar
+    # example: dunstify -h int:value:12
     progress_bar = true
-
-    # Set the progress bar height. This includes the frame, so make sure
-    # it's at least twice as big as the frame width.
     progress_bar_height = 10
-
-    # Set the frame width of the progress bar
     progress_bar_frame_width = 1
-
-    # Set the minimum width for the progress bar
     progress_bar_min_width = 150
-
-    # Set the maximum width for the progress bar
     progress_bar_max_width = 300
-
-    # Corner radius for the progress bar. 0 disables rounded corners.
     progress_bar_corner_radius = 0
 
     # Corner radius for the icon image.
@@ -73,7 +61,7 @@
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing window manager is
     # present (e.g. xcompmgr, compiz, etc.). (X11 only)
-    transparency = 0
+    # transparency = 70
 
     # Draw a line of "separator_height" pixel height between two
     # notifications.
@@ -92,10 +80,10 @@
 
     # Defines width in pixels of frame around the notification window.
     # Set to 0 to disable.
-    frame_width = 3
+    frame_width = 0
 
     # Defines color of the frame around the notification window.
-    frame_color = "#aaaaaa"
+    frame_color = "#c0c5ce"
 
     # Size of gap to display between notifications - requires a compositor.
     # If value is greater than 0, separator_height will be ignored and a border
@@ -123,7 +111,8 @@
 
     ### Text ###
 
-    font = Monospace 8
+    font = FiraCode Nerd Font 20
+    # font = Hack 24
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
@@ -163,32 +152,27 @@
     #   %n  progress value if set without any extra characters
     #   %%  Literal %
     # Markup is allowed
-    format = "<b>%s</b>\n%b"
+    # format = "<b>%s</b>\n%b"
+    format = "<b>%a</b>:%s\n%b"
 
-    # Alignment of message text.
-    # Possible values are "left", "center" and "right".
+    # Alignment of message text: left center right
     alignment = left
 
-    # Vertical alignment of message text and icon.
-    # Possible values are "top", "center" and "bottom".
+    # Vertical alignment of message text and icon: top center bottom
     vertical_alignment = center
 
-    # Show age of message if message is older than show_age_threshold
-    # seconds.
+    # Show age of message if message is older than show_age_threshold seconds.
     # Set to -1 to disable.
     show_age_threshold = 60
 
-    # Specify where to make an ellipsis in long lines.
-    # Possible values are "start", "middle" and "end".
+    # Specify where to make an ellipsis in long lines: start middle end
     ellipsize = middle
 
     # Ignore newlines '\n' in notifications.
     ignore_newline = no
 
-    # Stack together notifications with the same content
+    # Stacks
     stack_duplicates = true
-
-    # Hide the count of stacked notifications with the same content
     hide_duplicate_count = false
 
     # Display indicators for URLs (U) and actions (A).
@@ -202,8 +186,6 @@
 
     # Set icon theme (only used for recursive icon lookup)
     icon_theme = "Numix-Circle, Adwaita"
-    # You can also set multiple icon themes, with the leftmost one being used first.
-    # icon_theme = "Adwaita, breeze"
 
     # Align icons left/right/top/off
     icon_position = left
@@ -217,7 +199,7 @@
     max_icon_size = 128
 
     # Paths to default icons (only neccesary when not using recursive icon lookup)
-    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+    # icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
 
     ### History ###
 
@@ -231,7 +213,8 @@
     ### Misc/Advanced ###
 
     # dmenu path.
-    dmenu = /usr/bin/dmenu -p dunst:
+    # dmenu = /usr/bin/dmenu -p dunst:
+    dmenu = rofi -dmenu -p dunst
 
     # Browser for opening urls in context menu.
     browser = /usr/bin/xdg-open
@@ -239,18 +222,9 @@
     # Always run rule-defined scripts, even if the notification is suppressed
     always_run_script = true
 
-    # Define the title of the windows spawned by dunst
-    title = Dunst
-
-    # Define the class of the windows spawned by dunst
+    # Define the class and title of the windows spawned by dunst
     class = Dunst
-
-    # Define the corner radius of the notification window
-    # in pixel size. If the radius is 0, you have no rounded
-    # corners.
-    # The radius will be automatically lowered if it exceeds half of the
-    # notification height to avoid clipping text and/or icons.
-    corner_radius = 15
+    title = Dunst
 
     # Ignore the dbus closeNotification message.
     # Useful to enforce the timeout set by dunst configuration. Without this
@@ -299,6 +273,10 @@
     mouse_middle_click = do_action, close_current
     mouse_right_click = close_all
 
+    corner_radius = 15
+    background = "#6790eb60"
+    foreground = "#f3f4f5"
+
 # Experimental features that may or may not work correctly. Do not expect them
 # to have a consistent behaviour across releases.
 [experimental]
@@ -309,12 +287,11 @@
     # where there are multiple screens with very different dpi values.
     per_monitor_dpi = false
 
-background = "#6790eb75"
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
     # background = "#222222"
-    foreground = "#888888"
+    # foreground = "#888888"
     timeout = 10
     # Icon for notifications with low urgency, uncomment to enable
     #default_icon = /path/to/icon
