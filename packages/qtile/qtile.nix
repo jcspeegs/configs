@@ -1,17 +1,18 @@
 {lib, pkgs, ...}:
-let iwlib = pkgs.python3Packages.callPackage qtile/iwlib.nix {};
-# let iwlib = pkgs.python3.pandas;
+with pkgs.python3Packages;
+let iwlib = callPackage ./iwlib.nix {};
 in {
   nixpkgs.overlays = [
     ( self: super: {
       qtile-unwrapped = super.qtile-unwrapped.overrideAttrs ( old: rec {
-        propagatedBuildInputs = old.propagatedBuildInputs ++ [ iwlib ];
-        pythonImportsCheck = [ "iwlib" ];
+        propagatedBuildInputs = old.propagatedBuildInputs
+          ++ [ iwlib python-box pyyaml ];
+        pythonImportsCheck = [ "iwlib" "box" "yaml" ];
       });
     })
   ];
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs;[
       betterlockscreen
       qtile
       dunst

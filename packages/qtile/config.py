@@ -1,6 +1,8 @@
 import os
 import subprocess
 from collections import namedtuple
+from box import Box
+import yaml
 
 from libqtile import layout, widget, hook
 from libqtile.bar import Bar
@@ -10,86 +12,22 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 home = os.path.expanduser('~')
+cfg = os.path.join(home, '.config', 'qtile', 'config.yaml')
 
 mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
 
-colors = {
-    'gray_dk':["#2F343F", "#2F343F"],
-    'gray_dk2': ["#4c566a", "#4c566a"],
-    'gray': ["#a9a9a9", "#a9a9a9"],
-    'gray_lt': ["#c0c5ce", "#c0c5ce"],
-    'orange': ["#fba922", "#fba922"],
-    'blue_1': ["#3384d0", "#3384d0"],
-    'blue_2': ["#6790eb", "#6790eb"],
-    'blue_3': ["#4c566a", "#4c566a"],
-    'white': ["#f3f4f5", "#f3f4f5"],
-    'red': ["#cd1f3f", "#cd1f3f"],
-    'green': ["#62FF00", "#62FF00"],
-}
-Colors = namedtuple('Colors', colors.keys())
-colors = Colors(**colors)
-
-bar_attrs = {
-    'font': 'Hack',
-    'fontsize': 26,
-    'foreground': colors.gray_lt,
-    'gap': 20,
-}
-BarAttrs = namedtuple('BarAttrs', bar_attrs.keys())
-bar_attrs = BarAttrs(**bar_attrs)
-
-layout_theme = {
-    "margin": bar_attrs.gap,
-    "border_width": 0,
-    "border_focus": colors.blue_2,
-    "border_normal": colors.gray_dk,
-}
-
-dropdown_theme = {'opacity': 1., 'height': 0.85, 'width': 0.85,
-                  'x': 0.075, 'y': 0.075}
-
-bar_cfg = {
-    'size': 65,
-    'opacity': 0.85,
-    'margin': [10, bar_attrs.gap, 0, bar_attrs.gap],
-}
-
-bar_theme = {
-    'background': colors.gray_dk,
-}
-
-groupbox_cfg = {
-    'fontsize': 70,
-    'margin_y': 3,
-    'margin_x': 0,
-    'padding_y': 6,
-    'padding_x': 3,
-    'borderwidth': 0,
-    'disable_drag': True,
-    'active': colors.white,
-    'inactive': colors.gray,
-    'rounded': False,
-    'highlight_method': "text",
-    'this_current_screen_border': colors.blue_2,
-    'foreground': bar_attrs.foreground,
-}
-
-sep = {
-    'linewidth': 1,
-    'padding': 10,
-    'foreground': bar_attrs.foreground,
-}
-
-net_cfg = {
-    'font': bar_attrs.font,
-    'fontsize': bar_attrs.fontsize,
-    'foreground': bar_attrs.foreground,
-    'padding': 0,
-    'prefix': 'M',
-    'use_bits': True,
-}
+cfg = Box.from_yaml(filename=cfg)
+colors = cfg.colors
+bar_attrs = cfg.bar_attrs
+layout_theme = cfg.layout_theme
+dropdown_theme = cfg.dropdown_theme
+bar_cfg = cfg.bar_cfg
+bar_theme = cfg.bar_theme
+groupbox_cfg = cfg.groupbox_cfg
+sep = cfg.separator
+net_cfg = cfg.net_cfg
 
 net_graph = {
     'start_pos': 'top',
