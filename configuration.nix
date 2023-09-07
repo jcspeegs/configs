@@ -44,6 +44,14 @@
   services.xserver.enable = true;
   # services.xserver.excludePackages = [ pkgs.xterm ];
 
+  # Tor
+  # services.tor.settings = {
+  #   UseBridges = true;
+  #   ClientTransportPlugin = "obfs4 exec ${pkgs.obfs4}/bin/obfs4proxy";
+  #   Bridge = "obfs4 IP:ORPort [fingerprint]";
+  # };
+  # services.tor.client.enable = true;
+
   # Configure keymap in X11
   services.xserver = {
     layout = "us";
