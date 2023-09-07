@@ -1,12 +1,14 @@
 {lib, pkgs, ...}:
 with pkgs.python3Packages;
-let iwlib = callPackage ./iwlib.nix {};
-in {
+# let iwlib = callPackage ./iwlib.nix {};
+# in {
+{
   nixpkgs.overlays = [
     ( self: super: {
       qtile-unwrapped = super.qtile-unwrapped.overrideAttrs ( old: rec {
         propagatedBuildInputs = old.propagatedBuildInputs
-          ++ [ iwlib python-box pyyaml ];
+          ++ [ iwlib python-box pyyaml ]
+        ;
         pythonImportsCheck = [ "iwlib" "box" "yaml" ];
       });
     })
@@ -14,7 +16,7 @@ in {
 
   environment.systemPackages = with pkgs;[
       betterlockscreen
-      qtile
+      stable.qtile
       dunst
       arandr
       ncpamixer
@@ -31,9 +33,14 @@ in {
       xfce.thunar-volman
       xfce.thunar-archive-plugin
       xfce.thunar-media-tags-plugin
-  ];
+    ]
+    ;
 
-  services.xserver.windowManager.qtile.enable = true;
+    services.xserver.windowManager.qtile = {
+      enable = true;
+      # Use stable overlay
+      package = pkgs.stable.qtile;
+    };
 
   # https://man.archlinux.org/man/picom.1#CONFIGURATION_FILES
   # services.picom = {
