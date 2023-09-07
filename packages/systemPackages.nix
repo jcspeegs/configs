@@ -2,21 +2,41 @@
 
   environment.systemPackages = with pkgs; [
     bat
+    discord
     burpsuite
+    thc-hydra
+    nikto
+    nmap
     metasploit
     wapiti
+    aircrack-ng
+    wifite2
+    iw
+    tshark
+    reaverwps-t6x
+    bully
+    cowpatty
+    hashcat
+    pixiewps
+    kismet
+    airgeddon
+    wavemon
     curl
     discord
     fd
     firefox
+    tor-browser-bundle-bin
+    xorg.libpciaccess
     fzf
     gimp
     git
     gnome.nautilus
     gnome.sushi
+    gtop
     gvfs
     gnome.gvfs
     google-chrome
+    tor-browser-bundle-bin
     gparted
     htop-vim
     inkscape
@@ -26,7 +46,6 @@
     mlocate
     mpv
     networkmanager-openvpn
-    nikto
     numix-icon-theme
     numix-icon-theme-circle
     numix-icon-theme-square
@@ -46,12 +65,19 @@
     wget
     wpscan
     youtube-dl
+    virtualbox
   ];
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     hack-font
     # Get nerdfonts override string from:
     # https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts
-    (nerdfonts.override { fonts = [ "FiraCode" "Hack" "NerdFontsSymbolsOnly"]; })
+    ( nerdfonts.override { fonts = [ "FiraCode" "Hack" "NerdFontsSymbolsOnly" ]; } )
   ];
+
+  # nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+  #   "steam"
+  #   "steam-original"
+  #   "steam-runtime"
+  # ];
 }
