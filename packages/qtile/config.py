@@ -97,8 +97,9 @@ keys = [
 static_groups = [
     {'name': '1', 'label': '', 'layout': 'monadtall',
      'spawn': 'termite'},
-    {'name': '2', 'label': '󰈹', 'layout': 'monadtall',
-     'spawn': 'firefox -P "default" --class="firefox"'},
+    # {'name': '2', 'label': '󰈹', 'layout': 'monadtall',
+    #  'spawn': 'firefox -P "default" --class="firefox"'},
+    {'name': '2', 'label': '󰈹', 'layout': 'monadtall'},
     {'name': '3', 'label': ""},
     {'name': '4', 'label': "", 'layout': 'columns',
      'spawn': ['mailspring', 'telegram-desktop']},
