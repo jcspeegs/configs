@@ -75,6 +75,10 @@
     ( nerdfonts.override { fonts = [ "FiraCode" "Hack" "NerdFontsSymbolsOnly" ]; } )
   ];
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "mailspring-1.11.0"
+  ]
+
   # nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
   #   "steam"
   #   "steam-original"

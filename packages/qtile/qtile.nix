@@ -7,7 +7,7 @@ with pkgs.python3Packages;
     ( self: super: {
       qtile-unwrapped = super.qtile-unwrapped.overrideAttrs ( old: rec {
         propagatedBuildInputs = old.propagatedBuildInputs
-          ++ [ iwlib python-box pyyaml ]
+          ++ [ /*iwlib*/ python-box pyyaml ]
         ;
         pythonImportsCheck = [ "iwlib" "box" "yaml" ];
       });
