@@ -76,7 +76,7 @@
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
-    "mailspring-1.11.0"
+    "mailspring-1.12.0"
   ];
 
   # nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
