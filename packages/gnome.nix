@@ -16,7 +16,7 @@
     gnome-tour
   ]) ++ (with pkgs.gnome; [
     gnome-music
-    gedit
+    # gedit
     epiphany
     geary
     totem
