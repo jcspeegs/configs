@@ -3,7 +3,7 @@
 {
   imports = [
     ./packages/gnome.nix
-    ./packages/qtile/qtile.nix
+    # ./packages/qtile/qtile.nix
     ./packages/users.nix
     ./packages/systemPackages.nix
     ./packages/vim.nix
