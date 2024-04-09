@@ -53,9 +53,9 @@
   # services.tor.client.enable = true;
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "";
+    variant = "";
   };
 
   hardware.opengl.enable = true;
@@ -98,7 +98,7 @@
   services.locate = {
     enable = true;
     interval = "hourly";
-    locate = pkgs.mlocate;
+    package = pkgs.mlocate;
     localuser = null;
   };
 
