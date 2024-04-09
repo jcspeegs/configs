@@ -68,6 +68,7 @@
     virtualbox
     kubectl
     dig
+    ripgrep
   ];
 
   fonts.packages = with pkgs; [
