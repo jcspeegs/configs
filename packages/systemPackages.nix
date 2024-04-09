@@ -66,6 +66,8 @@
     wpscan
     youtube-dl
     virtualbox
+    kubectl
+    dig
   ];
 
   fonts.packages = with pkgs; [
