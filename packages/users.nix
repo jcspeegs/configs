@@ -49,6 +49,7 @@ in {
     programs.git = {
       enable = true;
       userEmail = "justin@speegs.com";
+      ignores = lib.splitString "\n" (builtins.readFile git/gitignore);
     };
 
     # gtk.iconTheme = {
