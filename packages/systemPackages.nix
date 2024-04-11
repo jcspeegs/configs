@@ -67,6 +67,7 @@
     youtube-dl
     virtualbox
     kubectl
+    kubernetes-helm
     dig
     ripgrep
   ];
