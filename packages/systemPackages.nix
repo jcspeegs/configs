@@ -1,6 +1,10 @@
 { pkgs, ... }: {
 
   environment.systemPackages = with pkgs; [
+    # guake
+    man-pages
+    man-pages-posix
+    linux-manual
     bat
     discord
     burpsuite
@@ -70,6 +74,10 @@
     kubernetes-helm
     dig
     ripgrep
+    nfs-utils
+    argocd
+    kubeseal
+    jq
   ];
 
   fonts.packages = with pkgs; [

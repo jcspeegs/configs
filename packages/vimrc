@@ -136,7 +136,7 @@ command! -bang FZFHome call fzf#vim#files('~', <bang>0)
 nnoremap <silent> <leader><F1> :Helptags<CR>
 
 " NERDTree
-" map <leader> :NERDTreeToggle<CR>
+map <leader>t :NERDTreeToggle<CR>
 " open NERDTree on vim start up
 "autocmd vimenter * NERDTree
 " close vim if only NERDTree window is open

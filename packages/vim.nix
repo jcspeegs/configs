@@ -15,6 +15,9 @@
           fzf-vim
           vim-fugitive
           ale
+          nerdtree
+          # vim-nerdtree-syntax-highlight
+          # vim-devicons
         ];
         opt = [];
       };
