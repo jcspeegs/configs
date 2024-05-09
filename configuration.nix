@@ -9,6 +9,7 @@
     ./packages/vim.nix
     ./packages/tmux.nix
     ./packages/bash.nix
+    ./packages/fish/fish.nix
     ./packages/scripts.nix
   ];
 

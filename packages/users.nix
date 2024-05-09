@@ -74,6 +74,10 @@ in {
         source = ./rofi;
         recursive = true;
       };
+      "fish/functions" = {
+        source = fish/functions;
+        recursive = true;
+      };
     };
   };
 }
