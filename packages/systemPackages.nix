@@ -1,7 +1,7 @@
 { pkgs, ... }: {
 
   environment.systemPackages = with pkgs; [
-    # guake
+    guake
     man-pages
     man-pages-posix
     linux-manual

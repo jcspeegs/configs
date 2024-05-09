@@ -14,7 +14,8 @@ bind '"":"tmux-sessionizer\n"'
 stty stop ''
 bind '"":"tmux-sessionizer ~/builds/scripts/ \"vim \\`fd . | fzf\\`\"\n"'
 bind '"":"tmux-sessionizer ~/builds/configs/ \"vim \\`fd . | fzf\\`\"\n"'
-bind '"":"tmux-sessionizer pianobar pianobar\n"'
+# bind '"":"tmux-sessionizer pianobar pianobar\n"'
+bind '"":"guake --show -e \"tmux-sessionizer pianobar pianobar\"\n"'
 
 # ipython
 export IPYTHONDIR=~/.config/ipython
