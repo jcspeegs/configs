@@ -106,6 +106,14 @@
   # Tailscale
   services.tailscale.enable = true;
 
+  # Man pages
+  documentation = {
+    enable = true;
+    man.enable = true;
+    nixos.enable = true;
+    dev.enable = true;
+  };
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 

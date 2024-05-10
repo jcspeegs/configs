@@ -1,6 +1,7 @@
 { pkgs, ... }: {
 
   environment.systemPackages = with pkgs; [
+    neofetch
     guake
     man-pages
     man-pages-posix

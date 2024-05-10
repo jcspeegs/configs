@@ -78,6 +78,8 @@ in {
         source = fish/functions;
         recursive = true;
       };
+      "fish/config.fish".source = fish/config.fish;
+      "fzfrc".source = ./fzfrc;
     };
   };
 }

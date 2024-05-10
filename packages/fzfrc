@@ -1,0 +1,1 @@
+--height 50% --layout=reverse --border --preview="[[ \$(file --mime {}) =~ binary ]] && echo {} is a binary file || cat {} | head -300" --bind="F2:toggle-preview,ctrl-d:half-page-down,ctrl-u:half-page-up" --no-mouse --multi --preview-window="hidden:wrap"
