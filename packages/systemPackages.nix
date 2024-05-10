@@ -3,6 +3,7 @@
   environment.systemPackages = with pkgs; [
     neofetch
     guake
+    man
     man-pages
     man-pages-posix
     linux-manual
@@ -79,6 +80,7 @@
     argocd
     kubeseal
     jq
+    postgresql
   ];
 
   fonts.packages = with pkgs; [
