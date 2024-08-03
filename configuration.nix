@@ -24,7 +24,7 @@
   # environment.systemPackages = [
   #   pkgs.linuxKernel.packages.linux_zen.rtl8814au
   # ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8814au ];
+  # boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8814au ];
 
   # Bootloader.
   boot.loader = {
@@ -59,13 +59,14 @@
     variant = "";
   };
 
-  hardware.opengl.enable = true;
+  # hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
+  # sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {

@@ -1,12 +1,14 @@
 { pkgs, ... }: {
 
   environment.systemPackages = with pkgs; [
+    tailscale
+    yamllint
     neofetch
     guake
     man
-    man-pages
-    man-pages-posix
-    linux-manual
+    # man-pages
+    # man-pages-posix
+    # linux-manual
     bat
     discord
     burpsuite
@@ -36,8 +38,8 @@
     fzf
     gimp
     git
-    gnome.nautilus
-    gnome.sushi
+    nautilus
+    sushi
     gtop
     gvfs
     gnome.gvfs
@@ -61,7 +63,7 @@
     pianobar
     plexamp
     plex-media-player
-    powerline
+    python311Packages.powerline
     # powerline-fonts
     tdesktop
     tree
@@ -70,7 +72,8 @@
     variety
     wget
     wpscan
-    youtube-dl
+    # youtube-dl
+    yt-dlp
     virtualbox
     kubectl
     kubernetes-helm

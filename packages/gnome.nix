@@ -7,19 +7,19 @@
   };
 
   environment.systemPackages = with pkgs; [
-    gnome.gnome-tweaks
+    gnome-tweaks
   ];
 
   # Exclude default gnome apps
   environment.gnome.excludePackages = (with pkgs; [
     gnome-photos
     gnome-tour
-  ]) ++ (with pkgs.gnome; [
-    gnome-music
-    # gedit
     epiphany
     geary
     totem
+  ]) ++ (with pkgs.gnome; [
+    gnome-music
+    # gedit
   ]);
 
   # services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
