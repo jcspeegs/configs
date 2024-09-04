@@ -3,8 +3,8 @@
   environment.systemPackages = with pkgs; [
     tailscale
     yamllint
-    neofetch
     guake
+    neofetch
     man
     # man-pages
     # man-pages-posix
