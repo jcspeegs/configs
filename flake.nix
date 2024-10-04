@@ -14,16 +14,16 @@
   outputs = { self, nixpkgs, nixpkgs-stable, ... }@inputs:
   let
     system = "x86_64-linux";
-    overlay-stable = _: prev: {
-      stable = nixpkgs-stable.legacyPackages.${prev.system};
-    };
+    # overlay-stable = _: prev: {
+    #   stable = nixpkgs-stable.legacyPackages.${prev.system};
+    # };
     myMachine = custom: nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = inputs // {inherit system; };
       modules = [
         custom
         ./configuration.nix
-        ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-stable ]; })
+        # ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-stable ]; })
       ];
     };
   in {

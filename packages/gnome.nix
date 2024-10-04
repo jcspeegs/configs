@@ -17,10 +17,12 @@
     epiphany
     geary
     totem
-  ]) ++ (with pkgs.gnome; [
     gnome-music
-    # gedit
   ]);
+  # ]) ++ (with pkgs.gnome; [
+  #   gnome-music
+  #   # gedit
+  # ]);
 
   # services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
   # [org/gnome/desktop/interface]

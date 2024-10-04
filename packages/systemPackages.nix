@@ -35,7 +35,6 @@
     firefox
     tor-browser-bundle-bin
     xorg.libpciaccess
-    fzf
     gimp
     git
     nautilus
@@ -84,6 +83,7 @@
     kubeseal
     jq
     postgresql
+    fzf
   ];
 
   fonts.packages = with pkgs; [
@@ -93,9 +93,9 @@
     ( nerdfonts.override { fonts = [ "FiraCode" "Hack" "NerdFontsSymbolsOnly" ]; } )
   ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "mailspring-1.12.0"
-  ];
+  # nixpkgs.config.permittedInsecurePackages = [
+  #   "mailspring-1.12.0"
+  # ];
 
   # nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
   #   "steam"

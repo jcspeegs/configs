@@ -12,7 +12,7 @@ if status is-interactive
         --bind="F2:toggle-preview,ctrl-d:half-page-down,ctrl-u:half-page-up"
         --no-mouse
         --multi
-        --preview-window="hidden:wrap
+        --preview-window="hidden:wrap"
     '
 
     # Starship
