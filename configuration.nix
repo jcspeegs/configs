@@ -113,6 +113,7 @@
     man.enable = true;
     nixos.enable = true;
     dev.enable = true;
+    man.generateCaches = false;
   };
 
   # Enable the OpenSSH daemon.
