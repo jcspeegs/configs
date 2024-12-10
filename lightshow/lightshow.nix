@@ -15,7 +15,7 @@
   environment.sessionVariables = rec { wifi_adapter = "wlp0s20f0u3u2"; };
   imports = [ ./hardware-configuration.nix ];
 
-  fileSystems."/data" = {
+  fileSystems."/home/ugflows/mnt/data" = {
     device = "/dev/desk/by-uuid/d935e28a-867f-49ae-acd0-1f26b27a163c";
     fsType = "ext4";
     options = [
