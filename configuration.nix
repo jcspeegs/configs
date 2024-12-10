@@ -117,6 +117,9 @@
     man.generateCaches = false;
   };
 
+  # https://wiki.nixos.org/wiki/Nautilus
+  services.gvfs.enable = true;
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
