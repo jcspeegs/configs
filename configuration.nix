@@ -5,6 +5,7 @@
     ./packages/gnome.nix
     # ./packages/qtile/qtile.nix
     ./packages/users.nix
+    packages/steam.nix
     ./packages/systemPackages.nix
     ./packages/vim.nix
     ./packages/tmux.nix

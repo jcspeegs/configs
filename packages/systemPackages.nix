@@ -1,6 +1,7 @@
 { pkgs, ... }: {
 
   environment.systemPackages = with pkgs; [
+    renameutils
     tailscale
     yamllint
     guake
@@ -16,7 +17,7 @@
     nikto
     nmap
     metasploit
-    wapiti
+    # wapiti
     aircrack-ng
     wifite2
     iw
@@ -95,11 +96,5 @@
 
   # nixpkgs.config.permittedInsecurePackages = [
   #   "mailspring-1.12.0"
-  # ];
-
-  # nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-  #   "steam"
-  #   "steam-original"
-  #   "steam-runtime"
   # ];
 }
