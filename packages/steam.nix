@@ -2,7 +2,7 @@
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
-    locallNetworkGameTransfers.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
   };
 
   # nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
