@@ -1,5 +1,5 @@
 { ... }: {
-  packages.steam = {
+  programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
     locallNetworkGameTransfers.openFirewall = true;
