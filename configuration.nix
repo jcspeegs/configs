@@ -40,7 +40,7 @@
   # networking.wireless.enable = true;
 
   time.timeZone = "America/Los_Angeles";
-  i18n.defaultLocale = "en_US.utf8";
+  i18n.defaultLocale = "en_US.UTF-8";
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -68,7 +68,7 @@
 
   # Enable sound with pipewire.
   # sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -102,7 +102,7 @@
     enable = true;
     interval = "hourly";
     package = pkgs.mlocate;
-    localuser = null;
+    # localuser = null;
   };
 
   # Tailscale

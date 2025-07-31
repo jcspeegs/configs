@@ -48,7 +48,7 @@
     gparted
     htop-vim
     inkscape
-    kdenlive frei0r ffmpeg-full
+    kdePackages.kdenlive frei0r ffmpeg-full
     lastpass-cli
     mailspring
     mlocate
@@ -62,7 +62,7 @@
     pithos
     pianobar
     plexamp
-    plex-media-player
+    plex-desktop
     python311Packages.powerline
     # powerline-fonts
     tdesktop
@@ -87,11 +87,20 @@
     fzf
   ];
 
+  # Before 25.05
+  # fonts.packages = with pkgs; [
+  #   hack-font
+  #   # Get nerdfonts override string from:
+  #   # https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts
+  #   ( nerdfonts.override { fonts = [ "FiraCode" "Hack" "NerdFontsSymbolsOnly" ]; } )
+  # ];
+
+  # After 25.05
   fonts.packages = with pkgs; [
     hack-font
-    # Get nerdfonts override string from:
-    # https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts
-    ( nerdfonts.override { fonts = [ "FiraCode" "Hack" "NerdFontsSymbolsOnly" ]; } )
+    nerd-fonts.fira-code
+    nerd-fonts.hack
+    nerd-fonts.symbols-only
   ];
 
   # nixpkgs.config.permittedInsecurePackages = [

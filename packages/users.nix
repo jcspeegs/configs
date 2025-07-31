@@ -8,7 +8,7 @@ let
   };
 
 in {
-  imports = [ home-manager.nixosModule ];
+  imports = [ home-manager.nixosModules.home-manager ];
 
   users.groups = {
     mlocate.gid = 50;
