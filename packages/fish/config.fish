@@ -15,6 +15,9 @@ if status is-interactive
         --preview-window="hidden:wrap"
     '
 
+    # Replace man with batman
+    batman --export-env | source
+
     # Starship
     starship init fish | source
 end

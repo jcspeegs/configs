@@ -11,6 +11,7 @@
     # man-pages-posix
     # linux-manual
     bat
+    bat-extras.core
     discord
     burpsuite
     thc-hydra
@@ -85,6 +86,8 @@
     jq
     postgresql
     fzf
+
+    ntfs3g
   ];
 
   # Before 25.05
