@@ -24,6 +24,7 @@
         custom
         ./configuration.nix
         # ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-stable ]; })
+        (import ./overlays)
       ];
     };
   in {

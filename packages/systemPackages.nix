@@ -1,6 +1,10 @@
 { pkgs, ... }: {
 
   environment.systemPackages = with pkgs; [
+    epson-escpr
+    epson-escpr2
+    youtube-music
+    eza
     renameutils
     tailscale
     yamllint
@@ -64,8 +68,9 @@
     pianobar
     plexamp
     plex-desktop
-    python311Packages.powerline
-    # powerline-fonts
+    # python311Packages.powerline
+    powerline
+    powerline-fonts
     tdesktop
     tree
     feh

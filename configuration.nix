@@ -1,6 +1,10 @@
 { config, pkgs,  ... }:
 
 {
+  # nixpkgs.overlays = [
+  #   (import overlays/default.nix)
+  # ];
+
   imports = [
     ./packages/gnome.nix
     # ./packages/qtile/qtile.nix
@@ -64,7 +68,13 @@
   hardware.graphics.enable = true;
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = [
+      pkgs.epson-escpr
+      pkgs.epson-escpr2
+    ];
+  };
 
   # Enable sound with pipewire.
   # sound.enable = true;
