@@ -21,12 +21,20 @@ layout_theme:
   margin: *gap
   border_width: 0
 
+rounded_corners:
+  radius: 8
+  padding: 2
+
 dropdown_theme:
   opacity: 1.
   height: 0.85
   width: 0.85
   x: 0.075
   y: 0.075
+
+wallpaper:
+  wallpaper: "~/.config/variety/Downloaded/Bing/OHR.BlackfinBarracuda_EN-US1227116811_UHD.jpg"
+  wallpaper_mode: stretch
 
 bar_cfg:
   size: 65

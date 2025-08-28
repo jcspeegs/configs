@@ -1,6 +1,7 @@
 import os
 import subprocess
 from collections import namedtuple
+
 from box import Box
 import yaml
 
@@ -10,6 +11,8 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen, \
     ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+
+from qtile_extras.layout.decorations.borders import RoundedCorners
 
 home = os.path.expanduser('~')
 cfg = os.path.join(home, '.config', 'qtile', 'config.yaml')
@@ -101,8 +104,8 @@ static_groups = [
     #  'spawn': 'firefox -P "default" --class="firefox"'},
     {'name': '2', 'label': '󰈹', 'layout': 'monadtall'},
     {'name': '3', 'label': ""},
-    {'name': '4', 'label': "", 'layout': 'columns',
-     'spawn': ['mailspring', 'telegram-desktop']},
+    # {'name': '4', 'label': "", 'layout': 'columns',
+    #  'spawn': ['mailspring', 'telegram-desktop']},
     {'name': '5', 'label': ""},
     {'name': '6', 'label': "", 'layout':'monadtall',
      'spawn': 'thunar'},
@@ -135,8 +138,14 @@ for name in names:
     ])
 
 layouts = [
-    layout.MonadTall(**cfg.layout_theme),
-    layout.MonadWide(**cfg.layout_theme),
+    # layout.MonadTall(decorations=decorations, **cfg.layout_theme,),
+    layout.MonadTall(
+        border_width=5,
+        margin=20,
+        border_focus=RoundedCorners(),
+        border_normal=RoundedCorners(),
+    ),
+    layout.MonadWide(decorations=decorations,**cfg.layout_theme,),
     layout.Max(**cfg.layout_theme),
     layout.Columns(split=False, **cfg.layout_theme),
     # layout.Stack(**cfg.layout_theme),
@@ -165,15 +174,21 @@ widgets=[
     #                      tag_sensor='Package id 0', threshold=80),
     # widget.NvidiaSensors(**bar_theme, **cfg.gpu_cfg, fmt='󰓓{}'),
     # widget.Battery(**bar_theme, **cfg.battery_cfg),
-    widget.Wlan(**bar_theme, **cfg.wlan_cfg, interface=os.getenv('wifi_adapter')),
-    widget.Systray(**bar_theme, **cfg.systray_cfg),
+    # widget.Wlan(**bar_theme, **cfg.wlan_cfg, interface=os.getenv('wifi_adapter')),
+    # widget.Systray(**bar_theme, **cfg.systray_cfg),
+    widget.StatusNotifier(**bar_theme, **cfg.systray_cfg),
     widget.QuickExit(**bar_theme, **cfg.exit_cfg),
 ]
 
 if os.path.isdir('/sys/class/power_supply/BAT1'):
     widgets.insert(-3, widget.Battery(**bar_theme, **cfg.battery_cfg))
 
-screens = [Screen(top=Bar(**cfg.bar_cfg, widgets=widgets)) ]
+screens = [
+    Screen(
+        top=Bar(**cfg.bar_cfg, widgets=widgets),
+        **cfg.wallpaper,
+    ) for i in range(3)
+]
 
 # Drag floating layouts.
 mouse = [

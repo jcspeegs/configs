@@ -1,22 +1,22 @@
 {lib, pkgs, ...}:
-with pkgs.python3Packages;
+# with pkgs.python3Packages;
 # let iwlib = callPackage ./iwlib.nix {};
 # in {
 {
-  nixpkgs.overlays = [
-    ( self: super: {
-      qtile-unwrapped = super.qtile-unwrapped.overrideAttrs ( old: rec {
-        propagatedBuildInputs = old.propagatedBuildInputs
-          ++ [ /*iwlib*/ python-box pyyaml ]
-        ;
-        pythonImportsCheck = [ "iwlib" "box" "yaml" ];
-      });
-    })
-  ];
+  # nixpkgs.overlays = [
+  #   ( self: super: {
+  #     qtile-unwrapped = super.qtile-unwrapped.overrideAttrs ( old: rec {
+  #       propagatedBuildInputs = old.propagatedBuildInputs
+  #         ++ [ /*iwlib*/ python-box pyyaml numpy ]
+  #       ;
+  #       pythonImportsCheck = [ "iwlib" "box" "yaml" "numpy" ];
+  #     });
+  #   })
+  # ];
 
   environment.systemPackages = with pkgs;[
+      (python3.withPackages (p: with p; [ numpy ]))
       betterlockscreen
-      stable.qtile
       dunst
       arandr
       ncpamixer
@@ -24,7 +24,8 @@ with pkgs.python3Packages;
       networkmanagerapplet
       pavucontrol
       termite
-      picom-jonaburg
+      picom
+      # picom-jonaburg
       rofi
       rofi-vpn
       rofi-power-menu
@@ -36,10 +37,17 @@ with pkgs.python3Packages;
     ]
     ;
 
+    # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/x11/window-managers/qtile.nix
     services.xserver.windowManager.qtile = {
       enable = true;
-      # Use stable overlay
-      package = pkgs.stable.qtile;
+
+      # extraPackages = python3Packages: with python3Packages; [
+      extraPackages = p: with p; [
+        qtile-extras
+        python-box
+        pyyaml
+        iwlib
+      ];
     };
 
   # https://man.archlinux.org/man/picom.1#CONFIGURATION_FILES
