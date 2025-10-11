@@ -20,5 +20,10 @@
         })
       ];
     })
+    (self: super: {
+      lastpass-cli = super.lastpass-cli.overrideAttrs ({ 
+        cmakeFlags = [ "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" ];
+      });
+    })
   ];
 }
