@@ -1,6 +1,7 @@
 { pkgs, ... }: {
 
   environment.systemPackages = with pkgs; [
+    gradia
     epson-escpr
     epson-escpr2
     youtube-music
@@ -80,7 +81,7 @@
     wpscan
     # youtube-dl
     yt-dlp
-    virtualbox
+    # virtualbox
     kubectl
     kubernetes-helm
     dig
