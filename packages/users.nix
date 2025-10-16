@@ -36,6 +36,9 @@ in {
     };
   };
 
+  # Allow ugflows to use cachix cache
+  nix.settings.trusted-users = [ "root" "ugflows" ];
+
   home-manager.users.ugflows = {
     home.stateVersion = "22.05";
     # https://github.com/NixOS/nixpkgs/issues/196651

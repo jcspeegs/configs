@@ -1,6 +1,17 @@
 { pkgs, ... }: {
 
+  # # https://wiki.nixos.org/wiki/Python_quickstart_using_uv
+  # # https://wiki.nixos.org/wiki/Python
+  # programs.nix-ld.enable = true;
+
+  # direnv mostly intended to be used with devenv
+  # https://devenv.sh/automatic-shell-activation/
+  programs.direnv.enable = true;
+
   environment.systemPackages = with pkgs; [
+    devenv
+    # uv
+    video-trimmer
     gradia
     epson-escpr
     epson-escpr2
