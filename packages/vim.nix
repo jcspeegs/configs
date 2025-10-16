@@ -23,6 +23,14 @@
       };
 
       vimrcConfig.customRC = builtins.readFile ./vimrc;
-    }
-    )];
+    })
+  ] ++
+  ( with python3Packages; [
+      flake8
+      flake8-bugbear
+      flake8-docstrings
+      pep8-naming
+      isort
+      black
+  ]);
 }

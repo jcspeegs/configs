@@ -86,7 +86,13 @@ nnoremap <leader>K :m .-2<CR>==
 " nnoremap <leader>b :CtrlPBuffer<CR>
 " nnoremap <leader>f :CtrlPMRU<CR>
 
-" syntastic
+" ALE
+"
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_completion_enabled = 1
+
+" syntastic is deprecated, migrating to ALE
+"
 " syntastic error window size adjusts to number of errors (max:10)
 function! SyntasticCheckHook(errors)
 if !empty(a:errors)
