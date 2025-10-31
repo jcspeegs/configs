@@ -9,6 +9,7 @@
   programs.direnv.enable = true;
 
   environment.systemPackages = with pkgs; [
+    claude-code
     devenv
     # uv
     video-trimmer

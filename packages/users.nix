@@ -51,12 +51,17 @@ in {
 
     programs.git = {
       enable = true;
-      userName = "ugflows";
-      userEmail = "justin@speegs.com";
-      ignores = lib.splitString "\n" (builtins.readFile git/gitignore);
-      extraConfig = {
+      settings = {
+        user = {
+          name = "ugflows";
+          email = "justin@speegs.com";
+        };
         init = { defaultBranch = "main"; };
       };
+      ignores = lib.splitString "\n" (builtins.readFile git/gitignore);
+      # extraConfig = {
+      #   init = { defaultBranch = "main"; };
+      # };
     };
 
     # gtk.iconTheme = {
