@@ -52,7 +52,7 @@
     discord
     fd
     firefox
-    tor-browser-bundle-bin
+    tor-browser
     xorg.libpciaccess
     gimp
     git
@@ -62,7 +62,6 @@
     gvfs
     gnome.gvfs
     google-chrome
-    tor-browser-bundle-bin
     gparted
     htop-vim
     inkscape
