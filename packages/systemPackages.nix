@@ -83,7 +83,7 @@
     # python311Packages.powerline
     powerline
     powerline-fonts
-    tdesktop
+    telegram-desktop
     tree
     feh
     sqlmap
