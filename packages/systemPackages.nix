@@ -9,6 +9,8 @@
   programs.direnv.enable = true;
 
   environment.systemPackages = with pkgs; [
+    glow
+    gh
     claude-code
     devenv
     # uv
