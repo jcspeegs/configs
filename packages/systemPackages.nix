@@ -9,6 +9,8 @@
   programs.direnv.enable = true;
 
   environment.systemPackages = with pkgs; [
+    ttyd
+    vhs
     glow
     gh
     claude-code
