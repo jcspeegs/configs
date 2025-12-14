@@ -1,7 +1,8 @@
 { pkgs, ... }: {
   # https://nixos.wiki/wiki/Fish
 
-  programs.bash = {
+  programs = {
+    bash = {
     interactiveShellInit = ''
       if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]];
       then
@@ -9,11 +10,19 @@
         exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
       fi
     '';
-};
+    };
 
-  programs.fish = {
-    enable = true;
-    shellAbbrs = import ./abbr.nix;
+    fish = {
+      enable = true;
+      shellAbbrs = import ./abbr.nix;
+    };
   };
+
+  environment.systemPackages = with pkgs.fishPlugins; [
+    # https://github.com/PatrickF1/fzf.fish
+    fzf-fish
+    # https://github.com/wfxr/forgit
+    forgit
+  ];
 
 }

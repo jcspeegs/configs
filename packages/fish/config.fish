@@ -20,4 +20,8 @@ if status is-interactive
 
     # Starship
     starship init fish | source
+
+    # zoxide
+    # https://github.com/ajeetdsouza/zoxide
+    zoxide init --cmd cd fish | source
 end

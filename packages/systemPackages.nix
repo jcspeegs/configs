@@ -9,6 +9,10 @@
   programs.direnv.enable = true;
 
   environment.systemPackages = with pkgs; [
+    # https://github.com/ajeetdsouza/zoxide
+    zoxide
+    apostrophe
+    warp-terminal
     ttyd
     vhs
     glow

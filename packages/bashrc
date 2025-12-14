@@ -19,3 +19,7 @@ bind '"":"guake --show -e \"tmux-sessionizer pianobar pianobar\"\n"'
 
 # ipython
 export IPYTHONDIR=~/.config/ipython
+
+# zoxide
+# https://github.com/ajeetdsouza/zoxide
+eval "$(zoxide init bash)"
